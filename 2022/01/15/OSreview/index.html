@@ -18,12 +18,12 @@
   <meta name="author" content="31">
   <meta name="keywords" content="">
   
-    <meta name="description" content="名词解释操作系统 operating system操作系统是为应用程序提供运行环境的资源管理软件 虚拟机 virtual machine通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统 运行时系统 runtime system编译程序除了把用户程序中的语句翻译成机器代码外，还要为用户程序的运行提供管理工作，这部分代码就是运行时系统 装入程序 loader将装入模块装入">
+    <meta name="description" content="2021-2022学年复习操作系统期间整理的笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SDU操作系统复习笔记">
 <meta property="og:url" content="http://uuunni.github.io/2022/01/15/OSreview/index.html">
 <meta property="og:site_name" content="31&#39;s Blog">
-<meta property="og:description" content="名词解释操作系统 operating system操作系统是为应用程序提供运行环境的资源管理软件 虚拟机 virtual machine通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统 运行时系统 runtime system编译程序除了把用户程序中的语句翻译成机器代码外，还要为用户程序的运行提供管理工作，这部分代码就是运行时系统 装入程序 loader将装入模块装入">
+<meta property="og:description" content="2021-2022学年复习操作系统期间整理的笔记">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="c:/Users/31/AppData/Roaming/Typora/typora-user-images/image-20211213182347015.png">
 <meta property="og:image" content="c:/Users/31/AppData/Roaming/Typora/typora-user-images/image-20211214105624902.png">
@@ -32,10 +32,10 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201008202949487.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNTg3NzQw,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201008205928813.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNTg3NzQw,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="article:published_time" content="2022-01-15T04:49:14.000Z">
-<meta property="article:modified_time" content="2022-01-15T05:46:14.197Z">
+<meta property="article:modified_time" content="2022-01-15T07:08:52.567Z">
 <meta property="article:author" content="31">
-<meta property="article:tag" content="OS">
 <meta property="article:tag" content="review">
+<meta property="article:tag" content="OS">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="c:/Users/31/AppData/Roaming/Typora/typora-user-images/image-20211213182347015.png">
   
@@ -52,7 +52,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/night-owl.min.css" />
     
   
 
@@ -74,10 +74,14 @@
 
 <!-- 自定义样式保持在最底部 -->
 
+  
+<link rel="stylesheet" href="/css/mac.css">
+
+
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"uuunni.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"uuunni.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":false,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"touch","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"boxDRW3XpqvL2o48tPQxzy8N-gzGzoHsz","app_key":"t8snqjGhwT0Sery7lIU4V169","server_url":"https://boxdrw3x.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -216,6 +220,14 @@
   
 
   
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
   
 </div>
 
@@ -653,9 +665,9 @@
 <p>为保护临界区资源同一时间只能由一个进程访问，可以采用硬件方法：关中断、TestAndSet指令、Swap指令，软件方法：Peterson算法</p>
 </li>
 </ul>
-<h2 id="经典同步问题"><a href="#经典同步问题" class="headerlink" title="经典同步问题"></a>经典同步问题</h2><h3 id="m-n-k生产者-消费者问题"><a href="#m-n-k生产者-消费者问题" class="headerlink" title="m-n-k生产者-消费者问题"></a>m-n-k生产者-消费者问题</h3><figure class="highlight c"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><pre><code class="hljs C">Semaphore full=<span class="hljs-number">0</span>, empty=k, mutex=<span class="hljs-number">1</span>;<br>Item buffer[k];<br><span class="hljs-keyword">int</span> in=<span class="hljs-number">0</span>, out=<span class="hljs-number">0</span>;<br><br>producer:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>    P(empty);<br>    P(mutex);<br>    buffer[in] = item;<br>    in = (in+<span class="hljs-number">1</span>)%k;<br>    V(full);<br>    V(mutex);<br>&#125;<br><br>consumer:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>    P(full);<br>    P(mutex);<br>    item = buffer[out];<br>    out = (out+<span class="hljs-number">1</span>)%k;<br>    V(empty);<br>    V(mutex);<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="读者写者问题"><a href="#读者写者问题" class="headerlink" title="读者写者问题"></a>读者写者问题</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs C">Semaphore rw_mutex=<span class="hljs-number">1</span>, r_mutex=<span class="hljs-number">1</span>, w=<span class="hljs-number">1</span>;<br><span class="hljs-keyword">int</span> r_count=<span class="hljs-number">0</span>;<br><br>writer:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>    P(w);<br>    P(rw_mutex);<br>    <span class="hljs-comment">//writing...</span><br>    V(rw_mutex);<br>    V(w);<br>&#125;<br><br>reader:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>    P(w);<br>    P(r_mutex);<br>    <span class="hljs-keyword">if</span>(r_count == <span class="hljs-number">0</span>)&#123;<br>        P(rw_mutex);<br>    &#125;<br>    r_count++;<br>    V(r_mutex);<br>    V(w);<br>    <span class="hljs-comment">//reading...</span><br>    P(r_mutex);<br>    r_count--;<br>    <span class="hljs-keyword">if</span>(r_count == <span class="hljs-number">0</span>)&#123;<br>        V(rw_mutex);<br>    &#125;<br>    V(r_mutex);<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="哲学家问题"><a href="#哲学家问题" class="headerlink" title="哲学家问题"></a>哲学家问题</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs C">Semaphore chopstick[<span class="hljs-number">5</span>]=&#123;<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>&#125;, mutex=<span class="hljs-number">1</span>;<br>Philosopher_i:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>	P(mutex);<br>    P(chopstick[i]);<br>    P(chopstick[(i+<span class="hljs-number">1</span>)%<span class="hljs-number">5</span>]);<br>    <span class="hljs-comment">//eating...</span><br>    V(mutex);<br>    V(chopstick[i]);<br>    V(chopstick[(i+<span class="hljs-number">1</span>)%<span class="hljs-number">5</span>]);<br>    <span class="hljs-comment">//thinking...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="经典同步问题"><a href="#经典同步问题" class="headerlink" title="经典同步问题"></a>经典同步问题</h2><h3 id="m-n-k生产者-消费者问题"><a href="#m-n-k生产者-消费者问题" class="headerlink" title="m-n-k生产者-消费者问题"></a>m-n-k生产者-消费者问题</h3><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">Semaphore full=<span class="hljs-number">0</span>, empty=k, mutex=<span class="hljs-number">1</span>;<br>Item buffer[k];<br><span class="hljs-keyword">int</span> in=<span class="hljs-number">0</span>, out=<span class="hljs-number">0</span>;<br><br>producer:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>    P(empty);<br>    P(mutex);<br>    buffer[in] = item;<br>    in = (in+<span class="hljs-number">1</span>)%k;<br>    V(full);<br>    V(mutex);<br>&#125;<br><br>consumer:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>    P(full);<br>    P(mutex);<br>    item = buffer[out];<br>    out = (out+<span class="hljs-number">1</span>)%k;<br>    V(empty);<br>    V(mutex);<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="读者写者问题"><a href="#读者写者问题" class="headerlink" title="读者写者问题"></a>读者写者问题</h3><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">Semaphore rw_mutex=<span class="hljs-number">1</span>, r_mutex=<span class="hljs-number">1</span>, w=<span class="hljs-number">1</span>;<br><span class="hljs-keyword">int</span> r_count=<span class="hljs-number">0</span>;<br><br>writer:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>    P(w);<br>    P(rw_mutex);<br>    <span class="hljs-comment">//writing...</span><br>    V(rw_mutex);<br>    V(w);<br>&#125;<br><br>reader:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>    P(w);<br>    P(r_mutex);<br>    <span class="hljs-keyword">if</span>(r_count == <span class="hljs-number">0</span>)&#123;<br>        P(rw_mutex);<br>    &#125;<br>    r_count++;<br>    V(r_mutex);<br>    V(w);<br>    <span class="hljs-comment">//reading...</span><br>    P(r_mutex);<br>    r_count--;<br>    <span class="hljs-keyword">if</span>(r_count == <span class="hljs-number">0</span>)&#123;<br>        V(rw_mutex);<br>    &#125;<br>    V(r_mutex);<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="哲学家问题"><a href="#哲学家问题" class="headerlink" title="哲学家问题"></a>哲学家问题</h3><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">Semaphore chopstick[<span class="hljs-number">5</span>]=&#123;<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>&#125;, mutex=<span class="hljs-number">1</span>;<br>Philosopher_i:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>	P(mutex);<br>    P(chopstick[i]);<br>    P(chopstick[(i+<span class="hljs-number">1</span>)%<span class="hljs-number">5</span>]);<br>    <span class="hljs-comment">//eating...</span><br>    V(mutex);<br>    V(chopstick[i]);<br>    V(chopstick[(i+<span class="hljs-number">1</span>)%<span class="hljs-number">5</span>]);<br>    <span class="hljs-comment">//thinking...</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
 
             </div>
             <hr>
@@ -673,9 +685,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/OS/">OS</a>
-                    
                       <a class="hover-with-bg" href="/tags/review/">review</a>
+                    
+                      <a class="hover-with-bg" href="/tags/OS/">OS</a>
                     
                   </div>
                 
@@ -715,6 +727,35 @@
               
             </div>
 
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"QJtn4PrebEYsIJPwEkfclcO0-gzGzoHsz","appKey":"kdxH4zfnh96BgUrFbIGbhUVE","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
             
           </article>
         </div>
@@ -775,6 +816,31 @@
      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
   
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
 
   
 
@@ -825,14 +891,14 @@
     <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
   
   
-    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
-  
   
     <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
   
 
 
 
+
+  <script defer src="/js/leancloud.js" ></script>
 
 
 
@@ -856,6 +922,19 @@
 
 
 
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 
