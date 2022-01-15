@@ -1,0 +1,888 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+<script src="https://cdn.jsdelivr.net/gh/Sanarous/files@1.151/js/clicklove.js"></script>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sun.png">
+  <link rel="icon" href="/img/sun.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#252d38">
+  <meta name="author" content="31">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="名词解释操作系统 operating system操作系统是为应用程序提供运行环境的资源管理软件 虚拟机 virtual machine通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统 运行时系统 runtime system编译程序除了把用户程序中的语句翻译成机器代码外，还要为用户程序的运行提供管理工作，这部分代码就是运行时系统 装入程序 loader将装入模块装入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDU操作系统复习笔记">
+<meta property="og:url" content="http://uuunni.github.io/2022/01/15/OSreview/index.html">
+<meta property="og:site_name" content="31&#39;s Blog">
+<meta property="og:description" content="名词解释操作系统 operating system操作系统是为应用程序提供运行环境的资源管理软件 虚拟机 virtual machine通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统 运行时系统 runtime system编译程序除了把用户程序中的语句翻译成机器代码外，还要为用户程序的运行提供管理工作，这部分代码就是运行时系统 装入程序 loader将装入模块装入">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:/Users/31/AppData/Roaming/Typora/typora-user-images/image-20211213182347015.png">
+<meta property="og:image" content="c:/Users/31/AppData/Roaming/Typora/typora-user-images/image-20211214105624902.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d09b292358084ef58e99d51176978e21.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAa2Fyc2hleQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/2083141/202008/2083141-20200803171427603-732589443.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201008202949487.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNTg3NzQw,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201008205928813.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNTg3NzQw,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2022-01-15T04:49:14.000Z">
+<meta property="article:modified_time" content="2022-01-15T05:46:14.197Z">
+<meta property="article:author" content="31">
+<meta property="article:tag" content="OS">
+<meta property="article:tag" content="review">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="c:/Users/31/AppData/Roaming/Typora/typora-user-images/image-20211213182347015.png">
+  
+  
+  <title>SDU操作系统复习笔记 - 31&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"uuunni.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>31</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/3.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SDU操作系统复习笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-15 12:49" pubdate>
+        2022年1月15日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      11k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      90 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SDU操作系统复习笔记</h1>
+            
+            <div class="markdown-body">
+              <h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><h3 id="操作系统-operating-system"><a href="#操作系统-operating-system" class="headerlink" title="操作系统 operating system"></a>操作系统 operating system</h3><p>操作系统是为应用程序提供运行环境的资源管理软件</p>
+<h3 id="虚拟机-virtual-machine"><a href="#虚拟机-virtual-machine" class="headerlink" title="虚拟机 virtual machine"></a>虚拟机 virtual machine</h3><p>通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统</p>
+<h3 id="运行时系统-runtime-system"><a href="#运行时系统-runtime-system" class="headerlink" title="运行时系统 runtime system"></a>运行时系统 runtime system</h3><p>编译程序除了把用户程序中的语句翻译成机器代码外，还要为用户程序的运行提供管理工作，这部分代码就是运行时系统</p>
+<h3 id="装入程序-loader"><a href="#装入程序-loader" class="headerlink" title="装入程序 loader"></a>装入程序 loader</h3><p>将装入模块装入内存的程序，实现虚拟地址到内存地址的映射，分为绝对装入、静态重定位、动态重定位</p>
+<h3 id="运行栈-execution-stack"><a href="#运行栈-execution-stack" class="headerlink" title="运行栈 execution stack"></a>运行栈 execution stack</h3><p>存放有关正在运行的子程序消息的栈，存放子程序的返回地址、传递给子程序的参数、局部运行环境</p>
+<h3 id="系统调用-system-call"><a href="#系统调用-system-call" class="headerlink" title="系统调用 system call"></a>系统调用 system call</h3><p>操作系统提供给用户程序的一组接口，用于获取内核提供的服务</p>
+<h3 id="应用程序接口-API"><a href="#应用程序接口-API" class="headerlink" title="应用程序接口 API"></a>应用程序接口 API</h3><p>由操作系统或高级语言提供，为应用程序提供跨平台的I/O服务</p>
+<h3 id="特权指令-privileged-instruction"><a href="#特权指令-privileged-instruction" class="headerlink" title="特权指令 privileged instruction"></a>特权指令 privileged instruction</h3><p>能对系统中关键资源进行操作的指令，为保证计算机系统的安全可靠特权指令只能在核心态下使用</p>
+<h3 id="线程-thread"><a href="#线程-thread" class="headerlink" title="线程 thread"></a>线程 thread</h3><p>程序在虚拟CPU上的执行过程，是操作系统能够进行调度的最小单位。</p>
+<h3 id="线程控制块-TCB"><a href="#线程控制块-TCB" class="headerlink" title="线程控制块 TCB"></a>线程控制块 TCB</h3><p>操作系统描述和管理线程的数据结构</p>
+<h3 id="进程-process"><a href="#进程-process" class="headerlink" title="进程 process"></a>进程 process</h3><p>一组线程及其所依赖的虚拟运行环境，是操作系统进行资源分配的最小单位。</p>
+<h3 id="进程控制块-PCB"><a href="#进程控制块-PCB" class="headerlink" title="进程控制块 PCB"></a>进程控制块 PCB</h3><p>操作系统描述和管理进程的数据结构。主要内容有线程TCB、资源描述、虚实资源映射关系、进程的档案</p>
+<h3 id="多线程进程"><a href="#多线程进程" class="headerlink" title="多线程进程"></a>多线程进程</h3><p>进程中可以包含多个线程，所有线程共享进程的虚拟运行环境，进程内线程之间并发执行，每个线程有自己的线程控制块、运行栈</p>
+<h3 id="僵尸进程-zombie-process"><a href="#僵尸进程-zombie-process" class="headerlink" title="僵尸进程 zombie process"></a>僵尸进程 zombie process</h3><p>子进程已经结束，但父进程并不执行wait()为子进程释放资源</p>
+<h3 id="孤儿进程-orphan-process"><a href="#孤儿进程-orphan-process" class="headerlink" title="孤儿进程 orphan process"></a>孤儿进程 orphan process</h3><p>父进程已经退出，剩下的子进程被init进程收留</p>
+<h3 id="进程上下文-process-context"><a href="#进程上下文-process-context" class="headerlink" title="进程上下文 process context"></a>进程上下文 process context</h3><p>进程执行活动全过程的静态描述，包括用户进程传递给内核的参数、CPU的所有寄存器中的值、进程的状态以及堆栈内容</p>
+<h3 id="CPU调度器-scheduler"><a href="#CPU调度器-scheduler" class="headerlink" title="CPU调度器 scheduler"></a>CPU调度器 scheduler</h3><p>按调度算法选择一个就绪线程并将CPU分配给它运行，是操作系统中关键的程序模块</p>
+<h3 id="抢占式调度-preemptive-scheduling"><a href="#抢占式调度-preemptive-scheduling" class="headerlink" title="抢占式调度 preemptive scheduling"></a>抢占式调度 preemptive scheduling</h3><p>进程还没有执行完成就被剥夺CPU，切换执行其他的进程</p>
+<h3 id="对换技术-swapping"><a href="#对换技术-swapping" class="headerlink" title="对换技术 swapping"></a>对换技术 swapping</h3><p>内存空间紧张时，将内存中某些进程暂时调出到外存，腾出足够的内存空间后把具备运行条件的进程调入内存</p>
+<h3 id="多道程序设计-multiprogramming"><a href="#多道程序设计-multiprogramming" class="headerlink" title="多道程序设计 multiprogramming"></a>多道程序设计 multiprogramming</h3><p>允许多个程序同时装入计算机内存中，在管理程序控制下宏观上并行、微观上串行</p>
+<h3 id="请求调页-demand-paging"><a href="#请求调页-demand-paging" class="headerlink" title="请求调页 demand paging"></a>请求调页 demand paging</h3><p>执行一个进程前仅将PCB装入内存，程序和数据并没有实际装入内存；程序执行过程中，如果访问到的页还没有装入内存就通过缺页异常处理将其装入内存</p>
+<h3 id="局部模式-locality-model"><a href="#局部模式-locality-model" class="headerlink" title="局部模式 locality model"></a>局部模式 locality model</h3><p>进程执行过程中，其访问的内存空间从一个局部迁移到另一个局部，这种运行方式被称为局部模式</p>
+<h3 id="颠簸-thrashing"><a href="#颠簸-thrashing" class="headerlink" title="颠簸 thrashing"></a>颠簸 thrashing</h3><p>在页面置换过程中频繁的页面调度导致CPU利用率极低的现象</p>
+<h3 id="工作集-working-model"><a href="#工作集-working-model" class="headerlink" title="工作集 working model"></a>工作集 working model</h3><p>进程在某个时刻t之前$\Delta$次访问中所访问页的集合</p>
+<h3 id="临界区-critical-section"><a href="#临界区-critical-section" class="headerlink" title="临界区 critical section"></a>临界区 critical section</h3><p>进程中访问临界资源的代码段，临界区不能并发执行</p>
+<h3 id="字符设备-character-device"><a href="#字符设备-character-device" class="headerlink" title="字符设备 character device"></a>字符设备 character device</h3><p>指在I/O传输过程中以字符为单位进行传输的设备，例如键盘，打印机等，数据没有地址</p>
+<h3 id="块设备-block-device"><a href="#块设备-block-device" class="headerlink" title="块设备 block device"></a>块设备 block device</h3><p>将信息存储在固定大小的块中，每个块都有自己的地址，I/O传输过程中以块为单位</p>
+<h3 id="物理格式化-physical-formatting"><a href="#物理格式化-physical-formatting" class="headerlink" title="物理格式化 physical formatting"></a>物理格式化 physical formatting</h3><p>将磁盘划分出一系列同心圆磁道，各个磁道划分为扇区</p>
+<h3 id="逻辑格式化-logical-formatting"><a href="#逻辑格式化-logical-formatting" class="headerlink" title="逻辑格式化 logical formatting"></a>逻辑格式化 logical formatting</h3><p>在磁盘上建立一个空文件系统，使操作系统对其进行后续文件读写的过程</p>
+<h3 id="磁盘冗余阵列-RAID"><a href="#磁盘冗余阵列-RAID" class="headerlink" title="磁盘冗余阵列 RAID"></a>磁盘冗余阵列 RAID</h3><p>通过在多个磁盘上存储相同的数据改善性能、增加可靠性的技术</p>
+<h3 id="设备驱动程序-device-driver"><a href="#设备驱动程序-device-driver" class="headerlink" title="设备驱动程序 device driver"></a>设备驱动程序 device driver</h3><p>直接控制设备的程序</p>
+<h3 id="设备依赖的-device-dependent"><a href="#设备依赖的-device-dependent" class="headerlink" title="设备依赖的 device-dependent"></a>设备依赖的 device-dependent</h3><p>指程序只能在特定的设备环境下运行，也称设备相关的</p>
+<h3 id="中断服务例程-ISR"><a href="#中断服务例程-ISR" class="headerlink" title="中断服务例程 ISR"></a>中断服务例程 ISR</h3><p>驱动程序的一部分，处理中断信号，检查自己负责的设备是否发出中断以处理中断事件</p>
+<h3 id="假脱机-SPOOLing"><a href="#假脱机-SPOOLing" class="headerlink" title="假脱机 SPOOLing"></a>假脱机 SPOOLing</h3><p>外围设备同时联机操作，是低速I/O设备与主机交换的一种技术。利用程序模拟脱机输入输出技术中外围控制机的功能，提高了输入输出速度、将独占设备改造为共享设备、实现了虚拟设备的功能</p>
+<h3 id="守护进程-daemon"><a href="#守护进程-daemon" class="headerlink" title="守护进程 daemon"></a>守护进程 daemon</h3><p>开机时启动，后台运行，无交互，直至关机</p>
+<h3 id="文件-file"><a href="#文件-file" class="headerlink" title="文件 file"></a>文件 file</h3><p>由操作系统管理的、存储在外存上的、数据的逻辑单元，位程序提供了按名存取的外存使用模式</p>
+<h3 id="索引节点-i-node"><a href="#索引节点-i-node" class="headerlink" title="索引节点 i-node"></a>索引节点 i-node</h3><p>存放文件属性和文件的位置，每个文件有唯一的索引节点号。整个系统有一个索引节点表，存放全部文件属性和位置</p>
+<h3 id="文件分配表-FAT"><a href="#文件分配表-FAT" class="headerlink" title="文件分配表 FAT"></a>文件分配表 FAT</h3><p>用于文件的链接分配，每个磁盘有一张文件分配表FAT，行号对应块号，每个FAT表项中存放对应磁盘块的下一块链接指针</p>
+<h3 id="文件共享-file-sharing"><a href="#文件共享-file-sharing" class="headerlink" title="文件共享 file sharing"></a>文件共享 file sharing</h3><p>在不同的目录下访问同一个文件；不同的进程访问同一个文件</p>
+<h3 id="保护域-protection-domain"><a href="#保护域-protection-domain" class="headerlink" title="保护域 protection domain"></a>保护域 protection domain</h3><p>对一组对象访问权限的集合{(对象，操作), …}，表示一种身份</p>
+<h3 id="访问矩阵-Access-Matrix"><a href="#访问矩阵-Access-Matrix" class="headerlink" title="访问矩阵 Access Matrix"></a>访问矩阵 Access Matrix</h3><p>定义了系统中所有的保护域</p>
+<h3 id="访问控制表-ACL"><a href="#访问控制表-ACL" class="headerlink" title="访问控制表 ACL"></a>访问控制表 ACL</h3><p>从文件的角度描述用户的权限，访问矩阵按列压缩</p>
+<h3 id="用户权限表-Capability-List"><a href="#用户权限表-Capability-List" class="headerlink" title="用户权限表 Capability List"></a>用户权限表 Capability List</h3><p>从用户的角度描述对文件的操作，访问矩阵按行压缩</p>
+<h3 id="虚拟文件系统-VFS"><a href="#虚拟文件系统-VFS" class="headerlink" title="虚拟文件系统 VFS"></a>虚拟文件系统 VFS</h3><p>是物理文件系统与服务之间的一个接口层，为各类文件系统提供了一个统一的操作界面和应用编程接口</p>
+<h3 id="同步-synchronization"><a href="#同步-synchronization" class="headerlink" title="同步 synchronization"></a>同步 synchronization</h3><p>并发环境下，保持操作之间偏序关系的行为</p>
+<h3 id="互斥-mutual-exclusion"><a href="#互斥-mutual-exclusion" class="headerlink" title="互斥 mutual exclusion"></a>互斥 mutual exclusion</h3><p>某一资源同时只允许一个访问者对其进行访问</p>
+<h3 id="信号量-semaphore"><a href="#信号量-semaphore" class="headerlink" title="信号量 semaphore"></a>信号量 semaphore</h3><p>同步工具，通过PV原子操作控制多线程对共享资源的访问</p>
+<h3 id="管程-monitor"><a href="#管程-monitor" class="headerlink" title="管程 monitor"></a>管程 monitor</h3><p>由高级语言提供的同步方法，将共享变量及对其的所有操作封装在一个对象中，通过每次只允许一个进程在管程内部执行实现进程的互斥，通过设置条件变量及等待、唤醒操作实现进程的同步</p>
+<h3 id="竞争条件-race-condition"><a href="#竞争条件-race-condition" class="headerlink" title="竞争条件 race condition"></a>竞争条件 race condition</h3><p>由于两个或者多个进程竞争使用不能被同时访问的资源，使得这些进程有可能因为时间上推进的先后原因而出现问题</p>
+<h3 id="安全状态-safe-state"><a href="#安全状态-safe-state" class="headerlink" title="安全状态 safe state"></a>安全状态 safe state</h3><p>系统能按安全序列P1, P2, …, Pn的顺序为每个进程分配其所需的全部资源，使每个进程都能顺利完成，则称系统处于安全状态</p>
+<h2 id="简答论述"><a href="#简答论述" class="headerlink" title="简答论述"></a>简答论述</h2><h3 id="操作系统的结构"><a href="#操作系统的结构" class="headerlink" title="操作系统的结构"></a>操作系统的结构</h3><ul>
+<li><p>简单结构</p>
+<ul>
+<li>无核：操作系统内核和应用程序的权限没有区分</li>
+<li>单核：全部内核代码运行在同一个地址空间中，权限相同</li>
+</ul>
+</li>
+<li><p>分层</p>
+<p>系统分成若干层，每层建立在底层基础上，只能高层程序调用低层的程序</p>
+</li>
+<li><p>微内核</p>
+<p>讲内核功能尽量从内核空间移到用户空间，内核尽量小</p>
+<p>更容易扩充、移植，更可靠，更安全；内核与核外程序之间的通信降低性能</p>
+</li>
+<li><p>模块化</p>
+<p>使用面向对象的技术，模块之间通过接口通信</p>
+</li>
+</ul>
+<h3 id="内核、应用程序与用户的关系"><a href="#内核、应用程序与用户的关系" class="headerlink" title="内核、应用程序与用户的关系"></a>内核、应用程序与用户的关系</h3><p>内核为应用程序运行提供管理和服务</p>
+<p>内核和用户无直接关系，用户感觉不到内核的存在</p>
+<p>用户直接/间接执行应用程序</p>
+<h3 id="系统调用的工作机制及其参数传递方法"><a href="#系统调用的工作机制及其参数传递方法" class="headerlink" title="系统调用的工作机制及其参数传递方法"></a>系统调用的工作机制及其参数传递方法</h3><p>工作机制</p>
+<ul>
+<li>正在运行的进程先传递系统调用参数，然后由陷入（trap）指令负责将用户态转化为内核态，并将返回地址压入堆栈以备后用，接下来CPU执行相应的内核服务程序，最后返回用户态。</li>
+</ul>
+<p>参数传递方法</p>
+<ul>
+<li>通过寄存器传递参数</li>
+<li>若参数数量比寄存器多，参数通常存在内存的块和表中，并将块的地址通过寄存器来传递</li>
+<li>参数通过程序压入堆栈中，通过操作系统弹出</li>
+</ul>
+<h3 id="逻辑地址和物理地址绑定的时间有哪几种及优缺点（装入的三种方式）"><a href="#逻辑地址和物理地址绑定的时间有哪几种及优缺点（装入的三种方式）" class="headerlink" title="逻辑地址和物理地址绑定的时间有哪几种及优缺点（装入的三种方式）"></a>逻辑地址和物理地址绑定的时间有哪几种及优缺点（装入的三种方式）</h3><ul>
+<li><p>编译时（绝对装入）：编译时就知道程序将在内存中的驻留位置，则可以生成绝对代码</p>
+<p>执行速度快</p>
+<p>只适用于单道程序的运行环境</p>
+</li>
+<li><p>加载时（静态重定位）：装入时对地址进行重定位，地址变换在装入时一次性完成</p>
+<p>适用于多道程序的运行环境</p>
+<p>作业装入时需要分配所有要求的内存空间，一旦进入内存不能移动和申请空间</p>
+</li>
+<li><p>执行时（动态重定位）：程序要执行时才进行地址转换</p>
+<p>可以把程序放在不连续的存储区中；程序运行前只装入部分代码即可运行；便于程序段的共享</p>
+<p>需要硬件支持：基地址寄存器、限长寄存器、MMU</p>
+</li>
+</ul>
+<h3 id="进程转换图"><a href="#进程转换图" class="headerlink" title="进程转换图"></a>进程转换图</h3><p><img src="C:\Users\31\AppData\Roaming\Typora\typora-user-images\image-20211213182347015.png" srcset="/img/loading.gif" lazyload alt="image-20211213182347015"></p>
+<h3 id="进程与线程的区别和联系"><a href="#进程与线程的区别和联系" class="headerlink" title="进程与线程的区别和联系"></a>进程与线程的区别和联系</h3><p>一个线程只能属于一个进程，而一个线程可以有多个线程且至少有一个线程</p>
+<p>线程是操作系统最小的调度单位，进程是操作系统最小的资源分配单位</p>
+<p>同一进程的所有线程共享该进程的所有资源</p>
+<p>同一进程的多个线程共享代码段、数据段、堆，但每个线程拥有自己的栈段</p>
+<p>同一进程的线程可以并发执行，进一步提高资源利用率和系统吞吐量</p>
+<p>对于系统创建/撤销/切换的开销，进程大于线程</p>
+<h3 id="用户级线程和内核级线程及关系"><a href="#用户级线程和内核级线程及关系" class="headerlink" title="用户级线程和内核级线程及关系"></a>用户级线程和内核级线程及关系</h3><p>用户级线程：线程的管理由用户程序（线程库）控制。非抢占式，线程切换速度快，对于操作系统内核透明，若一个线程阻塞则导致整个进程阻塞 ，不适用于多CPU</p>
+<p>内核级线程：线程的管理（创建、撤销、调度）需要由内核控制。可以抢占，切换代价高，若一个线程阻塞则不会影响进程中其他线程的运行，适用于多CPU</p>
+<p>多对一：程序创建的所有线程为用户级线程</p>
+<p>一对一：程序创建的所有线程为内核级线程</p>
+<p>多对多：多个内核级线程共同分担多个用户级线程的任务</p>
+<h3 id="一个进程中能否既有内核级线程又有用户级线程"><a href="#一个进程中能否既有内核级线程又有用户级线程" class="headerlink" title="一个进程中能否既有内核级线程又有用户级线程"></a>一个进程中能否既有内核级线程又有用户级线程</h3><p>当采用多对多方式时，一个进程中既有内核级线程又有用户级线程。每个进程有自己的内核线程池，运行时库分派并标记可运行的用户级线程为准备好执行的线程，操作系统选择用户线程并将它映射到线程池中的可用内核线程，多个用户级线程可以分配给相同的内核级线程</p>
+<p>Java线程属于内核级线程</p>
+<h3 id="何时执行调度器"><a href="#何时执行调度器" class="headerlink" title="何时执行调度器"></a>何时执行调度器</h3><p>非抢占式调度</p>
+<ul>
+<li><p>当前线程执行结束</p>
+</li>
+<li><p>当前线程主动放弃CPU</p>
+</li>
+<li><p>当前线程阻塞</p>
+</li>
+</ul>
+<p>抢占式调度</p>
+<ul>
+<li><p>就绪队列中出现高优先级的线程</p>
+</li>
+<li><p>时间片结束</p>
+</li>
+</ul>
+<h3 id="操作系统需要考虑的调度及目标、方法"><a href="#操作系统需要考虑的调度及目标、方法" class="headerlink" title="操作系统需要考虑的调度及目标、方法"></a>操作系统需要考虑的调度及目标、方法</h3><ul>
+<li><p>作业调度：将外存中的作业调入内存，为其创建进程、分配资源</p>
+<p>先来先服务FCFS 短作业优先SJF 最高响应比优先HRN 优先级 轮转法 多级反馈队列</p>
+</li>
+<li><p>内存调度：为提高内存利用率和系统吞吐量，将内存中的进程暂时挂起，选择部分程序或数据留在内存，这种技术称为交换</p>
+</li>
+<li><p>进程调度：从就绪队列中选择进程获得CPU</p>
+<p>先进先出FIFO 时间片轮转RR 优先级 多级反馈队列</p>
+</li>
+<li><p>磁盘调度：当多个进程要求访问磁盘时，使平均访问时间最小</p>
+<p>先来先服务FCFS 最短寻道时间优先SSTF 电梯调度SCAN LOOK C-SCAN C-LOOK</p>
+</li>
+</ul>
+<blockquote>
+<p>// ？？？不懂算不算调度</p>
+<ul>
+<li><p>空闲分区的分配：将磁盘中一组连续的块分配给文件存储</p>
+<p>首次适应 最佳适应 最坏适应</p>
+</li>
+<li><p>请求分页存储管理中的页面置换：内存空间不足时，需要从内存中调出一页</p>
+<p>最佳置换OPT 先进先出FIFO 最近最久未使用LRU 时钟置换CLOCK</p>
+</li>
+</ul>
+</blockquote>
+<p>调度算法的目标</p>
+<ul>
+<li>CPU利用率 高</li>
+<li>吞吐量 高：单位时间内完成进程的个数</li>
+<li>等待时间 短：线程在就绪队列中的时间</li>
+<li>响应时间 短：从用户提交请求到系统做出反馈的时间</li>
+<li>周转时间 短：进程等待时间+运行时间</li>
+</ul>
+<h3 id="进程调度中多级反馈队列调度算法的基本思想"><a href="#进程调度中多级反馈队列调度算法的基本思想" class="headerlink" title="进程调度中多级反馈队列调度算法的基本思想"></a>进程调度中多级反馈队列调度算法的基本思想</h3><p>将进程按类型分成不同的队列，每个队列采用适合自身的调度算法，从最高优先级队列开始调度，若该队列中的作业未完成则将其降级到更低优先级队列，若较低优先级队列中作业等待时间过长则将其升级到更高优先级队列，能够较好实现公平性与资源利用率之间的平衡。</p>
+<h3 id="进程通信IPC的两种模式"><a href="#进程通信IPC的两种模式" class="headerlink" title="进程通信IPC的两种模式"></a>进程通信IPC的两种模式</h3><p>共享内存：多个进程都可以访问各自的虚拟内存区域，进程虚拟地址映射到相同的物理地址；共享数据过程的同步由应用程序负责</p>
+<p>消息传输：以Message为单位，通过send()和receive()两个原语操作进行数据交换</p>
+<ul>
+<li>直接通信：要求对方在线，每个进程都有消息队列</li>
+<li>间接通信：对方可以不同时在线，通信前建立邮箱</li>
+</ul>
+<h3 id="图示说明页式存储管理系统对页面共享的方法，并说明共享代码和共享数据有何限制条件"><a href="#图示说明页式存储管理系统对页面共享的方法，并说明共享代码和共享数据有何限制条件" class="headerlink" title="图示说明页式存储管理系统对页面共享的方法，并说明共享代码和共享数据有何限制条件"></a>图示说明页式存储管理系统对页面共享的方法，并说明共享代码和共享数据有何限制条件</h3><p>不同作业指向相同的页框号</p>
+<p><img src="C:\Users\31\AppData\Roaming\Typora\typora-user-images\image-20211214105624902.png" srcset="/img/loading.gif" lazyload alt="image-20211214105624902"></p>
+<p>由于页不是代码的逻辑单元，所以需要将逻辑单元对齐页边界</p>
+<h3 id="CPU和操作系统在分页中各自承担了哪些工作"><a href="#CPU和操作系统在分页中各自承担了哪些工作" class="headerlink" title="CPU和操作系统在分页中各自承担了哪些工作"></a>CPU和操作系统在分页中各自承担了哪些工作</h3><p>CPU生成逻辑地址，分为页表和页偏移量两个部分；当一个进程可分配到CPU时，CPU调度程序可以根据页表副本来定义硬件页表</p>
+<p>操作系统为每个进程维护一个页表的副本用于将逻辑地址转变成物理地址；管理物理内存，维护物理内存的分配信息保存在帧表中；</p>
+<h3 id="图文并茂的描述虚拟地址到物理地址的映射过程"><a href="#图文并茂的描述虚拟地址到物理地址的映射过程" class="headerlink" title="图文并茂的描述虚拟地址到物理地址的映射过程"></a>图文并茂的描述虚拟地址到物理地址的映射过程</h3><p><strong>基本分页式</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/d09b292358084ef58e99d51176978e21.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAa2Fyc2hleQ==,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p><strong>带快表的分页式</strong></p>
+<p><img src="https://img2020.cnblogs.com/blog/2083141/202008/2083141-20200803171427603-732589443.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>① 根据逻辑地址计算页号、页内偏移量</p>
+<p>② 比较页号和页表长度，检查页号合法性</p>
+<p>③ 查快表，若命中则获得页面存放的内存块号，转⑤；若未命中，转④</p>
+<p>④ 查页表，根据页表始址找到页号对应页表项，获得页面存放的内存块号，并将该页表项复制到快表中</p>
+<p>⑤ 根据内存块号和页内偏移量得到物理地址</p>
+<p><strong>基本分段式</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20201008202949487.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNTg3NzQw,size_16,color_FFFFFF,t_70#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p><strong>段页式</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20201008205928813.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNTg3NzQw,size_16,color_FFFFFF,t_70#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<h3 id="请求调页系统中页表项包含的数据项和作用"><a href="#请求调页系统中页表项包含的数据项和作用" class="headerlink" title="请求调页系统中页表项包含的数据项和作用"></a>请求调页系统中页表项包含的数据项和作用</h3><ul>
+<li>页号（隐式）：给页顺序编号</li>
+<li>内存块号：指出该页在内存中的位置</li>
+<li>状态位：该页是否已经调入内存</li>
+<li>访问字段：记录本页在一段时间内的访问次数或最近一次访问时间，用作置换算法的参考项</li>
+<li>修改位：该页在调入内存后是否被修改过</li>
+<li>外存地址：该页在外存中的位置</li>
+</ul>
+<h3 id="请求调页和纯分页的比较"><a href="#请求调页和纯分页的比较" class="headerlink" title="请求调页和纯分页的比较"></a>请求调页和纯分页的比较</h3><ul>
+<li>ISA架构的改变：页故障异常、页表中增加存在位和脏位等设计</li>
+<li>操作系统的改变：页故障异常处理程序（页置换）</li>
+<li>硬盘的改变：对换区</li>
+</ul>
+<h3 id="采用工作集模型预防系统抖动的思想与过程"><a href="#采用工作集模型预防系统抖动的思想与过程" class="headerlink" title="采用工作集模型预防系统抖动的思想与过程"></a>采用工作集模型预防系统抖动的思想与过程</h3><p>根据局部性原理，进程会在某段时间间隔内相对稳定地访问某些页面。所以引入工作集的概念，指在某段时间间隔内进程实际访问的页面的集合</p>
+<p>操作系统跟踪每个进程的工作集，并为进程分配大于其工作集大小的物理块</p>
+<h3 id="颠簸产生的原因及解决方案"><a href="#颠簸产生的原因及解决方案" class="headerlink" title="颠簸产生的原因及解决方案"></a>颠簸产生的原因及解决方案</h3><p>进程频繁访问的页面数多于可用的物理块数</p>
+<p>应用工作集策略为进程分配足够多的物理块；修改页面置换算法；降低多道程序的数量；增加物理内存容量</p>
+<h3 id="I-O控制方式及特点"><a href="#I-O控制方式及特点" class="headerlink" title="I/O控制方式及特点"></a>I/O控制方式及特点</h3><p>程序直接控制：程序直接对设备轮询</p>
+<p>中断驱动：当设备准备完成时发生中断</p>
+<p>DMA：在I/O设备与内存之间开辟直接数据通路</p>
+<p>通道控制：引入专门的I/O处理机进行管理</p>
+<h3 id="输入输出过程举例"><a href="#输入输出过程举例" class="headerlink" title="输入输出过程举例"></a>输入输出过程举例</h3><ul>
+<li><p>线程T调用驱动程序Q的启动部分的代码，启动设备</p>
+</li>
+<li><p>当前线程T等待设备完成操作；设备开始工作，线程T阻塞，CPU转去执行其他任务</p>
+</li>
+<li><p>设备完成工作，发出中断信号，激活中断处理程序，调用驱动程序Q的中断服务例程处理中断，线程T就绪</p>
+</li>
+<li><p>线程T被调度，继续执行</p>
+</li>
+</ul>
+<h3 id="驱动程序、设备、中断服务程序、I-O子系统关系"><a href="#驱动程序、设备、中断服务程序、I-O子系统关系" class="headerlink" title="驱动程序、设备、中断服务程序、I/O子系统关系"></a>驱动程序、设备、中断服务程序、I/O子系统关系</h3><ul>
+<li><p>驱动程序与内核I/O子系统</p>
+<p>内核I/O子系统调用驱动程序，启动设备</p>
+<p>驱动程序可以调用内核，如阻塞、唤醒线程</p>
+</li>
+<li><p>驱动程序与中断处理程序</p>
+<p>中断处理程序调用驱动程序，执行设备中断服务例程</p>
+</li>
+<li><p>驱动程序与设备</p>
+<p>驱动程序向设备发送命令，检测设备状态，通过中断机制响应设备事件</p>
+</li>
+</ul>
+<h3 id="缓冲区的作用"><a href="#缓冲区的作用" class="headerlink" title="缓冲区的作用"></a>缓冲区的作用</h3><p>在内存中预留指定大小的存储空间用来临时存储I/O数据，可以缓和通信双方数据处理速度、单元的差异性，减少实际物理读写次数，提升并发性</p>
+<p>缓冲区一直被重用，可以减少动态分配和回收内存的次数</p>
+<h3 id="缓冲机制的三种用途并举例"><a href="#缓冲机制的三种用途并举例" class="headerlink" title="缓冲机制的三种用途并举例"></a>缓冲机制的三种用途并举例</h3><ul>
+<li><p>处理数据流的生产者与消费者之间的速度差异</p>
+<p>从调制解调器接收文件要保存到硬盘上。由于调制解调器大约比硬盘慢数千倍，所以在内存中创建缓冲区累计从调制解调器接收到的字节，当整个缓冲区填满后，通过一次操作将缓冲区内容写入磁盘中</p>
+</li>
+<li><p>协调传输数据大小不一致的设备</p>
+<p>计算机网络中，缓冲用来处理消息的分段与重组。在发送端，一个到消息分成若干小包；在接收端，将包放在重组缓冲区内，最终生成完成的消息</p>
+</li>
+<li><p>支持应用程序I/O的复制语义</p>
+<p>当某应用程序需要将缓冲区内的数据写入到磁盘上时，操作系统将应用程序缓冲区复制到内核缓冲区中，让磁盘写操作在内核缓冲区中执行，这样后来应用程序缓冲区的改变就没有影响</p>
+</li>
+</ul>
+<h3 id="使用cache的意义"><a href="#使用cache的意义" class="headerlink" title="使用cache的意义"></a>使用cache的意义</h3><p>解决数据读写速度不匹配的问题</p>
+<h3 id="高速缓存与缓冲区的区别"><a href="#高速缓存与缓冲区的区别" class="headerlink" title="高速缓存与缓冲区的区别"></a>高速缓存与缓冲区的区别</h3><p>作用上：高速缓存为了提高效率；缓冲区用于通信双方数据的交换</p>
+<p>内容上：高速缓存中的内容是另一个存储器内容的备份；缓冲区中的数据是唯一的</p>
+<h3 id="异步I-O-阻塞I-O-非阻塞I-O的区别，并举例"><a href="#异步I-O-阻塞I-O-非阻塞I-O的区别，并举例" class="headerlink" title="异步I/O 阻塞I/O 非阻塞I/O的区别，并举例"></a>异步I/O 阻塞I/O 非阻塞I/O的区别，并举例</h3><p>阻塞I/O：请求I/O系统调用后一直等待直到获得结果，进程变为就绪态 socket中的listen(), send(), recv()等</p>
+<p>非阻塞式I/O：请求I/O系统调用后立即返回 socket中的select()</p>
+<p>异步I/O：请求I/O系统调用后立即返回，I/O操作完成后向进程发出信号执行回调函数 aio_read()</p>
+<h3 id="访存操作可能会导致I-O的进行，某进程读写文件时可能并没有I-O设备执行，为什么"><a href="#访存操作可能会导致I-O的进行，某进程读写文件时可能并没有I-O设备执行，为什么" class="headerlink" title="访存操作可能会导致I/O的进行，某进程读写文件时可能并没有I/O设备执行，为什么"></a>访存操作可能会导致I/O的进行，某进程读写文件时可能并没有I/O设备执行，为什么</h3><p>使用了假脱机技术。操作系统对于用户的读写文件请求，并没有真正把I/O设备分配给该用户进程，而是在磁盘缓冲区中为进程分配了空闲盘块和建立了一张I/O请求表，实现了虚拟设备的功能</p>
+<h3 id="批处理、脱机、假脱机为了解决什么问题"><a href="#批处理、脱机、假脱机为了解决什么问题" class="headerlink" title="批处理、脱机、假脱机为了解决什么问题"></a>批处理、脱机、假脱机为了解决什么问题</h3><p>批处理阶段引入脱机技术（在外围控制机的控制下I/O设备的输入输出先被送到更快速的磁带上）缓解了CPU与慢速I/O设备的速度矛盾</p>
+<p>假脱机技术用软件的方式模拟脱机技术（磁盘上开辟的输入输出井模拟磁带，输入输出进程模拟外围控制机）提高了I/O速度，把一台物理设备虚拟成逻辑上的多台设备，将独占设备改造为共享设备</p>
+<h3 id="磁盘分配的三种方式和各自优缺点"><a href="#磁盘分配的三种方式和各自优缺点" class="headerlink" title="磁盘分配的三种方式和各自优缺点"></a>磁盘分配的三种方式和各自优缺点</h3><ul>
+<li><p>连续分配</p>
+<p>每个文件在磁盘上占有连续的块</p>
+<p>优点：支持随机访问、顺序存取速度快</p>
+<p>缺点：不方便文件扩展、会产生外碎片</p>
+</li>
+<li><p>链接分配</p>
+<p>每个文件对应一个磁盘块链表，每个磁盘块有指向下一个磁盘块的指针</p>
+<p>优点：方便文件扩展、无碎片</p>
+<p>缺点：不支持随机访问、磁盘块指针占用空间、存取速度慢、可靠性差</p>
+</li>
+<li><p>索引分配</p>
+<p>每个文件建立一张索引表，放在索引块中</p>
+<p>优点：支持随机访问、方便文件扩展、无碎片</p>
+<p>缺点：索引表占用空间</p>
+</li>
+</ul>
+<h3 id="三种磁盘分配方式中，FCB如何给出文件在磁盘上的物理位置"><a href="#三种磁盘分配方式中，FCB如何给出文件在磁盘上的物理位置" class="headerlink" title="三种磁盘分配方式中，FCB如何给出文件在磁盘上的物理位置"></a>三种磁盘分配方式中，FCB如何给出文件在磁盘上的物理位置</h3><p>连续分配：FCB记录了文件起始块号和长度，文件物理位置=起始块号+逻辑块号</p>
+<p>链接分配：FCB记录了文件起始块号和结束块号，从起始块开始访问，每个磁盘块都有指向下一个磁盘块的指针，直到访问到结束块</p>
+<p>索引分配：FCB记录了索引块所在的物理块号，访问该物理块读取索引表，得到各个逻辑块对应的物理块号</p>
+<h3 id="FAT工作原理-链接分配中引入FAT的优点"><a href="#FAT工作原理-链接分配中引入FAT的优点" class="headerlink" title="FAT工作原理 链接分配中引入FAT的优点"></a>FAT工作原理 链接分配中引入FAT的优点</h3><p>每个磁盘建立一张文件分配表FAT，行号对应块号；每个FAT表项中存放对应磁盘块的下一块链接指针</p>
+<p>支持随机访问</p>
+<h3 id="空闲存储空间管理"><a href="#空闲存储空间管理" class="headerlink" title="空闲存储空间管理"></a>空闲存储空间管理</h3><ul>
+<li><p>连续空闲空间管理</p>
+<p>空闲区列表，每一项记录空闲区起始块号和空闲块数量</p>
+</li>
+<li><p>空闲块链</p>
+<p>空闲块组成链表，指针放在空闲块中</p>
+</li>
+<li><p>成组空闲块链</p>
+<p>每组100个空闲块，第一组索引在内存中，下一组索引在每组最后一块</p>
+</li>
+<li><p>位图</p>
+<p>连续存储空间，每位对应一个盘块，存放在内存中</p>
+</li>
+</ul>
+<h3 id="文件系统如何依据用户给出的文件名找到该文件对应的FCB"><a href="#文件系统如何依据用户给出的文件名找到该文件对应的FCB" class="headerlink" title="文件系统如何依据用户给出的文件名找到该文件对应的FCB"></a>文件系统如何依据用户给出的文件名找到该文件对应的FCB</h3><p>顺序检索目录表，找到文件名对应的目录项，该目录项就是FCB</p>
+<h3 id="文件共享的途径"><a href="#文件共享的途径" class="headerlink" title="文件共享的途径"></a>文件共享的途径</h3><p>硬连接（基于索引节点）方式中，不同文件的目录项指向同一个索引节点，索引节点中设置一个引用计数变量</p>
+<p>软连接（基于符号链接）方式中，由系统生成一个LINK类型文件，包含被共享文件的路径名</p>
+<h3 id="如何实现多种文件系统的共存"><a href="#如何实现多种文件系统的共存" class="headerlink" title="如何实现多种文件系统的共存"></a>如何实现多种文件系统的共存</h3><p>文件系统的挂载，挂载表记录系统已安装文件系统的类型和指向文件系统的指针，挂载位置为目录节点或独立盘符</p>
+<p>虚拟文件系统VFS，抽象出各种文件系统共有的部分，为各种文件系统提供一个统一的操作界面和应用编程接口</p>
+<h3 id="操作系统中打开文件的工作过程"><a href="#操作系统中打开文件的工作过程" class="headerlink" title="操作系统中打开文件的工作过程"></a>操作系统中打开文件的工作过程</h3><p>使用open系统调用，提供文件存放路径、文件名、操作类型，操作系统在系统文件打开表中查找</p>
+<ul>
+<li><p>该文件已经打开</p>
+<p>检查操作类型是否合法</p>
+<p>在进程文件打开表中为文件分配一个表项，将该表项的指针指向系统文件打开表中该文件对应的一项</p>
+<p>在PCB中为文件分配一个文件描述符fd作为进程文件打开表项的指针，文件打开完成</p>
+</li>
+<li><p>该文件没有打开</p>
+<p>根据文件存放路径查找相应的目录文件是否在内存中，若不在则装入内存</p>
+<p>从目录中找到文件名对应的目录项，检查操作类型是否合法，得到该文件的FCB在磁盘中的位置</p>
+<p>将该FCB装入内存中的Active Inode中</p>
+<p>在系统文件打开表中为文件分配一个表项，将该表项的指针指向Active Inode中对应的FCB</p>
+<p>在进程文件打开表中为文件分配一个表项，将该表项的指针指向系统文件打开表中该文件对应的一项</p>
+<p>在PCB中为文件分配一个文件描述符fd作为进程文件打开表项的指针，文件打开完成</p>
+</li>
+</ul>
+<h3 id="临界区及其使用准则"><a href="#临界区及其使用准则" class="headerlink" title="临界区及其使用准则"></a>临界区及其使用准则</h3><p>进程在并发执行中可以共享系统中的资源，但对临界资源的访问必须互斥进行，一个进程中访问临界资源的代码段为临界区。</p>
+<p>临界区的使用准则</p>
+<ul>
+<li>空闲让进：无进程处于临界区时，若有进程要求进入临界区应允许进入</li>
+<li>忙则等待：有进程处于临界区时，其他试图进入该临界区的进程必须等待</li>
+<li>有限等待：有进程等待进入临界区时，它的等待时间应该是有限的</li>
+<li>让权等待：等待进入临界区的进程应释放CPU</li>
+</ul>
+<h3 id="同步与互斥的异同"><a href="#同步与互斥的异同" class="headerlink" title="同步与互斥的异同"></a>同步与互斥的异同</h3><p>相同点</p>
+<ul>
+<li>都是并发环境下操作之间的时序关系</li>
+<li>不满足条件时线程等待</li>
+<li>运行过程中动态判定</li>
+</ul>
+<p>不同点</p>
+<ul>
+<li>同步在时序上是固定的偏序关系</li>
+<li>互斥在时序上只要不同时执行即可</li>
+</ul>
+<h3 id="产生死锁的必要条件"><a href="#产生死锁的必要条件" class="headerlink" title="产生死锁的必要条件"></a>产生死锁的必要条件</h3><ul>
+<li>互斥：资源一次只能由一个进程使用</li>
+<li>非抢占：资源只能在进程完成任务后自动释放</li>
+<li>占有并等待：一个进程必须至少占用一个资源，并等待另一资源，且该资源被其他进程占有</li>
+<li>循环等待：有一组等待进程{P0, P1, …, Pn}，P0等待的资源被P1占有，P1等待的资源被P2占有，……，Pn等待的资源被P0占有</li>
+</ul>
+<h3 id="CPU是进程运行必需的资源，为什么进程不会因等待CPU而发生死锁"><a href="#CPU是进程运行必需的资源，为什么进程不会因等待CPU而发生死锁" class="headerlink" title="CPU是进程运行必需的资源，为什么进程不会因等待CPU而发生死锁"></a>CPU是进程运行必需的资源，为什么进程不会因等待CPU而发生死锁</h3><p>CPU属于可剥夺性资源。只有不可剥夺资源才会因为竞争资源而产生死锁。</p>
+<h3 id="死锁预防思路"><a href="#死锁预防思路" class="headerlink" title="死锁预防思路"></a>死锁预防思路</h3><ul>
+<li><p>破坏互斥条件</p>
+<p>一般不能破坏</p>
+<p>假脱机技术可以将独占设备在逻辑上改造成共享设备</p>
+</li>
+<li><p>破坏占有并等待条件</p>
+<p>一次性申请需要的所有资源；申请新资源前释放已占有资源</p>
+<p>产生饥饿的概率增加</p>
+</li>
+<li><p>破坏非抢占条件</p>
+<p>若进程请求资源不成功则回收其占有的所有资源</p>
+<p>一般适用于易保存和恢复的资源</p>
+</li>
+<li><p>破坏循环等待条件</p>
+<p>将所有资源排序编号，进程只能按序号递增的顺序申请资源</p>
+</li>
+</ul>
+<h3 id="简述银行家算法避免死锁的过程"><a href="#简述银行家算法避免死锁的过程" class="headerlink" title="简述银行家算法避免死锁的过程"></a>简述银行家算法避免死锁的过程</h3><p>变量定义</p>
+<ul>
+<li>Allocation矩阵：当前已分配给各进程的各类资源数目</li>
+<li>Max矩阵：各进程总共需要的各类资源数目</li>
+<li>Need矩阵：各进程还需要的各类资源数目</li>
+<li>Available向量：当前可供分配的各类资源数目</li>
+<li>Work向量：用于安全检测算法中记录可供分配的各类资源数目</li>
+<li>Finish数组：用于安全检测算法中记录是否能满足该进程所有资源请求</li>
+</ul>
+<p>算法过程</p>
+<p>​    进程Pi提出申请资源的请求Request</p>
+<ul>
+<li><p>检查Request&lt;=Need[i]</p>
+</li>
+<li><p>检查Request&lt;=Available</p>
+</li>
+<li><p>Allocation[i]=Allocation[i]+Request</p>
+<p>Need[i]=Need[i]-Request</p>
+<p>Available=Available-Request</p>
+</li>
+<li><p>执行安全性算法</p>
+<ul>
+<li><p>Work=Available Finish[:]=false</p>
+</li>
+<li><p>查找i，使Work&gt;=Need[i]且Finish[i]=false</p>
+<ul>
+<li><p>若找到，则Work=Work+Allocation[i] Finish[i]=true，继续查找</p>
+</li>
+<li><p>若找不到，检查是否Finish数组全为true</p>
+<p>是则安全，否则不安全</p>
+</li>
+</ul>
+</li>
+<li><p>若产生的资源分配状态安全，则满足Request请求；否则不满足，恢复到原来资源分配状态</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="死锁避免、死锁预防并比较区别"><a href="#死锁避免、死锁预防并比较区别" class="headerlink" title="死锁避免、死锁预防并比较区别"></a>死锁避免、死锁预防并比较区别</h3><p>死锁预防：通过破坏产生死锁的四个必要条件之一，严格的防止死锁的出现。是在进程申请资源的层面上进行的，系统预先确定资源分配策略，系统按照策略进行分配。</p>
+<p>死锁避免：当进程提出资源申请时系统测试资源分配，仅当能确保系统安全的时候才把资源分配给进程，这样使得系统能一直处于安全状态。是在操作系统分配资源的层面上进行的。</p>
+<h3 id="死锁检测和恢复的思路"><a href="#死锁检测和恢复的思路" class="headerlink" title="死锁检测和恢复的思路"></a>死锁检测和恢复的思路</h3><p>检测：资源分配图化简后形成环路；死锁检测算法</p>
+<p>恢复：资源剥夺法；撤销进程法；进程回退法</p>
+<h3 id="阻塞、饥饿、死锁的区别"><a href="#阻塞、饥饿、死锁的区别" class="headerlink" title="阻塞、饥饿、死锁的区别"></a>阻塞、饥饿、死锁的区别</h3><p>阻塞：一个正在执行的进程由于I/O请求等事件暂时无法继续执行，将其暂停执行</p>
+<p>饥饿：一个进程因调度算法不合理而长时间等待；发生饥饿的进程既可能是阻塞态（长期得不到需要的I/O设备）也可能是就绪态（长期得不到CPU）；等待会被释放但不会分配给自己的资源</p>
+<p>死锁：多个进程因竞争资源而相互等待；发生死锁的进程一定处于阻塞态；等待永远不会被释放的资源</p>
+<h3 id="简述保护的概念"><a href="#简述保护的概念" class="headerlink" title="简述保护的概念"></a>简述保护的概念</h3><ul>
+<li><p>硬件层面</p>
+<p>操作系统分为内核态和用户态，将可能引起损害的机器指令作为特权指令，且只能在内核态下执行特权指令</p>
+<p>操作系统使用定时器防止用户程序陷入死循环</p>
+</li>
+<li><p>文件管理</p>
+<p>文件保护指避免文件拥有者或其它用户因错误操作使文件受到破坏，有三种方式：口令保护、密码保护、访问控制（每个文件和目录增加一个访问控制列表ACL，记录每个用户名及允许的访问类型）</p>
+</li>
+<li><p>设备管理</p>
+<p>设备被看作文件，每个设备也会有对应的FCB，当用户请求访问某个设备时，系统根据FCB中的信息判断用户是否有访问权限，来实现设备保护的功能</p>
+</li>
+<li><p>存储管理</p>
+<p>保护内存使各道作业互不干扰，可以设置一对上下限寄存器或基址寄存器和限长寄存器，当进行地址变换时检查是否出现越界</p>
+</li>
+<li><p>进程同步</p>
+<p>为保护临界区资源同一时间只能由一个进程访问，可以采用硬件方法：关中断、TestAndSet指令、Swap指令，软件方法：Peterson算法</p>
+</li>
+</ul>
+<h2 id="经典同步问题"><a href="#经典同步问题" class="headerlink" title="经典同步问题"></a>经典同步问题</h2><h3 id="m-n-k生产者-消费者问题"><a href="#m-n-k生产者-消费者问题" class="headerlink" title="m-n-k生产者-消费者问题"></a>m-n-k生产者-消费者问题</h3><figure class="highlight c"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><pre><code class="hljs C">Semaphore full=<span class="hljs-number">0</span>, empty=k, mutex=<span class="hljs-number">1</span>;<br>Item buffer[k];<br><span class="hljs-keyword">int</span> in=<span class="hljs-number">0</span>, out=<span class="hljs-number">0</span>;<br><br>producer:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>    P(empty);<br>    P(mutex);<br>    buffer[in] = item;<br>    in = (in+<span class="hljs-number">1</span>)%k;<br>    V(full);<br>    V(mutex);<br>&#125;<br><br>consumer:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>    P(full);<br>    P(mutex);<br>    item = buffer[out];<br>    out = (out+<span class="hljs-number">1</span>)%k;<br>    V(empty);<br>    V(mutex);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="读者写者问题"><a href="#读者写者问题" class="headerlink" title="读者写者问题"></a>读者写者问题</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs C">Semaphore rw_mutex=<span class="hljs-number">1</span>, r_mutex=<span class="hljs-number">1</span>, w=<span class="hljs-number">1</span>;<br><span class="hljs-keyword">int</span> r_count=<span class="hljs-number">0</span>;<br><br>writer:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>    P(w);<br>    P(rw_mutex);<br>    <span class="hljs-comment">//writing...</span><br>    V(rw_mutex);<br>    V(w);<br>&#125;<br><br>reader:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>    P(w);<br>    P(r_mutex);<br>    <span class="hljs-keyword">if</span>(r_count == <span class="hljs-number">0</span>)&#123;<br>        P(rw_mutex);<br>    &#125;<br>    r_count++;<br>    V(r_mutex);<br>    V(w);<br>    <span class="hljs-comment">//reading...</span><br>    P(r_mutex);<br>    r_count--;<br>    <span class="hljs-keyword">if</span>(r_count == <span class="hljs-number">0</span>)&#123;<br>        V(rw_mutex);<br>    &#125;<br>    V(r_mutex);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="哲学家问题"><a href="#哲学家问题" class="headerlink" title="哲学家问题"></a>哲学家问题</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs C">Semaphore chopstick[<span class="hljs-number">5</span>]=&#123;<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>&#125;, mutex=<span class="hljs-number">1</span>;<br>Philosopher_i:<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>	P(mutex);<br>    P(chopstick[i]);<br>    P(chopstick[(i+<span class="hljs-number">1</span>)%<span class="hljs-number">5</span>]);<br>    <span class="hljs-comment">//eating...</span><br>    V(mutex);<br>    V(chopstick[i]);<br>    V(chopstick[(i+<span class="hljs-number">1</span>)%<span class="hljs-number">5</span>]);<br>    <span class="hljs-comment">//thinking...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/SDU/">SDU</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/OS/">OS</a>
+                    
+                      <a class="hover-with-bg" href="/tags/review/">review</a>
+                    
+                  </div>
+                
+              </div>
+              <!-- 
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+               -->
+              
+                <p class="note note-warning">
+                <strong>本文作者: </strong><a href="/">31</a> <br>
+                <strong>本文链接: </strong><a href="http://uuunni.github.io/2022/01/15/OSreview/">http://uuunni.github.io/2022/01/15/OSreview/</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                </p>
+              
+
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/15/CGreview/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SDU计算机图形学复习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

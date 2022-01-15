@@ -1,0 +1,934 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+<script src="https://cdn.jsdelivr.net/gh/Sanarous/files@1.151/js/clicklove.js"></script>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sun.png">
+  <link rel="icon" href="/img/sun.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#252d38">
+  <meta name="author" content="31">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第一章 绪论计算机图形学的主要研究内容是什么？计算机中图形的表示方法，以及利用计算机进行图形的计算、处理和显示的相关原理与算法 列举三个以上图形学的应用领域计算机辅助设计与制造（CAD&#x2F;CAM） 可视化 真实感图形实时绘制与自然景物仿真 计算机动画 用户接口 计算机艺术 一个图形系统通常由哪些图形设备组成？图形处理器、图形输入设备和输出设备 图形和图像的区别是什么？图像：计算机内以位图形式存在的灰">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDU计算机图形学复习笔记">
+<meta property="og:url" content="http://uuunni.github.io/2022/01/15/CGreview/index.html">
+<meta property="og:site_name" content="31&#39;s Blog">
+<meta property="og:description" content="第一章 绪论计算机图形学的主要研究内容是什么？计算机中图形的表示方法，以及利用计算机进行图形的计算、处理和显示的相关原理与算法 列举三个以上图形学的应用领域计算机辅助设计与制造（CAD&#x2F;CAM） 可视化 真实感图形实时绘制与自然景物仿真 计算机动画 用户接口 计算机艺术 一个图形系统通常由哪些图形设备组成？图形处理器、图形输入设备和输出设备 图形和图像的区别是什么？图像：计算机内以位图形式存在的灰">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201226192313592.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0MDkwMjI4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190502153628116.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FqaDU2MDY=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200113093410275.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdV9mZW5nX3ppXw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2022-01-15T05:33:11.000Z">
+<meta property="article:modified_time" content="2022-01-15T05:47:41.283Z">
+<meta property="article:author" content="31">
+<meta property="article:tag" content="review">
+<meta property="article:tag" content="CG">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201226192313592.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0MDkwMjI4,size_16,color_FFFFFF,t_70">
+  
+  
+  <title>SDU计算机图形学复习笔记 - 31&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"uuunni.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>31</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/3.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SDU计算机图形学复习笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-15 13:33" pubdate>
+        2022年1月15日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      13k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      110 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SDU计算机图形学复习笔记</h1>
+            
+            <div class="markdown-body">
+              <h1 id="第一章-绪论"><a href="#第一章-绪论" class="headerlink" title="第一章 绪论"></a>第一章 绪论</h1><h2 id="计算机图形学的主要研究内容是什么？"><a href="#计算机图形学的主要研究内容是什么？" class="headerlink" title="计算机图形学的主要研究内容是什么？"></a>计算机图形学的主要研究内容是什么？</h2><p>计算机中图形的表示方法，以及利用计算机进行图形的计算、处理和显示的相关原理与算法</p>
+<h2 id="列举三个以上图形学的应用领域"><a href="#列举三个以上图形学的应用领域" class="headerlink" title="列举三个以上图形学的应用领域"></a>列举三个以上图形学的应用领域</h2><p>计算机辅助设计与制造（CAD/CAM）</p>
+<p>可视化</p>
+<p>真实感图形实时绘制与自然景物仿真</p>
+<p>计算机动画</p>
+<p>用户接口</p>
+<p>计算机艺术</p>
+<h2 id="一个图形系统通常由哪些图形设备组成？"><a href="#一个图形系统通常由哪些图形设备组成？" class="headerlink" title="一个图形系统通常由哪些图形设备组成？"></a>一个图形系统通常由哪些图形设备组成？</h2><p>图形处理器、图形输入设备和输出设备</p>
+<h2 id="图形和图像的区别是什么？"><a href="#图形和图像的区别是什么？" class="headerlink" title="图形和图像的区别是什么？"></a>图形和图像的区别是什么？</h2><p>图像：计算机内以位图形式存在的灰度信息</p>
+<p>图形：含有几何属性，由场景的几何模型和景物的物理属性共同组成的</p>
+<h2 id="CRT显示器的原理是什么？"><a href="#CRT显示器的原理是什么？" class="headerlink" title="CRT显示器的原理是什么？"></a>CRT显示器的原理是什么？</h2><p>高速的电子束由电子枪发出，经过聚焦系统、加速系统和磁偏转系统就会到达荧光屏的特定位置</p>
+<h2 id="LCD有哪些技术指标？"><a href="#LCD有哪些技术指标？" class="headerlink" title="LCD有哪些技术指标？"></a>LCD有哪些技术指标？</h2><p>可视角度 CR10、CR5</p>
+<p>点距</p>
+<p>分辨率</p>
+<h2 id="有哪些常用的图形输入设备？"><a href="#有哪些常用的图形输入设备？" class="headerlink" title="有哪些常用的图形输入设备？"></a>有哪些常用的图形输入设备？</h2><p>键盘、鼠标</p>
+<p>跟踪球、空间球、数据手套、光笔、触摸屏</p>
+<h2 id="图形学之父"><a href="#图形学之父" class="headerlink" title="图形学之父"></a>图形学之父</h2><p>Ivan E. Sutherland</p>
+<h2 id="ACM-Siggraph最高奖以谁的名字命名"><a href="#ACM-Siggraph最高奖以谁的名字命名" class="headerlink" title="ACM Siggraph最高奖以谁的名字命名"></a>ACM Siggraph最高奖以谁的名字命名</h2><p>Steven A. Coons</p>
+<h1 id="第二章-光栅图形学"><a href="#第二章-光栅图形学" class="headerlink" title="第二章 光栅图形学"></a>第二章 光栅图形学</h1><h2 id="直线段的扫描转换"><a href="#直线段的扫描转换" class="headerlink" title="直线段的扫描转换"></a>直线段的扫描转换</h2><h3 id="数值微分法（DDA）"><a href="#数值微分法（DDA）" class="headerlink" title="数值微分法（DDA）"></a>数值微分法（DDA）</h3><p>增量思想：对于直线y=kx+b，x每递增1，y则递增k</p>
+<p>在该算法中，y和k都要用浮点数表示，且每一步都需要对y四舍五入取整，不适合硬件实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DDALine</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x0, <span class="hljs-keyword">int</span> y0, <span class="hljs-keyword">int</span> x1, <span class="hljs-keyword">int</span> y1)</span></span>&#123;<br> 	<span class="hljs-keyword">float</span> dx, dy, y, k;<br>    dx = x1-x0;<br>    dy = y1-y0;<br>    k = dy/dx;<br>    y = y0;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> x=x0; x&lt;=x1; x++)&#123;<br>        drawpixel(x, <span class="hljs-keyword">int</span>(y+<span class="hljs-number">0.5</span>));<br>        y += k;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="中点画线法"><a href="#中点画线法" class="headerlink" title="中点画线法"></a>中点画线法</h3><p>采用了直线的一般形式：F(x,y)=Ax+By+C=0，其中A=-dy，B=dx</p>
+<p>画直线段过程中当前像素点为(x0,y0)，下一个像素点有两种选择P1(x0+1,y0), P2(x0+1,y0+1)，设M(x0+1,y0+0.5)是P1P2中点，Q为理想直线与x=x0+1的交点，当M在Q下方时F(M)<0，下一个像素点为P2，当M在Q上方时F(M)>0，下一个像素点为P1</p>
+<p>采用增量计算，令d=F(M)=a+0.5b，取正右方P1后判断下一个像素时d1=d+a，取右上方P2后判断下一个像素时d2=d+a+b</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MidpointLine</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x0, <span class="hljs-keyword">int</span> y0, <span class="hljs-keyword">int</span> x1, <span class="hljs-keyword">int</span> y1)</span></span>&#123;<br>    <span class="hljs-keyword">int</span> a, b, d1, d2, d, x, y;<br>    a = y0-y1;<br>    b = x1-x0;<br>    d = <span class="hljs-number">2</span>*a+b;<br>    d1 = <span class="hljs-number">2</span>*a;<br>    d2 = <span class="hljs-number">2</span>*(a+b);<br>    x = x0, y = y0;<br>    <span class="hljs-keyword">while</span>(x&lt;x1)&#123;<br>        <span class="hljs-keyword">if</span>(d&lt;<span class="hljs-number">0</span>)&#123;<br>            x++;<br>            y++;<br>            d += d2;<br>        &#125;<br>        <span class="hljs-keyword">else</span>&#123;<br>            x++;<br>            d += d1;<br>        &#125;<br>        drawpixel(x, y);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="Bresenham算法"><a href="#Bresenham算法" class="headerlink" title="Bresenham算法"></a>Bresenham算法</h3><p>过各行各列像素中心构造一组虚拟网格线，按照直线起点到终点的顺序计算直线与各垂直网格线的交点，根据误差项的符号确定该列像素中与此交点最近的像素</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">IntegerBresenhamLine</span><span class="hljs-params">(x0, y0, x1, y1)</span></span>&#123;<br>    x = x0;<br>    y = y0;<br>    dx = x1-x0;<br>    dy = y1-y0;<br>    e = -dx;<br>    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;=dx; i++)&#123;<br>        drawpixel(x, y);<br>        x++;<br>        e += <span class="hljs-number">2</span>*dy;<br>        <span class="hljs-keyword">if</span>(e&gt;=<span class="hljs-number">0</span>)&#123;<br>            y++;<br>            e -= <span class="hljs-number">2</span>*dx;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="多边形的扫描转换"><a href="#多边形的扫描转换" class="headerlink" title="多边形的扫描转换"></a>多边形的扫描转换</h2><blockquote>
+<p>多边形有两种重要的表示方法：顶点表示和点阵表示</p>
+<p>多边形的顶点表示转换为点阵表示，这种转换称为多边形的扫描转换</p>
+</blockquote>
+<h3 id="扫描线算法"><a href="#扫描线算法" class="headerlink" title="扫描线算法"></a>扫描线算法</h3><p>按扫描线顺序，计算扫描线与多边形的相交区间，再用要求的颜色显示这些区间的像素，以完成填充工作</p>
+<p>对于一条扫描线，多边形的扫描步骤为：</p>
+<ol>
+<li>求交。计算扫描线与多边形各边的交点</li>
+<li>排序。把所有交点按照x值递增顺序排序</li>
+<li>配对。将第一个与第二个、第三个与第四个等交点配对，每对交点代表扫描线与多边形的一个相交区间</li>
+<li>填色。把相交区间内的像素置成多边形的颜色，把相交区间外的像素置成背景色</li>
+</ol>
+<p>涉及的数据结构：</p>
+<ul>
+<li><p>活性边表AET：为提高效率，在处理一条扫描线时仅对与它相交的多边形的边进行求交运算，与当前扫描线相交的边称为活性边，把活性边按与扫描线交点x坐标递增的顺序存放在一个链表中，该链表为AET</p>
+<p>结点内容：</p>
+<ol>
+<li><p>当前扫描线与边的交点坐标x值</p>
+</li>
+<li><p>从当前扫描线到下一条扫描线间x的增量$\Delta x$</p>
+</li>
+<li><p>该边所交的最高扫描线号$y_{max}$</p>
+</li>
+</ol>
+</li>
+<li><p>新边表NET：为方便AET的建立与更新，为每一条扫描线建立一个NET，存放在该扫描线第一次出现的边</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">scanLinePolyFill</span><span class="hljs-params">(polygon)</span></span>&#123;<br>    <span class="hljs-comment">//初始化新边表NET</span><br>    <span class="hljs-keyword">for</span>(各条扫描线i)&#123;<br>        初始化NET[i]头指针;<br>        把ymin=i的边放入NET[i]中;<br>    &#125;<br>    <span class="hljs-comment">//扫描准备</span><br>    初始化AET为空;<br>    y=<span class="hljs-number">0</span>;<br>    <span class="hljs-comment">//开始扫描</span><br>    <span class="hljs-keyword">for</span>(各条扫描线i)&#123;<br>        <span class="hljs-comment">//加入边</span><br>        将NET[i]中的边插入排序到AET中;<br>        若要自交,则对AET冒泡排序;<br>        <span class="hljs-comment">//区间填色</span><br>        遍历AET，配对交点区间，对区间上的点改写像素值;<br>        <span class="hljs-comment">//删除边 </span><br>        删除ymax=i的边;<br>        <span class="hljs-comment">//更新AET</span><br>        将AET中结点的x值递增dx;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="边界标志算法"><a href="#边界标志算法" class="headerlink" title="边界标志算法"></a>边界标志算法</h3><p>帧缓冲器对多边形进行直线扫描转换时在边界像素打上标志，再采用和扫描线算法类似的方法将位于多边形的各个区间填色。适合硬件实现</p>
+<h2 id="多边形的区域填充"><a href="#多边形的区域填充" class="headerlink" title="多边形的区域填充"></a>多边形的区域填充</h2><blockquote>
+<p>这里的区域是指已经表示成点阵形式的填充图形，它是像素的集合</p>
+<p>区域可采用内点表示和边界表示</p>
+<p>区域可分为四连通区域和八连通区域（容易穿出脆弱边界）</p>
+</blockquote>
+<h3 id="递归算法"><a href="#递归算法" class="headerlink" title="递归算法"></a>递归算法</h3><p>假设在多边形内有一个像素已知，由此出发利用连通性找到区域内的所有像素</p>
+<h3 id="扫描线算法-1"><a href="#扫描线算法-1" class="headerlink" title="扫描线算法"></a>扫描线算法</h3><p>给定种子点时，首先填充种子点所在扫描线上位于给定区域的一个区间，然后确定与这一区间相连通的上下两条扫描线上位于给定区域内的区间，并依次保存下来，反复这个过程直到填充结束</p>
+<p>区域填充的扫描线算法步骤：</p>
+<ol>
+<li>初始化。堆栈置空，将种子点(x,y)入栈</li>
+<li>出栈。若栈空则结束；否则取栈顶元素(x,y)，以y作为当前扫描线</li>
+<li>填充并确定种子点所在区段。从种子点(x,y)出发，沿当前扫描线向左、右两个方向填充，直到边界。分别标记区段的左右端点坐标为xl和xr</li>
+<li>确定新的种子点。在区间[xl,xr]中检查与当前扫描线y上下相邻的两条扫描线上的像素。若存在非边界、未填充的像素，则把每一区间的最右像素作为种子点压入堆栈，返回第2步</li>
+</ol>
+<h2 id="直线段裁剪"><a href="#直线段裁剪" class="headerlink" title="直线段裁剪"></a>直线段裁剪</h2><h3 id="Cohen-Sutherland法"><a href="#Cohen-Sutherland法" class="headerlink" title="Cohen-Sutherland法"></a>Cohen-Sutherland法</h3><p>对线段端点进行编码<code>code1</code> <code>code2</code>，判断直线段与窗口的关系，分为三种情况：</p>
+<ol>
+<li><p>全在窗口内，显示该线段；<code>code1 | code2 == 0</code></p>
+</li>
+<li><p>完全不在窗口内，丢弃该线段；<code>code1 &amp; code2 != 0</code></p>
+</li>
+<li><p>线段与窗口有交，求出该交点，把线段一分为二，丢弃在窗口外的一段，对另一端重复上述处理</p>
+</li>
+</ol>
+<h3 id="中点分割法"><a href="#中点分割法" class="headerlink" title="中点分割法"></a>中点分割法</h3><p>首先对线段端点进行编码，并把线段与窗口的关系分为三种情况：</p>
+<ol>
+<li>全在窗口内，显示该线段</li>
+<li>完全不在窗口内，丢弃该线段</li>
+<li>线段与窗口有交，用<strong>中点分割</strong>的方法求出线段与窗口的交点</li>
+</ol>
+<p>改进之处：不用解方程组求交，而是采用二分法求交</p>
+<p>改进理由：主要计算过程只用到加法和除2运算，适合硬件实现和并行计算</p>
+<h3 id="梁友栋-Barskey裁剪算法"><a href="#梁友栋-Barskey裁剪算法" class="headerlink" title="梁友栋-Barskey裁剪算法"></a>梁友栋-Barskey裁剪算法</h3><p>参数化裁剪条件：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+XL \le x_1+u\Delta x\le XR\\
+YB \le y_1+u\Delta y\le YT
+\end{cases}</script><p>可以表示为统一形式：$up_k\le q_k$</p>
+<ul>
+<li><p>$p_k=0$，直线段平行于裁剪边界之一</p>
+<ul>
+<li>$q_k&lt;0$，则线段完全在边界外，舍弃该线段</li>
+<li>$q_k\ge0$，则该线段平行于裁剪边界并且在窗口内</li>
+</ul>
+</li>
+<li><p>$p_k&lt;0$，线段从裁剪边界所在直线的外部指向内部</p>
+<p>计算线段与边界k的延长线的交点u值$r_k=q_k/p_k$，$u_1=max\{0,r_k\}$</p>
+</li>
+<li><p>$p_k&gt;0$，线段从裁剪边界所在直线的内部指向外部</p>
+<p>计算线段与边界k的延长线的交点u值$r_k=q_k/p_k$，$u_2=min\{1,r_k\}$</p>
+</li>
+</ul>
+<p>如果$u_1&gt;u_2$则线段完全落在裁剪窗口之外被舍弃；否则裁剪线段由参数$u_1,u_2$计算出来，它们定义了在裁剪矩形内的线段部分</p>
+<p>它比前两种方法快，因为线段与窗口边界的交点仅需计算一次，且更新参数$u1,u2$仅需要一次除法</p>
+<h2 id="多边形裁剪"><a href="#多边形裁剪" class="headerlink" title="多边形裁剪"></a>多边形裁剪</h2><h3 id="Sutherland-Hodgman算法"><a href="#Sutherland-Hodgman算法" class="headerlink" title="Sutherland-Hodgman算法"></a>Sutherland-Hodgman算法</h3><p>一次用窗口的一条边裁剪多边形，得到一个顶点序列，作为下一条裁剪边处理过程的输入</p>
+<p>每条线段端点S,P与裁剪线的位置关系有如下4种，红色标注点为输出的点：</p>
+<p><img src="https://img-blog.csdnimg.cn/20201226192313592.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0MDkwMjI4,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>算法优点：裁剪窗口可以是任意凸多边形</p>
+<p>算法不足：只能裁剪凸多边形；裁剪窗口不能是凹多边形</p>
+<p>算法改进：可以将凹多边形分割成多个凸多边形再去运行该算法</p>
+<h2 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h2><h3 id="字库的分类"><a href="#字库的分类" class="headerlink" title="字库的分类"></a>字库的分类</h3><p>点阵型：存储空间大、易于显示</p>
+<p>矢量型：存储空间小、美观、变换方便</p>
+<h3 id="字符裁剪"><a href="#字符裁剪" class="headerlink" title="字符裁剪"></a>字符裁剪</h3><p>串精度</p>
+<p>字符精度</p>
+<p>笔画或像素精度</p>
+<h2 id="反走样"><a href="#反走样" class="headerlink" title="反走样"></a>反走样</h2><p>走样aliasing：用离散量表示连续量引起的失真现象</p>
+<p>反走样antialiasing：用于减少或消除这种效果的技术</p>
+<h3 id="提高分辨率"><a href="#提高分辨率" class="headerlink" title="提高分辨率"></a>提高分辨率</h3><p>把显示器分辨率提高一倍，直线经过两倍像素，锯齿增加一倍，但同时每个阶梯也减少了一倍，显示的直线段看起来平直光滑。方法简单，但不经济，只能减轻而不能消除锯齿问题</p>
+<h3 id="非加权区域采样"><a href="#非加权区域采样" class="headerlink" title="非加权区域采样"></a>非加权区域采样</h3><p>假定每个像素是具有一定面积的小区域，直线段是具有一定宽度的狭长矩形，当直线段与像素有交时，求出两者相交区域的面积，然后根据相交区域面积的大小确定该像素的亮度值</p>
+<p>两个缺点：</p>
+<ul>
+<li>像素的亮度与相交区域的面积成正比，而与相交区域落在像素内的位置无关，这仍然会导致锯齿效应</li>
+<li>直线条上沿理想直线方向的相邻两个像素有时会有较大的灰度差</li>
+</ul>
+<h3 id="加权区域采样"><a href="#加权区域采样" class="headerlink" title="加权区域采样"></a>加权区域采样</h3><p>使相交区域对像素亮度的贡献依赖于该区域与像素中心的距离</p>
+<h2 id="消隐"><a href="#消隐" class="headerlink" title="消隐"></a>消隐</h2><h3 id="画家算法"><a href="#画家算法" class="headerlink" title="画家算法"></a>画家算法</h3><p>先把屏幕置成背景色，再把物体各个面按离视点的远近进行排序，结果存放在深度优先级表中，按照由远到近的顺序绘制各个面</p>
+<p>优点：原理简单</p>
+<p>缺点：只能处理互不相交的面，而且深度优先级表中面的顺序可能出错，深度排序计算量大</p>
+<h3 id="Z-Buffer算法"><a href="#Z-Buffer算法" class="headerlink" title="Z-Buffer算法"></a>Z-Buffer算法</h3><p>设置帧缓存存放每个像素的颜色值，深度缓存来存放每个像素的深度值。把显示对象的每个面上每一点的属性值填入帧缓冲区相应单元前，要把这点的z坐标值与Z缓冲器中相应单元的值进行比较，只有前者大于后者时才改变帧缓冲区该单元的值，同时Z缓冲器相应单元的值更新</p>
+<p>优点：比总体排序灵活简单，有利于硬件实现</p>
+<p>缺点：占用空间大，没有利用图形的相关性与连续性</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c">Z-Buffer()&#123;<br>	帧缓存全置为背景色;<br>    深度缓存全置为最小Z值;<br>    <span class="hljs-keyword">for</span>(每一个多边形)&#123;<br>        扫描转换该多边形;<br>        <span class="hljs-keyword">for</span>(该多边形覆盖的每个像素(x,y))&#123;<br>            计算该多边形在该像素的深度值Z(x,y);<br>            <span class="hljs-keyword">if</span>(Z(x,y)大于Z缓存在(x,y)的值)&#123;<br>            	把Z(x,y)存入Z缓存中(x,y)处;<br>                把多边形在(x,y)处的颜色值存入帧缓存的(x,y)处;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="改进的Z-Buffer算法"><a href="#改进的Z-Buffer算法" class="headerlink" title="改进的Z-Buffer算法"></a>改进的Z-Buffer算法</h3><p>用一个深度缓存变量zb代替缓存数组。对屏幕上的每个像素，对于每个多边形，若该像素在该多边形内，则计算该多边形在该像素的深度值，找出对应最大深度值的多边形，更新像素属性值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c">Z-Buffer()&#123;<br>	帧缓存全置为背景色;<br>    <span class="hljs-keyword">for</span>(屏幕上的每一个像素(x,y))&#123;<br>        深度缓存变量zb置最小值MinValue;<br>        <span class="hljs-keyword">for</span>(每个多边形P)&#123;<br>            <span class="hljs-keyword">if</span>(像素(x,y)在该多边形P_k内)&#123;<br>                计算该多边形在该像素的深度值depth;<br>                <span class="hljs-keyword">if</span>(depth&gt;zb)&#123;<br>            		zb=depth;<br>                    index=k;<br>            	&#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(zb!=MinValue)<br>            计算多边形P_index在像素(x,y)的光照颜色并显示;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>第6行的包含性检测可采用射线法或弧长法</p>
+<h3 id="扫描线Z-Buffer算法"><a href="#扫描线Z-Buffer算法" class="headerlink" title="扫描线Z-Buffer算法"></a>扫描线Z-Buffer算法</h3><p>在处理当前扫描线时，开一个一维数组作为当前扫描线的Z-Buffer。首先找出与当前扫描线相关的多边形，以及每个多边形中相关的边对；然后计算边对之间区间上各像素的深度，与Z-Buffer中的值相比较，找出各像素处对应的可见平面，计算颜色，写帧缓存。对深度计算采用增量算法。</p>
+<p>优点：将整个绘图窗口内的消隐问题分解到扫描线上解决，使所需的Z缓冲器大大减小；计算深度时利用了面的连贯性，只用了一个加法</p>
+<p>缺点：被多个多边形覆盖的像素还要进行多次计算，计算量仍然很大</p>
+<p>数据结构：</p>
+<ul>
+<li>多边形Y表：保存所有多边形的序号和其顶点最大y坐标，根据多边形顶点最小y坐标插入到Y表相应位置</li>
+<li>活化多边形表APT：保存与当前扫描线相交的多边形</li>
+<li>边表ET：每个APT中的多边形都有一个边表，存放每条边端点中较大的y值，增量$\Delta x$，y值较小一端的x坐标和z坐标</li>
+<li>活化边对表AET：存放当前多边形中与当前扫描线相交的各边对的信息</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c">Z-Buffer()&#123;<br>    建立多边形Y表;<br>    初始化活化多边形表APT，活化边对表AET为空;<br>    <span class="hljs-keyword">for</span>(每条扫描线i)&#123;<br>        帧缓存CB置为背景色;<br>        深度缓存ZB置为负无穷;<br>        将对应扫描线i的Y表中的多边形加入APT中;<br>        生成新加入多边形的边表ET;<br>        对APT中每一个多边形，若其边表ET中对应扫描线i增加了新边，则将新边配对，加入AET中;<br>        对AET中每一个边对:<br>            对xl&lt;j&lt;xr的每一个像素，按增量公式z=z+dz_a计算各点深度depth;<br>        	若depth&gt;ZB(j)则令ZB(j)=depth，并计算颜色值写帧缓存;<br>        删除APT中多边形顶点最大y坐标为i的多边形，并删除相应的边;<br>        对AET中每一个边对:<br>        	删除y_lmax或y_rmax等于i的边，若一边对中只删除了一边则对该多边形的边重新配对;<br>        	用增量公式计算新的x_l,x_r,z_l=z_l+dx_l*dz_a+dz_b;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="区间扫描线算法"><a href="#区间扫描线算法" class="headerlink" title="区间扫描线算法"></a>区间扫描线算法</h3><p>把当前扫描线各多边形在投影平面的投影的交点进行排序后，使扫描线分为若干子区间，只要在区间任一点处找出在该处z值最大的一个面，这个区间上的每一个像素就用这个面的颜色来表示</p>
+<p>优点：在一条扫描线上每个区间只计算一次深度值，并且不需要Z缓冲器</p>
+<h3 id="区域子分割算法（Warnack算法）"><a href="#区域子分割算法（Warnack算法）" class="headerlink" title="区域子分割算法（Warnack算法）"></a>区域子分割算法（Warnack算法）</h3><p>把物体投影到全屏幕窗口上，然后递归分割窗口，直到窗口内目标足够简单，可以显示为止</p>
+<p>如果窗口内没有物体，则按背景色显示；如果窗口内只有一个面，则把该面显示出来；如果窗口内含有两个以上的面，则把窗口等分成4个子窗口，对每个小窗口作上述同样的处理</p>
+<p>窗口与多边形的覆盖关系有4种：内含，相交，包围，分离</p>
+<h3 id="光线投射算法"><a href="#光线投射算法" class="headerlink" title="光线投射算法"></a>光线投射算法</h3><p>考查由视点出发穿过观察屏幕的一个像素而射入场景的一条射线，则可确定出场景中与该射线相交的物体。在计算出光线与物体表面的交点后，离像素最近的交点所在面片的颜色为该像素的颜色；如果没有交点，说明没有多边形的投影覆盖此像素，用背景色显示。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">for</span>(屏幕上的每一像素)&#123;<br>    形成通过该屏幕像素的射线;<br>    <span class="hljs-keyword">for</span>(场景中的每一物体)<br>        将该射线于物体求交;<br>    <span class="hljs-keyword">if</span>(存在交点)<br>        以最近的交点所属的颜色显示像素;<br>    <span class="hljs-keyword">else</span><br>        以背景色显示像素;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="第三章-几何造型技术"><a href="#第三章-几何造型技术" class="headerlink" title="第三章 几何造型技术"></a>第三章 几何造型技术</h1><h2 id="曲线的基本概念"><a href="#曲线的基本概念" class="headerlink" title="曲线的基本概念"></a>曲线的基本概念</h2><p>位置矢量</p>
+<p>切矢量</p>
+<p>法矢量</p>
+<p>曲率：弯曲程度，曲线的单位切矢对弧长的转动率</p>
+<p>挠率：扭曲程度，副法线方向对于弧长的转动率</p>
+<h2 id="三次Hermite曲线"><a href="#三次Hermite曲线" class="headerlink" title="三次Hermite曲线"></a>三次Hermite曲线</h2><p>三次曲线的代数形式：$P(t)=a_3t^3+a_2t^2+a_1t+a_0, t\in[0,1]$</p>
+<p>三次曲线的几何形式：用端点位矢$P_0,P_1$，切矢$P’_0,P’_1$表示</p>
+<p>代入<strong>推导(……)</strong>，几何系数是$P_0,P_1,P’_0,P’_1$，调和函数是$F_0, F_1, G_0, G_1$</p>
+<script type="math/tex; mode=display">
+P(t)=F_0P_0+F_1P_1+G_0P'_0+G_1P'_1, t\in[0,1]</script><p>矩阵化表达</p>
+<script type="math/tex; mode=display">
+P(t)=\left( \begin{matrix}
+P_0 & P_1 & P'_0 & P'_1
+\end{matrix}\right)
+\left( \begin{matrix}
+F_0 \\ F_1 \\ G_0 \\ G_1
+\end{matrix}\right)
+=\left( \begin{matrix}
+P_0 & P_1 & P'_0 & P'_1
+\end{matrix}\right)
+\left( \begin{matrix}
+2 & -3 & 0 & 1\\
+-2 & 3 & 0 & 0\\
+1 & -2 & 1 & 0\\
+1 & -1 & 0 & 0\\
+\end{matrix}\right)
+\left( \begin{matrix}
+t^3 \\ t^2 \\ t \\ 1
+\end{matrix}\right)\\</script><h2 id="Bezier曲线"><a href="#Bezier曲线" class="headerlink" title="Bezier曲线"></a>Bezier曲线</h2><script type="math/tex; mode=display">
+P(t)=\sum_{i=0}^nP_iC_n^it^i(1-t)^{n-i},t\in[0,1]</script><p>性质：</p>
+<ul>
+<li><p>端点性质</p>
+<ul>
+<li><p>起点终点与对应的特征多边形的起点终点重合</p>
+</li>
+<li><p>端点切向量$P’(t)=n\sum_{i=1}^{n-1}P_i[B_{i-1,n-1}(t)-B_{i,n-1}(t)]$</p>
+<p>起点终点处的切线方向和特征多边形的第一条边及最后一条边的走向一致</p>
+</li>
+</ul>
+</li>
+<li><p>对称性：曲线的起点终点处几何性质一样</p>
+</li>
+<li><p>凸包性：曲线落在$P_i$构成的凸包之中</p>
+</li>
+<li><p>几何不变性：曲线的位置和形状不依赖坐标系的选择</p>
+</li>
+<li><p>变差缩减性：平面内任意直线与$P(t)$的交点个数不多于该直线与其特征多边形的交点个数，反映了bezier曲线比特征多边形的折线更光顺</p>
+</li>
+<li><p>仿射不变性：在仿射变换下，$P(t)$的形式不变</p>
+</li>
+</ul>
+<p>de Casteljau算法：</p>
+<script type="math/tex; mode=display">
+P_i^k=\begin{cases}
+P_i,&k=0\\
+(1-t)P_i^{k-1}+tP_{i+1}^{k-1},&k=1,2,...,n,i=0,1,...,n-k
+\end{cases}</script><p>升阶：保持Bezier曲线的形状与定向不变，增加定义它的控制顶点数</p>
+<script type="math/tex; mode=display">
+P_i^*=\frac{i}{n+1}P_{i-1}+(1-\frac{i}{n+1})P_i\\i=0,1,...,n+1</script><p>不足：</p>
+<ul>
+<li>Bezier曲线不能做局部修改</li>
+<li>Bezier曲线的拼接比较复杂</li>
+</ul>
+<h2 id="B样条"><a href="#B样条" class="headerlink" title="B样条"></a>B样条</h2><p>k阶（k-1次）B样条曲线的定义为：</p>
+<script type="math/tex; mode=display">
+P(t)=\sum_{i=0}^n P_iN_{i,k}(t) \\
+t\in[t_{k-1},t_{n+1}]</script><p>de Boor算法：</p>
+<p>给定控制顶点$P_i(i=0,1,…,n)$和节点矢量$T=[t_0,t_1,…,t_{n+k}]$，定义k阶（k-1次）B样条曲线</p>
+<script type="math/tex; mode=display">
+t\in[t_j,t_{j+1}](k-1\le j\le n)\\
+P_i^r(t)=\begin{cases}
+P_i,&r=0;\\&i=j-k+1,j-k+2,...,j\\
+\frac{t-t_i}{t_{i+k-r}-t_i}P_i^{r-1}(t)+\frac{t_{i+k-r}-t}{t_{i+k-r}-t_i}P_{i-1}^{r-1}(t),&r=1,2,..,k-1;\\
+&i=j-k+r+1,j-k+r+2,...,j
+\end{cases}\\
+P(t)=P_j^{k-1}(t)</script><p>三次B样条的Bezier表示：</p>
+<p>在区间$[t_j,t_{j+1}]$上的B样条曲线，如表示成三次Bezier曲线，则控制顶点为：</p>
+<script type="math/tex; mode=display">
+P_{j-1}^{[2]}(t_j),P_{j-1}^{[1]}(t_j),P_{j-1}^{[1]}(t_{j+1}),P_{j}^{[2]}(t_{j+1})</script><script type="math/tex; mode=display">
+P(t)=\sum_{i=j-3}^j P_iN_{i,4}(t)\\
+=P_{j-1}^{[2]}(t_j)B_{0,3}(\frac{t-t_j}{\Delta t_j})+P_{j-1}^{[1]}(t_j)B_{1,3}(\frac{t-t_j}{\Delta t_j})+P_{j-1}^{[1]}(t_{j+1})B_{2,3}(\frac{t-t_j}{\Delta t_j})+P_{j}^{[2]}(t_{j+1})B_{3,3}(\frac{t-t_j}{\Delta t_j})</script><h2 id="三角网格"><a href="#三角网格" class="headerlink" title="三角网格"></a>三角网格</h2><h3 id="半边表示"><a href="#半边表示" class="headerlink" title="半边表示"></a>半边表示</h3><p>把一条无向的边拆分成两条有向的半边，半边的方向在模型中总是沿着逆时针方向</p>
+<p>每条半边需要存储的信息：</p>
+<ul>
+<li>该半边的源顶点<code>origin(e)</code></li>
+<li>该半边在同一三角形中的下一半边<code>next(e)</code></li>
+<li>与该半边同属一条边的对边<code>opposite(e)</code></li>
+<li>该半边所属的面<code>IncFace(e)</code></li>
+</ul>
+<h3 id="网格简化"><a href="#网格简化" class="headerlink" title="网格简化"></a>网格简化</h3><p>三种基本化简操作：顶点删除、边压缩、面片收缩</p>
+<h3 id="网格细分"><a href="#网格细分" class="headerlink" title="网格细分"></a>网格细分</h3><p>Loop细分方法：第一步增加顶点，第二步调整顶点位置使网格更加平滑</p>
+<h1 id="第四章-真实感图形学"><a href="#第四章-真实感图形学" class="headerlink" title="第四章 真实感图形学"></a>第四章 真实感图形学</h1><h2 id="颜色的特性"><a href="#颜色的特性" class="headerlink" title="颜色的特性"></a>颜色的特性</h2><p>心理学和视觉的角度：色调(hue)、饱和度(saturation)、亮度(lightness)</p>
+<p>光学物理学的角度：主波长、纯度、明度</p>
+<h2 id="三色学说"><a href="#三色学说" class="headerlink" title="三色学说"></a>三色学说</h2><p>是真实感图形学的生理视觉基础，是颜色视觉中最基础、最根本的理论</p>
+<h2 id="CIE色度图"><a href="#CIE色度图" class="headerlink" title="CIE色度图"></a>CIE色度图</h2><p>马蹄形区域</p>
+<h2 id="常见的颜色模型"><a href="#常见的颜色模型" class="headerlink" title="常见的颜色模型"></a>常见的颜色模型</h2><h3 id="RGB"><a href="#RGB" class="headerlink" title="RGB"></a>RGB</h3><p>用于彩色光栅图形显示设备，采用红、绿、蓝为原色，面向硬件</p>
+<p>三维直角坐标系，单位立方体来表示，原点为黑色，从黑色中加入某种颜色</p>
+<h3 id="CMY"><a href="#CMY" class="headerlink" title="CMY"></a>CMY</h3><p>用于印刷行业，采用青(Cyan)、品红(Magenta)、黄(Yellow)为原色，面向硬件</p>
+<p>减性原色系统，单位立方体，原点为白色，在白色中减去某种颜色</p>
+<h3 id="HSV"><a href="#HSV" class="headerlink" title="HSV"></a>HSV</h3><p>面向用户，对应于画家的配色方法，圆锥形</p>
+<h2 id="写出Phong模型公式，并指出其中各个参数的含义"><a href="#写出Phong模型公式，并指出其中各个参数的含义" class="headerlink" title="写出Phong模型公式，并指出其中各个参数的含义"></a>写出Phong模型公式，并指出其中各个参数的含义</h2><p>环境光ambient + 漫反射光diffuse + 镜面反射光specular</p>
+<p><img src="https://img-blog.csdnimg.cn/20190502153628116.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FqaDU2MDY=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述" style="zoom:50%;" /></p>
+<script type="math/tex; mode=display">
+I=I_aK_a+I_pK_d(L\cdot N)+I_pK_s(R\cdot V)^n\\
+R=2N(L\cdot N)-L</script><p>$I_a$——环境光强度</p>
+<p>$K_a$——物体对环境光的反射系数</p>
+<p>$I_p$——入射光强度</p>
+<p>$K_d$——物体的漫反射系数</p>
+<p>$L$——光源方向单位向量</p>
+<p>$N$——物体法向量</p>
+<p>$K_s$——物体的镜面反射系数</p>
+<p>$R$——反射方向单位向量</p>
+<p>$V$——视线方向单位向量</p>
+<p>$n$——镜面反射指数</p>
+<h2 id="Gouraud明暗处理"><a href="#Gouraud明暗处理" class="headerlink" title="Gouraud明暗处理"></a>Gouraud明暗处理</h2><ol>
+<li>计算多边形顶点的平均法向 相邻多边形的平均法向</li>
+<li>用Phong光照明模型计算顶点的平均光强</li>
+<li>插值计算离散边上的各点光强</li>
+<li>插值计算多边形内域中各点的光强</li>
+</ol>
+<p>优点：能有效地显示漫反射效果，计算量小</p>
+<p>缺点：镜面发射效果不理想，相邻多边形边界处的马赫带效应不能完全消除</p>
+<h2 id="Phong明暗处理"><a href="#Phong明暗处理" class="headerlink" title="Phong明暗处理"></a>Phong明暗处理</h2><ol>
+<li>计算多边形顶点的平均法向</li>
+<li>插值计算离散边上的各点法向</li>
+<li>插值计算多边形内域中各点的法向</li>
+<li>用Phong光照明模型计算各点的光强</li>
+</ol>
+<p>优点：可以产生正确的高光区域</p>
+<p>缺点：计算量大</p>
+<h2 id="针对多面体模型，直接用Phong模型绘制会有什么问题？"><a href="#针对多面体模型，直接用Phong模型绘制会有什么问题？" class="headerlink" title="针对多面体模型，直接用Phong模型绘制会有什么问题？"></a>针对多面体模型，直接用Phong模型绘制会有什么问题？</h2><p>由于光源和视点都被假定为无穷远，且每一个多边形由于法向一致，所以多边形内部像素的颜色都是相同的，因此在不同法向的多边形邻接处不仅有光强突变还会产生马赫带效应</p>
+<h2 id="两种增量式光照明模型的基本思想及算法区别"><a href="#两种增量式光照明模型的基本思想及算法区别" class="headerlink" title="两种增量式光照明模型的基本思想及算法区别"></a>两种增量式光照明模型的基本思想及算法区别</h2><p>在每一个多边形的顶点处计算合适的光照明强度或其他参数，然后在各个多边形内部进行均匀插值，最后得到多边形的光滑颜色分布</p>
+<p>Gouraud明暗处理采用光强插值，Phong明暗处理采用法向插值</p>
+<h2 id="局部光照明模型"><a href="#局部光照明模型" class="headerlink" title="局部光照明模型"></a>局部光照明模型</h2><script type="math/tex; mode=display">
+I_r=I_aK_a+I_i(N\cdot L)d\omega (K_dR_d+K_sR_s)</script><p>与简单光照模型比较的优点：</p>
+<ol>
+<li>是基于入射光能量导出的光辐射模型，更具有理论基础</li>
+<li>可以反映表面的粗糙度对反射光强的影响</li>
+<li>可以根据材料的物理性质决定颜色</li>
+<li>可以改进简单光照模型的失真现象</li>
+<li>可以模拟金属的光泽</li>
+</ol>
+<h2 id="整体光照明模型—光线跟踪算法"><a href="#整体光照明模型—光线跟踪算法" class="headerlink" title="整体光照明模型—光线跟踪算法"></a>整体光照明模型—光线跟踪算法</h2><p>终止条件：</p>
+<ul>
+<li>该光线未碰到任何物体</li>
+<li>该光线碰到了背景</li>
+<li>光线在经过多次反射和折射后衰减，光线对于视点的光强贡献很小</li>
+<li>光线反射或折射次数大于给定值</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs C">RayTracing(start, direction, weight, color)&#123;<br>	<span class="hljs-comment">//光线起点start 光线方向direction 光线衰减权值weight 返回光线方向上的颜色值color</span><br>    <span class="hljs-keyword">if</span>(weight &lt; MinWeight)<br>        color = black;<br>    <span class="hljs-keyword">else</span>&#123;<br>    	计算光线与所有物体的交点中离start最近的点;<br>        <span class="hljs-keyword">if</span>(没有交点)<br>            color = black;<br>        <span class="hljs-keyword">else</span>&#123;<br>            I_local = 在交点处用局部光照模型计算出的光强;<br>            计算反射方向R = <span class="hljs-number">2</span>N(L*N)-L;<br>            RayTracing(最近的交点, R, weight*w_r, I_r);<br>            计算折射方向T;<br>            RayTracing(最近的交点, T, weight*<span class="hljs-keyword">w_t</span>, I_t);<br>            color = I_local + K_sI_r + K_tI_t;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>加速方法：自适应深度控制；包围盒及层次结构；三维DDA算法；空间八叉树剖分技术</p>
+<h2 id="包围盒"><a href="#包围盒" class="headerlink" title="包围盒"></a>包围盒</h2><p>基本思想：用体积稍大且特性简单的集合体来近似代替复杂的几何对象</p>
+<h3 id="AABB"><a href="#AABB" class="headerlink" title="AABB"></a>AABB</h3><p>包含该对象，且边平行于坐标轴的最小六面体。六个标量即可表示$(x_{min},y_{min},z_{min})(x_{max},y_{max},z_{max})$。</p>
+<p>不随物体旋转，紧密性差。</p>
+<h3 id="OBB"><a href="#OBB" class="headerlink" title="OBB"></a>OBB</h3><p>包围盒无需和坐标轴垂直，根据物体表面的顶点，通过PCA获得特征向量，即OBB的主轴。具有方向性，可以旋转。</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="二维图形的几何变换"><a href="#二维图形的几何变换" class="headerlink" title="二维图形的几何变换"></a>二维图形的几何变换</h2><p>平移变换</p>
+<script type="math/tex; mode=display">
+\left[ \begin{matrix}
+1 & 0 & t_x\\
+0 & 1 & t_y\\
+0 & 0 & 1\\
+\end{matrix}\right]
+\left[ \begin{matrix}
+x\\y\\1
+\end{matrix}\right]</script><p>旋转变换（逆时针）</p>
+<script type="math/tex; mode=display">
+\left[ \begin{matrix}
+\cos\theta & -\sin\theta & 0\\
+\sin\theta & \cos\theta & 0\\
+0 & 0 & 1\\
+\end{matrix}\right]
+\left[ \begin{matrix}
+x\\y\\1
+\end{matrix}\right]</script><p>关于$(x_f,y_f)$点的旋转变换：需要先将该点移到坐标原点处，然后再进行旋转变换，最后将该点移回原来的位置</p>
+<script type="math/tex; mode=display">
+T(x_f,y_f)\cdot R(\theta)\cdot T(-x_f,-y_f)
+=\left[ \begin{matrix}
+1 & 0 & x_f\\
+0 & 1 & y_f\\
+0 & 0 & 1\\
+\end{matrix}\right]
+\left[ \begin{matrix}
+\cos\theta & -\sin\theta & 0\\
+\sin\theta & \cos\theta & 0\\
+0 & 0 & 1\\
+\end{matrix}\right]
+\left[ \begin{matrix}
+1 & 0 & -x_f\\
+0 & 1 & -y_f\\
+0 & 0 & 1\\
+\end{matrix}\right]</script><h2 id="三维图形的几何变换"><a href="#三维图形的几何变换" class="headerlink" title="三维图形的几何变换"></a>三维图形的几何变换</h2><p>绕x轴旋转</p>
+<script type="math/tex; mode=display">
+\left[ \begin{matrix}
+1 & 0 & 0 & 0\\
+0 & \cos\theta & -\sin\theta & 0\\
+0 & \sin\theta & \cos\theta & 0\\
+0 & 0 & 0 & 1\\
+\end{matrix}\right]
+\left[ \begin{matrix}
+x\\y\\z\\1
+\end{matrix}\right]</script><p>绕y轴旋转</p>
+<script type="math/tex; mode=display">
+\left[ \begin{matrix}
+\cos\theta & 0 & \sin\theta & 0\\
+0 & 1 & 0 & 0\\
+-\sin\theta & 0 & \cos\theta & 0\\
+0 & 0 & 0 & 1\\
+\end{matrix}\right]
+\left[ \begin{matrix}
+x\\y\\z\\1
+\end{matrix}\right]</script><p>绕z轴旋转</p>
+<script type="math/tex; mode=display">
+\left[ \begin{matrix}
+\cos\theta & -\sin\theta & 0 & 0\\
+\sin\theta & \cos\theta & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+\end{matrix}\right]
+\left[ \begin{matrix}
+x\\y\\z\\1
+\end{matrix}\right]</script><p>绕任意轴AB旋转</p>
+<ul>
+<li>将A点移到坐标原点</li>
+<li>使AB分别绕x轴、y轴旋转与z轴重合</li>
+<li>将AB绕z轴旋转$\theta$角</li>
+<li>作上述变换的逆操作，使AB回到原来位置</li>
+</ul>
+<h2 id="矩形求交"><a href="#矩形求交" class="headerlink" title="矩形求交"></a>矩形求交</h2><p>给定两个矩形A和B，矩形A的左上角坐标为$(x_{a1},y_{a1})$，右下角坐标为$(x_{a2},y_{b2})$；矩形B的左上角坐标为$(x_{b1},y_{b1})$，右下角坐标为$(x_{b2},y_{b2})$。</p>
+<p>假设两矩形相交区域为矩形C，左上角坐标为$(x_{c1},y_{c1})$，右下角坐标为$(x_{c2},y_{c2})$</p>
+<p>分析相交情况可知</p>
+<script type="math/tex; mode=display">
+x_{c1}=max(x_{a1},x_{b1})\\
+y_{c1}=min(y_{a1},y_{b1})\\
+x_{c2}=min(x_{a2},y_{b2})\\
+y_{c2}=max(y_{a2},y_{b2})</script><p>若要相交则$\begin{cases}x_{c1}<x_{c2}\\y_{c1}>y_{c2}\end{cases}$，即</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+max(x_{a1},x_{b1})<min(x_{a2},x_{b2})\\
+min(y_{a1},y_{b1})>max(y_{a2},y_{b2})\\
+\end{cases}</script><h2 id="线面求交"><a href="#线面求交" class="headerlink" title="线面求交"></a>线面求交</h2><p>圆柱面</p>
+<script type="math/tex; mode=display">
+x^2+y^2=r^2</script><p>线的参数方程$x=x(t),y=y(t),z=z(t)$</p>
+<p>代入解方程t</p>
+<h2 id="判断点在多边形内部"><a href="#判断点在多边形内部" class="headerlink" title="判断点在多边形内部"></a>判断点在多边形内部</h2><p>根据向量叉乘，按照逆时针（顺时针）取向量进行叉乘，所得值同号，则说明点在多边形内部。</p>
+<p>即判断方式为：取向量AB和AP、BC和BP、CD和CP、DE和DP、EA和EP进行叉乘，判断所得值是否同号。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200113093410275.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdV9mZW5nX3ppXw==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="img" style="zoom:50%;" /></p>
+<h2 id="三角形相关"><a href="#三角形相关" class="headerlink" title="三角形相关"></a>三角形相关</h2><p>已知三角形三顶点A$(x_1,y_1)$，B$(x_2,y_2)$，C$(x_3,y_3)$</p>
+<p>$\vec{AB}=(x_2-x_1,y_2-y_1,z_2-z_1)$，$\vec{AC}=(x_3-x_1,y_3-y_1,z_3-z_1)$</p>
+<h3 id="单位法向量"><a href="#单位法向量" class="headerlink" title="单位法向量"></a>单位法向量</h3><p>$\frac{\vec{AB}\times\vec{AC}}{|{\vec{AB}\times\vec{AC}}|}$</p>
+<h3 id="面积"><a href="#面积" class="headerlink" title="面积"></a>面积</h3><p>$\frac{1}{2}|\vec{AB}||\vec{AC}|\sin\theta=\frac{1}{2}|\vec{AB}\times\vec{AC}|$</p>
+<h3 id="两个三角形是否相交"><a href="#两个三角形是否相交" class="headerlink" title="两个三角形是否相交"></a>两个三角形是否相交</h3><p>设两个三角形$T_1,T_2$，所在平面分别为$\pi_1,\pi_2$</p>
+<ul>
+<li><p>计算$T_1$每个顶点到$\pi_2$的距离，若同号则$T_1$在$\pi_2$一边，两三角形不相交</p>
+</li>
+<li><p>计算$T_2$每个顶点到$\pi_1$的距离，若同号则$T_2$在$\pi_1$一边，两三角形不相交</p>
+</li>
+<li><p>否则可能相交，计算$T_1$和$\pi_2$的交线$l_1$，$T_2$和$\pi_1$的交线$l_2$</p>
+<p>若$l_1$和$l_2$有重叠，则两三角形相交；否则不相交</p>
+</li>
+</ul>
+<h2 id="投影"><a href="#投影" class="headerlink" title="投影"></a>投影</h2><h3 id="世界坐标到观察坐标"><a href="#世界坐标到观察坐标" class="headerlink" title="世界坐标到观察坐标"></a>世界坐标到观察坐标</h3><ul>
+<li><p>原点平移矩阵</p>
+<script type="math/tex; mode=display">
+\left[ \begin{matrix}
+1 & 0 & 0 & -x_0\\
+0 & 1 & 0 & -y_0\\
+0 & 0 & 1 & -z_0\\
+0 & 0 & 0 & 1\\
+\end{matrix} \right]</script></li>
+<li><p>旋转矩阵（单位矢量法）</p>
+<ul>
+<li>取观察坐标系的z轴方向为观察平面的法向，单位化得$n=(n_x,n_y,n_z)$</li>
+<li>取观察坐标系的x轴方向为观察方向，单位化得$u=(u_x,u_y,u_z)$</li>
+<li>取观察坐标系的y轴方向的单位矢量，或直接计算得$v=n\times u=(v_x,v_y,v_z)$</li>
+</ul>
+<script type="math/tex; mode=display">
+\left[ \begin{matrix}
+u_x & v_x & n_x & 0\\
+u_y & v_y & n_y & 0\\
+u_z & v_z & n_z & 0\\
+0 & 0 & 0 & 1\\
+\end{matrix} \right]</script></li>
+</ul>
+<h3 id="一点透视"><a href="#一点透视" class="headerlink" title="一点透视"></a>一点透视</h3><p>假定视点位置为 (0,-2,0)，沿y轴正方向投影，投影面与y轴垂直并经过点 (0,1,0)</p>
+<p>  (a) 请写出点 (2, 2, 2) 经过透视投影后的坐标。</p>
+<p>  (b) 请写出投影矩阵。</p>
+<h1 id="回忆"><a href="#回忆" class="headerlink" title="回忆"></a>回忆</h1><h2 id="选择题"><a href="#选择题" class="headerlink" title="选择题"></a>选择题</h2><p>Bresenham与中点画线法相比的改进</p>
+<p>灭点个数</p>
+<p>曲线参数方程</p>
+<p>Phong明暗处理中代价最高的步骤</p>
+<p>颜色代码000000为什么颜色</p>
+<h2 id="简答计算题"><a href="#简答计算题" class="headerlink" title="简答计算题"></a>简答计算题</h2><p>多边形的扫描填充伪代码</p>
+<p>简述面消隐的各种算法</p>
+<p>Phong光照模型公式及示意图，反射方向R的推导</p>
+<p>对称变换矩阵</p>
+<p>空间中一正方形和一多边形求交</p>
+<p>给定控制点求Bezier曲线方程，转换为B-Spline的新控制点，转换为Hermite曲线的端点和切矢</p>
+<p>给定视点、投影面，在世界坐标与观察坐标下的投影矩阵</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/SDU/">SDU</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/review/">review</a>
+                    
+                      <a class="hover-with-bg" href="/tags/CG/">CG</a>
+                    
+                  </div>
+                
+              </div>
+              <!-- 
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+               -->
+              
+                <p class="note note-warning">
+                <strong>本文作者: </strong><a href="/">31</a> <br>
+                <strong>本文链接: </strong><a href="http://uuunni.github.io/2022/01/15/CGreview/">http://uuunni.github.io/2022/01/15/CGreview/</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                </p>
+              
+
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/15/MLmemory/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SDU机器学习试题回忆</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/15/OSreview/">
+                        <span class="hidden-mobile">SDU操作系统复习笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
