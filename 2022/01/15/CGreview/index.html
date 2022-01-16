@@ -274,7 +274,7 @@
 <p>在该算法中，y和k都要用浮点数表示，且每一步都需要对y四舍五入取整，不适合硬件实现</p>
 <figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DDALine</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x0, <span class="hljs-keyword">int</span> y0, <span class="hljs-keyword">int</span> x1, <span class="hljs-keyword">int</span> y1)</span></span>&#123;<br> 	<span class="hljs-keyword">float</span> dx, dy, y, k;<br>    dx = x1-x0;<br>    dy = y1-y0;<br>    k = dy/dx;<br>    y = y0;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> x=x0; x&lt;=x1; x++)&#123;<br>        drawpixel(x, <span class="hljs-keyword">int</span>(y+<span class="hljs-number">0.5</span>));<br>        y += k;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <h3 id="中点画线法"><a href="#中点画线法" class="headerlink" title="中点画线法"></a>中点画线法</h3><p>采用了直线的一般形式：F(x,y)=Ax+By+C=0，其中A=-dy，B=dx</p>
-<p>画直线段过程中当前像素点为(x0,y0)，下一个像素点有两种选择P1(x0+1,y0), P2(x0+1,y0+1)，设M(x0+1,y0+0.5)是P1P2中点，Q为理想直线与x=x0+1的交点，当M在Q下方时F(M)<0，下一个像素点为P2，当M在Q上方时F(M)>0，下一个像素点为P1</p>
+<p>画直线段过程中当前像素点为(x0,y0)，下一个像素点有两种选择P1(x0+1,y0), P2(x0+1,y0+1)，设M(x0+1,y0+0.5)是P1P2中点，Q为理想直线与x=x0+1的交点，当M在Q下方时F(M)<0，下一个像素点为P2，当M在Q上方时F(M)>0，下一个像素点为P1</0，下一个像素点为P2，当M在Q上方时F(M)></p>
 <p>采用增量计算，令d=F(M)=a+0.5b，取正右方P1后判断下一个像素时d1=d+a，取右上方P2后判断下一个像素时d2=d+a+b</p>
 <figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MidpointLine</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x0, <span class="hljs-keyword">int</span> y0, <span class="hljs-keyword">int</span> x1, <span class="hljs-keyword">int</span> y1)</span></span>&#123;<br>    <span class="hljs-keyword">int</span> a, b, d1, d2, d, x, y;<br>    a = y0-y1;<br>    b = x1-x0;<br>    d = <span class="hljs-number">2</span>*a+b;<br>    d1 = <span class="hljs-number">2</span>*a;<br>    d2 = <span class="hljs-number">2</span>*(a+b);<br>    x = x0, y = y0;<br>    <span class="hljs-keyword">while</span>(x&lt;x1)&#123;<br>        <span class="hljs-keyword">if</span>(d&lt;<span class="hljs-number">0</span>)&#123;<br>            x++;<br>            y++;<br>            d += d2;<br>        &#125;<br>        <span class="hljs-keyword">else</span>&#123;<br>            x++;<br>            d += d1;<br>        &#125;<br>        drawpixel(x, y);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <h3 id="Bresenham算法"><a href="#Bresenham算法" class="headerlink" title="Bresenham算法"></a>Bresenham算法</h3><p>过各行各列像素中心构造一组虚拟网格线，按照直线起点到终点的顺序计算直线与各垂直网格线的交点，根据误差项的符号确定该列像素中与此交点最近的像素</p>
@@ -364,7 +364,7 @@ YB \le y_1+u\Delta y\le YT
 <p>它比前两种方法快，因为线段与窗口边界的交点仅需计算一次，且更新参数$u1,u2$仅需要一次除法</p>
 <h2 id="多边形裁剪"><a href="#多边形裁剪" class="headerlink" title="多边形裁剪"></a>多边形裁剪</h2><h3 id="Sutherland-Hodgman算法"><a href="#Sutherland-Hodgman算法" class="headerlink" title="Sutherland-Hodgman算法"></a>Sutherland-Hodgman算法</h3><p>一次用窗口的一条边裁剪多边形，得到一个顶点序列，作为下一条裁剪边处理过程的输入</p>
 <p>每条线段端点S,P与裁剪线的位置关系有如下4种，红色标注点为输出的点：</p>
-<p><img src="https://img-blog.csdnimg.cn/20201226192313592.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0MDkwMjI4,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="https://img-blog.csdnimg.cn/20201226192313592.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0MDkwMjI4,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt></p>
 <p>算法优点：裁剪窗口可以是任意凸多边形</p>
 <p>算法不足：只能裁剪凸多边形；裁剪窗口不能是凹多边形</p>
 <p>算法改进：可以将凹多边形分割成多个凸多边形再去运行该算法</p>
@@ -511,7 +511,7 @@ P(t)=\sum_{i=j-3}^j P_iN_{i,4}(t)\\
 <p>减性原色系统，单位立方体，原点为白色，在白色中减去某种颜色</p>
 <h3 id="HSV"><a href="#HSV" class="headerlink" title="HSV"></a>HSV</h3><p>面向用户，对应于画家的配色方法，圆锥形</p>
 <h2 id="写出Phong模型公式，并指出其中各个参数的含义"><a href="#写出Phong模型公式，并指出其中各个参数的含义" class="headerlink" title="写出Phong模型公式，并指出其中各个参数的含义"></a>写出Phong模型公式，并指出其中各个参数的含义</h2><p>环境光ambient + 漫反射光diffuse + 镜面反射光specular</p>
-<p><img src="https://img-blog.csdnimg.cn/20190502153628116.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FqaDU2MDY=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述" style="zoom:50%;" /></p>
+<p><img src="https://img-blog.csdnimg.cn/20190502153628116.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FqaDU2MDY=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述" style="zoom:50%;"></p>
 <script type="math/tex; mode=display">
 I=I_aK_a+I_pK_d(L\cdot N)+I_pK_s(R\cdot V)^n\\
 R=2N(L\cdot N)-L</script><p>$I_a$——环境光强度</p>
@@ -644,7 +644,7 @@ x\\y\\z\\1
 x_{c1}=max(x_{a1},x_{b1})\\
 y_{c1}=min(y_{a1},y_{b1})\\
 x_{c2}=min(x_{a2},y_{b2})\\
-y_{c2}=max(y_{a2},y_{b2})</script><p>若要相交则$\begin{cases}x_{c1}<x_{c2}\\y_{c1}>y_{c2}\end{cases}$，即</p>
+y_{c2}=max(y_{a2},y_{b2})</script><p>若要相交则$\begin{cases}x_{c1}<x_{c2}\\y_{c1}>y_{c2}\end{cases}$，即</x_{c2}\\y_{c1}></p>
 <script type="math/tex; mode=display">
 \begin{cases}
 max(x_{a1},x_{b1})<min(x_{a2},x_{b2})\\
@@ -655,7 +655,7 @@ x^2+y^2=r^2</script><p>线的参数方程$x=x(t),y=y(t),z=z(t)$</p>
 <p>代入解方程t</p>
 <h2 id="判断点在多边形内部"><a href="#判断点在多边形内部" class="headerlink" title="判断点在多边形内部"></a>判断点在多边形内部</h2><p>根据向量叉乘，按照逆时针（顺时针）取向量进行叉乘，所得值同号，则说明点在多边形内部。</p>
 <p>即判断方式为：取向量AB和AP、BC和BP、CD和CP、DE和DP、EA和EP进行叉乘，判断所得值是否同号。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200113093410275.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdV9mZW5nX3ppXw==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="img" style="zoom:50%;" /></p>
+<p><img src="https://img-blog.csdnimg.cn/20200113093410275.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdV9mZW5nX3ppXw==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="img" style="zoom:50%;"></p>
 <h2 id="三角形相关"><a href="#三角形相关" class="headerlink" title="三角形相关"></a>三角形相关</h2><p>已知三角形三顶点A$(x_1,y_1)$，B$(x_2,y_2)$，C$(x_3,y_3)$</p>
 <p>$\vec{AB}=(x_2-x_1,y_2-y_1,z_2-z_1)$，$\vec{AC}=(x_3-x_1,y_3-y_1,z_3-z_1)$</p>
 <h3 id="单位法向量"><a href="#单位法向量" class="headerlink" title="单位法向量"></a>单位法向量</h3><p>$\frac{\vec{AB}\times\vec{AC}}{|{\vec{AB}\times\vec{AC}}|}$</p>
@@ -1009,5 +1009,5 @@ u_z & v_z & n_z & 0\\
     });
 </script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>

@@ -25,8 +25,8 @@
 <meta property="og:site_name" content="31&#39;s Blog">
 <meta property="og:description" content="2021-2022学年复习操作系统期间整理的笔记">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:/Users/31/AppData/Roaming/Typora/typora-user-images/image-20211213182347015.png">
-<meta property="og:image" content="c:/Users/31/AppData/Roaming/Typora/typora-user-images/image-20211214105624902.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/01/15/OSreview/Users/31/AppData/Roaming/Typora/typora-user-images/image-20211213182347015.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/01/15/OSreview/Users/31/AppData/Roaming/Typora/typora-user-images/image-20211214105624902.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/d09b292358084ef58e99d51176978e21.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAa2Fyc2hleQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="og:image" content="https://img2020.cnblogs.com/blog/2083141/202008/2083141-20200803171427603-732589443.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201008202949487.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNTg3NzQw,size_16,color_FFFFFF,t_70#pic_center">
@@ -37,7 +37,7 @@
 <meta property="article:tag" content="review">
 <meta property="article:tag" content="OS">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="c:/Users/31/AppData/Roaming/Typora/typora-user-images/image-20211213182347015.png">
+<meta name="twitter:image" content="http://uuunni.github.io/2022/01/15/OSreview/Users/31/AppData/Roaming/Typora/typora-user-images/image-20211213182347015.png">
   
   
   <title>SDU操作系统复习笔记 - 31&#39;s Blog</title>
@@ -350,7 +350,7 @@
 <p>需要硬件支持：基地址寄存器、限长寄存器、MMU</p>
 </li>
 </ul>
-<h3 id="进程转换图"><a href="#进程转换图" class="headerlink" title="进程转换图"></a>进程转换图</h3><p><img src="C:\Users\31\AppData\Roaming\Typora\typora-user-images\image-20211213182347015.png" srcset="/img/loading.gif" lazyload alt="image-20211213182347015"></p>
+<h3 id="进程转换图"><a href="#进程转换图" class="headerlink" title="进程转换图"></a>进程转换图</h3><p><img src="/2022/01/15/OSreview/Users\31\AppData\Roaming\Typora\typora-user-images\image-20211213182347015.png" srcset="/img/loading.gif" lazyload alt="image-20211213182347015"></p>
 <h3 id="进程与线程的区别和联系"><a href="#进程与线程的区别和联系" class="headerlink" title="进程与线程的区别和联系"></a>进程与线程的区别和联系</h3><p>一个线程只能属于一个进程，而一个线程可以有多个线程且至少有一个线程</p>
 <p>线程是操作系统最小的调度单位，进程是操作系统最小的资源分配单位</p>
 <p>同一进程的所有线程共享该进程的所有资源</p>
@@ -420,7 +420,7 @@
 <li>间接通信：对方可以不同时在线，通信前建立邮箱</li>
 </ul>
 <h3 id="图示说明页式存储管理系统对页面共享的方法，并说明共享代码和共享数据有何限制条件"><a href="#图示说明页式存储管理系统对页面共享的方法，并说明共享代码和共享数据有何限制条件" class="headerlink" title="图示说明页式存储管理系统对页面共享的方法，并说明共享代码和共享数据有何限制条件"></a>图示说明页式存储管理系统对页面共享的方法，并说明共享代码和共享数据有何限制条件</h3><p>不同作业指向相同的页框号</p>
-<p><img src="C:\Users\31\AppData\Roaming\Typora\typora-user-images\image-20211214105624902.png" srcset="/img/loading.gif" lazyload alt="image-20211214105624902"></p>
+<p><img src="/2022/01/15/OSreview/Users\31\AppData\Roaming\Typora\typora-user-images\image-20211214105624902.png" srcset="/img/loading.gif" lazyload alt="image-20211214105624902"></p>
 <p>由于页不是代码的逻辑单元，所以需要将逻辑单元对齐页边界</p>
 <h3 id="CPU和操作系统在分页中各自承担了哪些工作"><a href="#CPU和操作系统在分页中各自承担了哪些工作" class="headerlink" title="CPU和操作系统在分页中各自承担了哪些工作"></a>CPU和操作系统在分页中各自承担了哪些工作</h3><p>CPU生成逻辑地址，分为页表和页偏移量两个部分；当一个进程可分配到CPU时，CPU调度程序可以根据页表副本来定义硬件页表</p>
 <p>操作系统为每个进程维护一个页表的副本用于将逻辑地址转变成物理地址；管理物理内存，维护物理内存的分配信息保存在帧表中；</p>
@@ -963,5 +963,5 @@
     });
 </script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
