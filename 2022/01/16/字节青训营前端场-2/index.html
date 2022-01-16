@@ -18,26 +18,26 @@
   <meta name="author" content="31">
   <meta name="keywords" content="">
   
-    <meta name="description" content="简要介绍前端；讲一些HTML基础，半小时无法速成，建议转菜鸟教程慢慢学；前端语义化">
+    <meta name="description" content="速通CSS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="字节青训营前端场#1 [前端与HTML]">
-<meta property="og:url" content="http://uuunni.github.io/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-1/index.html">
+<meta property="og:title" content="字节青训营前端场#2 [理解CSS]">
+<meta property="og:url" content="http://uuunni.github.io/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/index.html">
 <meta property="og:site_name" content="31&#39;s Blog">
-<meta property="og:description" content="简要介绍前端；讲一些HTML基础，半小时无法速成，建议转菜鸟教程慢慢学；前端语义化">
+<meta property="og:description" content="速通CSS">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://uuunni.github.io/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-1/title.png">
-<meta property="og:image" content="http://uuunni.github.io/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-1/list.png">
-<meta property="og:image" content="http://uuunni.github.io/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-1/content.png">
-<meta property="article:published_time" content="2022-01-16T00:51:55.000Z">
-<meta property="article:modified_time" content="2022-01-16T01:48:26.087Z">
+<meta property="og:image" content="http://uuunni.github.io/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/ex1.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/workflow.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/combinators.png">
+<meta property="article:published_time" content="2022-01-16T07:44:16.000Z">
+<meta property="article:modified_time" content="2022-01-16T08:29:25.242Z">
 <meta property="article:author" content="31">
 <meta property="article:tag" content="字节">
-<meta property="article:tag" content="HTML">
+<meta property="article:tag" content="CSS">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://uuunni.github.io/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-1/title.png">
+<meta name="twitter:image" content="http://uuunni.github.io/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/ex1.png">
   
   
-  <title>字节青训营前端场#1 [前端与HTML] - 31&#39;s Blog</title>
+  <title>字节青训营前端场#2 [理解CSS] - 31&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -182,7 +182,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="字节青训营前端场#1 [前端与HTML]">
+            <span class="h2" id="subtitle" title="字节青训营前端场#2 [理解CSS]">
               
             </span>
 
@@ -192,8 +192,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-01-16 08:51" pubdate>
-        2022年1月16日 早上
+      <time datetime="2022-01-16 15:44" pubdate>
+        2022年1月16日 下午
       </time>
     </span>
   
@@ -203,7 +203,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      361 字
     </span>
   
 
@@ -212,7 +212,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10 分钟
+      4 分钟
     </span>
   
 
@@ -249,91 +249,20 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">字节青训营前端场#1 [前端与HTML]</h1>
+            <h1 style="display: none">字节青训营前端场#2 [理解CSS]</h1>
             
             <div class="markdown-body">
-              <h1 id="什么是前端？"><a href="#什么是前端？" class="headerlink" title="什么是前端？"></a>什么是前端？</h1><ul>
-<li>解决GUI人机交互问题</li>
-<li>跨终端<ul>
-<li>PC/移动浏览器</li>
-<li>客户端/小程序</li>
-<li>VR/AR等</li>
-</ul>
-</li>
-<li>Web技术栈</li>
-</ul>
-<h1 id="前端技术栈"><a href="#前端技术栈" class="headerlink" title="前端技术栈"></a>前端技术栈</h1><ul>
-<li><p>HTML(内容)</p>
-</li>
-<li><p>CSS(样式)</p>
-</li>
-<li><p>JavaScript(行为)</p>
-</li>
-</ul>
-<h1 id="前端应该关注哪些方面？"><a href="#前端应该关注哪些方面？" class="headerlink" title="前端应该关注哪些方面？"></a>前端应该关注哪些方面？</h1><ul>
-<li><p>功能</p>
-</li>
-<li><p>美观</p>
-</li>
-<li><p>无障碍</p>
-</li>
-<li>安全</li>
-<li>性能</li>
-<li>兼容性</li>
-</ul>
-<h1 id="HTML是什么？"><a href="#HTML是什么？" class="headerlink" title="HTML是什么？"></a>HTML是什么？</h1><p>HyperText ：超文本（图片、标题、链接、表格）</p>
-<p>Markup Language ：标记语言（<code>&lt;h1&gt;文章标题&lt;h1&gt;</code>）</p>
-<h1 id="HTML语法"><a href="#HTML语法" class="headerlink" title="HTML语法"></a>HTML语法</h1><ul>
-<li>标签和属性不区分大小写，推荐小写</li>
-<li>空标签可以不闭合，比如<code>input</code>、<code>meta</code></li>
-<li>属性值推荐用双引号包裹</li>
-<li>某些属性值可以忽略，比如<code>required</code>、<code>readonly</code></li>
-</ul>
-<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p><code>&lt;h1&gt;~&lt;h6&gt;</code></p>
-<p><img src="/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-1/title.png" srcset="/img/loading.gif" lazyload alt="标题"></p>
-<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>有序列表<code>&lt;ol&gt;&lt;li&gt;</code></p>
-<p>无序列表<code>&lt;ul&gt;&lt;li&gt;</code></p>
-<p>定义列表<code>&lt;dl&gt;&lt;dt&gt;&lt;dd&gt;</code></p>
-<p><img src="/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-1/list.png" srcset="/img/loading.gif" lazyload alt="列表"></p>
-<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><code>&lt;a href=&quot;http://31wu.top/&quot;&gt; 31&#39;s Blog &lt;a&gt;</code></p>
-<h2 id="多媒体"><a href="#多媒体" class="headerlink" title="多媒体"></a>多媒体</h2><p><code>&lt;img src=&quot;&quot; alt=&quot;替代性文本&quot; width=&quot;&quot;/&gt;</code></p>
-<p><code>&lt;audio src=&quot;&quot; controls&gt;&lt;/audio&gt;</code></p>
-<p><code>&lt;video src=&quot;&quot; constrols&gt;&lt;/video&gt;</code></p>
-<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p><code>&lt;input placeholder=&quot;请输入&quot;&gt;</code></p>
-<p><code>&lt;input type=&quot;range&quot;&gt;</code></p>
-<p><code>&lt;input type=&quot;number&quot; min=&quot;1&quot; max=&quot;10&quot;&gt;</code></p>
-<p><code>&lt;input type=&quot;date&quot; min=&quot;2001-10-10&quot;&gt;</code></p>
-<p><code>&lt;textarea&gt;Hey&lt;/textarea&gt;</code></p>
-<h2 id="内容划分"><a href="#内容划分" class="headerlink" title="内容划分"></a>内容划分</h2><p><img src="/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-1/content.png" srcset="/img/loading.gif" lazyload alt="内容划分"></p>
-<h2 id="……"><a href="#……" class="headerlink" title="……"></a>……</h2><p><a target="_blank" rel="noopener" href="https://www.runoob.com/html/html-tutorial.html">HTML 教程 | 菜鸟教程 (runoob.com)</a></p>
-<h1 id="语义化是什么？"><a href="#语义化是什么？" class="headerlink" title="语义化是什么？"></a>语义化是什么？</h1><ul>
-<li>HTML中的元素、属性及属性值都拥有某些含义</li>
-<li>开发者应该遵循语义来编写HTML<ul>
-<li>有序列表用<code>ol</code>；无序列表用<code>ul</code></li>
-<li><code>lang</code>属性表示内容所使用的语言</li>
-</ul>
-</li>
-</ul>
-<h1 id="谁在使用我们写的HTML？"><a href="#谁在使用我们写的HTML？" class="headerlink" title="谁在使用我们写的HTML？"></a>谁在使用我们写的HTML？</h1><ul>
-<li>开发者 - 修改、维护页面</li>
-<li>浏览器 - 展示页面</li>
-<li>搜索引擎 - 提取关键词、排序</li>
-<li>屏幕阅读器 - 给盲人读页面内容</li>
-</ul>
-<h1 id="语义化的好处"><a href="#语义化的好处" class="headerlink" title="语义化的好处"></a>语义化的好处</h1><ul>
-<li>代码可读性</li>
-<li>可维护性</li>
-<li>搜索引擎优化</li>
-<li>提升无障碍性</li>
-</ul>
-<h1 id="如何做到语义化？"><a href="#如何做到语义化？" class="headerlink" title="如何做到语义化？"></a>如何做到语义化？</h1><p>推荐阅读<a target="_blank" rel="noopener" href="https://www.w3.org/">W3C</a>、<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/">MDN</a>文档</p>
+              <h1 id="CSS是什么？"><a href="#CSS是什么？" class="headerlink" title="CSS是什么？"></a>CSS是什么？</h1><p>Cascading Style Sheets</p>
+<p>用来定义页面元素的样式</p>
 <ul>
-<li><p>了解每个标签和属性的含义</p>
-</li>
-<li><p>思考什么标签最适合描述这个内容</p>
-</li>
-<li>不使用可视化工具生成代码</li>
+<li>设置字体和颜色</li>
+<li>设置位置和大小</li>
+<li>添加动画效果</li>
 </ul>
+<p><img src="/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/ex1.png" srcset="/img/loading.gif" lazyload alt="样例"></p>
+<h1 id="在页面中使用CSS"><a href="#在页面中使用CSS" class="headerlink" title="在页面中使用CSS"></a>在页面中使用CSS</h1><figure class="highlight html"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 外链 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/assets/style.css&quot;</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- 嵌入 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css"></span><br><span class="css">	<span class="hljs-selector-tag">li</span> &#123; <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>; <span class="hljs-attribute">list-style</span>: none; &#125;</span><br><span class="css">	<span class="hljs-selector-tag">p</span> &#123; <span class="hljs-attribute">margin</span>: lem <span class="hljs-number">0</span>; &#125;</span><br><span class="css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- 内联 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;margin:lem 0&quot;</span>&gt;</span>Example Content<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
+<h1 id="CSS是如何工作的"><a href="#CSS是如何工作的" class="headerlink" title="CSS是如何工作的"></a>CSS是如何工作的</h1><p><img src="/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/workflow.png" srcset="/img/loading.gif" lazyload alt="CSS的工作流"></p>
+<h1 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h1><p><img src="/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/combinators.png" srcset="/img/loading.gif" lazyload alt="组合语法"></p>
 
             </div>
             <hr>
@@ -353,7 +282,7 @@
                     
                       <a class="hover-with-bg" href="/tags/%E5%AD%97%E8%8A%82/">字节</a>
                     
-                      <a class="hover-with-bg" href="/tags/HTML/">HTML</a>
+                      <a class="hover-with-bg" href="/tags/CSS/">CSS</a>
                     
                   </div>
                 
@@ -368,7 +297,7 @@
               
                 <p class="note note-info" style="background: #2e3a49; color: #eee;">
                 <strong>本文作者: </strong><a href="/">31</a> <br>
-                <strong>本文链接: </strong><a href="http://uuunni.github.io/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-1/">http://uuunni.github.io/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-1/</a> <br>
+                <strong>本文链接: </strong><a href="http://uuunni.github.io/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/">http://uuunni.github.io/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/</a> <br>
                 <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
                 </p>
               
@@ -378,18 +307,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">字节青训营前端场#2 [理解CSS]</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/01/15/MLmemory/">
-                        <span class="hidden-mobile">SDU机器学习试题回忆</span>
+                      <a href="/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-1/">
+                        <span class="hidden-mobile">字节青训营前端场#1 [前端与HTML]</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

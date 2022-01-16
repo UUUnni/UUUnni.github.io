@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>字节青训营前端场#2 [理解CSS]</title>
+    <link href="/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/"/>
+    <url>/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/</url>
+    
+    <content type="html"><![CDATA[<h1 id="CSS是什么？"><a href="#CSS是什么？" class="headerlink" title="CSS是什么？"></a>CSS是什么？</h1><p>Cascading Style Sheets</p><p>用来定义页面元素的样式</p><ul><li>设置字体和颜色</li><li>设置位置和大小</li><li>添加动画效果</li></ul><p><img src="/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/ex1.png" alt="样例"></p><h1 id="在页面中使用CSS"><a href="#在页面中使用CSS" class="headerlink" title="在页面中使用CSS"></a>在页面中使用CSS</h1><figure class="highlight html"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 外链 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/assets/style.css&quot;</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- 嵌入 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css"></span><br><span class="css"><span class="hljs-selector-tag">li</span> &#123; <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>; <span class="hljs-attribute">list-style</span>: none; &#125;</span><br><span class="css"><span class="hljs-selector-tag">p</span> &#123; <span class="hljs-attribute">margin</span>: lem <span class="hljs-number">0</span>; &#125;</span><br><span class="css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- 内联 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;margin:lem 0&quot;</span>&gt;</span>Example Content<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></div></td></tr></table></figure><h1 id="CSS是如何工作的"><a href="#CSS是如何工作的" class="headerlink" title="CSS是如何工作的"></a>CSS是如何工作的</h1><p><img src="/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/workflow.png" alt="CSS的工作流"></p><h1 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h1><p><img src="/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-2/combinators.png" alt="组合语法"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>字节</tag>
+      
+      <tag>CSS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>字节青训营前端场#1 [前端与HTML]</title>
     <link href="/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-1/"/>
     <url>/2022/01/16/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%89%8D%E7%AB%AF%E5%9C%BA-1/</url>
