@@ -28,8 +28,11 @@
 <meta property="og:image" content="http://uuunni.github.io/2022/01/18/SEEDB%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Figure_1.png">
 <meta property="og:image" content="http://uuunni.github.io/2022/01/18/SEEDB%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Figure_2.png">
 <meta property="og:image" content="http://uuunni.github.io/2022/01/18/SEEDB%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Figure_3.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/01/18/SEEDB%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Figure_4.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/01/18/SEEDB%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Table_1.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/01/18/SEEDB%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Figure_5.png">
 <meta property="article:published_time" content="2022-01-18T01:11:49.000Z">
-<meta property="article:modified_time" content="2022-01-19T05:39:29.690Z">
+<meta property="article:modified_time" content="2022-01-20T05:59:51.606Z">
 <meta property="article:author" content="31">
 <meta property="article:tag" content="可视化">
 <meta property="article:tag" content="推荐">
@@ -317,7 +320,41 @@ Q2&=SELECT \ a,f(m) \ FROM\ D\ GROUP\ BY\ a\\
 Q3&=SELECT \ a,f(m),CASE\ IF\ x<10\ THEN\ 1\ ELSE\ 0\ END\\
 &as\ g1,1\ as\ g2\ FROM\ D\ GROUP\ BY\ a,g1,g2
 \end{aligned}</script><p><strong>并行查询执行</strong>：SEEDB并行执行多个视图查询，因为这些查询通常可以共享缓冲池页面，从而减少磁盘访问时间。然而，精确的并行查询数目需要考虑缓冲池争用、锁定和缓存线争用等因素进行调优。</p>
-<h2 id="5-性能评估"><a href="#5-性能评估" class="headerlink" title="5 性能评估"></a><span id="5">5 性能评估</span></h2><h2 id="6-用户研究"><a href="#6-用户研究" class="headerlink" title="6 用户研究"></a><span id="6">6 用户研究</span></h2><h2 id="7-效用指标-讨论"><a href="#7-效用指标-讨论" class="headerlink" title="7 效用指标: 讨论"></a><span id="7">7 </span>效用指标: 讨论</h2><h2 id="8-相关工作"><a href="#8-相关工作" class="headerlink" title="8 相关工作"></a><span id="8">8 相关工作</span></h2><h2 id="9-结论"><a href="#9-结论" class="headerlink" title="9 结论"></a>9 结论</h2><h2 id="10-参考文献"><a href="#10-参考文献" class="headerlink" title="10 参考文献"></a>10 参考文献</h2>
+<h3 id="4-2-基于剪枝的优化"><a href="#4-2-基于剪枝的优化" class="headerlink" title="4.2 基于剪枝的优化"></a>4.2 基于剪枝的优化</h3><p>实际上，大多数可视化都是低效用的，这意味着计算它们会浪费计算资源。因此，如前所述，在每个阶段的末尾，执行引擎使用剪枝优化来确定要丢弃哪些聚合视图。具体来说，基于到目前为止处理的数据，每个视图的部分结果被用于估计效用，而低效用的视图被删除。SEEDB执行引擎支持两种剪枝方案：第一种使用置信区间技术来绑定视图的效用；第二种使用多臂老虎机分配策略来找到顶级效用视图。</p>
+<p><strong>基于置信区间的剪枝。</strong>我们的第一个剪枝方案使用最坏情况统计置信区间来约束视图效用。这种技术（称为CI）类似于在其他背景中开发的基于top-k的剪枝算法[13,27]。我们的方案如下：在每个阶段，我们对每个聚合视图$V_i$保留一个平均效用的估计值，并在该均值附近设置一个置信区间。在一个阶段结束时，我们使用以下规则来剪枝低效用视图：<em>如果视图$V_i$的效用上界低于$k$个或更多视图的效用下界，则$V_i$被丢弃。</em>举例来说，假设一个数据集有4个视图$V_1…V_4$，我们想要找出排行前二的视图。进一步假设在阶段$i$结束时，$V_1$-$V_4$具有如图4所示的置信区间。到此为止，视图$V_1$和$V_2$的效用估计最高，可能在前二视图中。视图$V_3$目前不在前二中，但它的置信区间与前二重叠，这使得$V_3$有可能取代$V_1$或$V_2$。另一方面，$V_4$的置信区间完全低于$V_1$和$V_2$的置信区间。因为我们很大程度上可以断言$V_4$的效用在它的置信区间内，也就是说，$V_4$的效用很有可能比$V_1$和$V_2$的效用都低，它也不会出现在前二视图中。我们的修剪方案的伪代码可以在我们的技术报告[37]中找到。</p>
+<p><img src="/2022/01/18/SEEDB%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Figure_4.png" srcset="/img/loading.gif" lazyload alt="Figure 4: Confidence Interval based Pruning"></p>
+<p>我们使用从Hoeffding-Serfling不等式[34]得到的最坏情况下的置信区间。这个不等式声明了假设给定$[0,1]$上均值为$\mu$的$N$个值$y_1,…,y_N$，而且有$m$个不需要替代的值$Y_1,…,Y_m$，然后我们可以计算这$m$个值的当前均值附近的运行置信区间，使得$N$的实际均值总是以$1-\delta$的概率在这个置信区间内：</p>
+<p><em>定理4.1    $\forall \delta&gt;0$，对于$1\le m\le N-1$，定义</em></p>
+<script type="math/tex; mode=display">
+\epsilon_m=\sqrt{\frac{(1-\frac{m-1}{N})(2\log\log(m)+\log(\pi^2/3\delta))}{2m}}\\
+then: Pr[\exist m,1\le m\le N: |\frac{\sum_{i=1}^mY_i}{m}-\mu|>\epsilon_m]\le \delta</script><p>在我们的设置中，每个$Y_i$对应的是根据迄今为止看到的记录计算出的效用估计值。</p>
+<p><strong>基于多臂老虎机的剪枝。</strong>我们的第二个剪枝方案采用了一个多臂老虎机策略[38]。在MAB中，一种在线算法通过一系列的试验从一组可选臂中重复地进行选择来最大化回报。我们注意到，这是老虎机策略第一次被应用于识别有趣的可视化效果的问题。</p>
+<p>最近研究的MAB变体集中于寻找具有最高平均奖励的臂[5,4]。这种变化与SEEDB处理的问题相同：我们的目标是找到可视化（臂）和最高的效用（奖励）。具体来说，我们采用[5]的连续接受和拒绝算法来寻找具有最高平均奖励的臂。在每个阶段结束时，仍在考虑中的视图按其效用平均值排序。然后我们计算出效用平均值之间的两个差异：$\Delta_1$是最高均值和第$k+1$高均值的差值，$\Delta_n$是最低均值和第$k$高均值的差。如果$\Delta_1$比$\Delta_n$大，那么均值最高的视图被”接受”为top-k的一部分（它不再参与剪枝计算）。另一方面，如果$\Delta_n$更大，那么在运行过程中均值最低的视图将从视图集合中被丢弃。伪代码可以在技术报告[37]中找到。[5]证明了在一定的奖励分配假设下，上述技术识别出了高概率的top-k臂。</p>
+<p><strong>一致的距离函数。</strong>注意到上面描述的两个修剪方案在其他设置中都有前提条件，这些条件不会直接转移到我们的设置中。比如，MAB设置假设每个试验的样本来自一个固定的底层分布，而实际上我们的试验对应于$m$个分布（组）中的随机值，它们聚合在一起形成给定视图的效用估计。在我们的评估中，我们发现尽管有这个限制，修剪方案在实践中工作得相当好。</p>
+<p>然而，我们可以得到一个较弱的前提：我们可以证明，当我们采样越来越多时，估计的效用$\hat{U}$可以任意接近于所有聚合视图的$U$。本质上，这意味着使用足够大样本的修剪算法（如CI和MAB）将以高概率删除低效用视图。我们可以这样形式化地表示这个性质。</p>
+<p><em>性质4.1（一致性）    使目标和参考可视化都有$m$个组。$\hat{U}$表示基于$m$组均匀随机样本所估计的效用值$U$。那么随着样本个数趋于$\infin$，$\hat{U}$以$1-\delta$的概率趋于$U$，$\delta$越小越好。</em></p>
+<p>我们称具有这个性质的距离函数为一致距离函数。一致的距离函数允许剪枝方案随着时间的推移收集越来越好的效用值估计（只要样本足够大）。在扩展的技术报告[37]中，我们用Hoeffding不等式证明了这个性质对于欧几里德距离是成立的。我们在5.4节和[37]的结果以经验为主地表明，基于CI和MAB的修剪方案适合各种指标，包括基于EMD的偏差、基于欧氏距离的偏差，以及根据目标分布和参考分布中各自组之间的差异对可视化进行排序的MAX_DIFF指标。</p>
+<h2 id="5-性能评估"><a href="#5-性能评估" class="headerlink" title="5 性能评估"></a><span id="5">5 性能评估</span></h2><p>在接下来的两个部分中，我们将从返回可视化时的性能和用户研究两方面对SEEDB进行评估。在这两部分中，我们报告了在表1中列出的各种真实和合成数据集上的SEEDB结果。</p>
+<p><img src="/2022/01/18/SEEDB%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Table_1.png" srcset="/img/loading.gif" lazyload alt="Table 1: Datasets used for testing"></p>
+<p>在本节中，我们将重点放在性能研究上，我们的目标是评估我们的共享和剪枝优化如何改善延迟，以及我们的剪枝优化如何影响准确性。在每个实验中，我们主要的评估指标是延迟，也就是说，SEEDB返回top-k可视化需要多长时间。对于涉及我们的剪枝策略的实验，我们通过两个额外的度量来衡量结果的质量，即准确性和效用距离（在第5.4节中进一步讨论）。因为我们期望数据布局会影响我们的优化效果，所以我们在面向行数据库（记作ROW）和面向列数据库（记作COL）上评估了我们的技术。</p>
+<p>下面的实验使用EMD距离作为我们计算偏差的距离函数。所有的实验都是在一台8 GB RAM、16核Intel Xeon E5530处理器的机器上运行的。除非另有说明，否则我们报告三次运行的平均测量结果。我们首先总结了实验结果，然后深入研究各个优化的性能结果。</p>
+<h3 id="5-1-结果总结"><a href="#5-1-结果总结" class="headerlink" title="5.1 结果总结"></a>5.1 结果总结</h3><p>图5.a和5.b通过表1中四个真实数据集(BANK、DIAB、AIR和AIR10)显示了SEEDB的表现概况。对于每个数据集，我们将显示在ROW和COL通过基本的SEEDB框架(NO OPT)存储并应用共享优化(SHARING)与剪枝优化(COMB)后的延迟。我们还展示了使用COMB (COMB_EARLY)产生早期结果的延迟，在这里，我们会在确定了top-k的可视化后返回近似结果。图5中的结果使用了置信区间(CI)修剪方案，k=10。</p>
+<p><img src="/2022/01/18/SEEDB%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Figure_5.png" srcset="/img/loading.gif" lazyload alt="Figure 5: Performance gains from all optimizations"></p>
+<ul>
+<li><p>【&gt;100X的总体提速】 我们的共享和修剪优化的结合提供了50X的提速(COMB)</p>
+<p>- 300X用于于ROW (COMB EARLY)(图5a)和10X (COMB)</p>
+<p>- 30X用于COL(COMB EARLY)(图5b)。这将小型数据集(如DIAB)的延迟从12秒缩短到200ms，大型数据集(如AIR10)的延迟从2小时缩短到数十秒。</p>
+</li>
+<li><p>【6-40X的共享提速】 共享优化(章节4.1)单独产生用于ROW的高达40X的性能增益和用于COL的6X提速</p>
+</li>
+<li><p>【5X的不损失精度的剪枝提速】 修剪优化(章节4.2)提供高达5X的额外增益。特别是，早期的结果返回能够实现对大型数据集的实时响应，例如，对于AIR, COMB_EARLY策略能使在处理完整数据集需要数十秒时，SEEDB在不到4s的时间内返回结果。我们还发现，修剪对结果的质量没有负面影响：我们的剪枝策略的效用距离(稍后定义)接近于0。</p>
+</li>
+<li><p>【乘数增益】 用于ROW存储的共享优化带来的40X增益与剪枝优化带来的5X增益相结合可以产生超过200X的总体增益(图5a)。</p>
+</li>
+<li><p>【在更大的数据集上的增益提高】AIR10 (300X)的总体增益要比BANK (10X)大得多。我们发现我们的共享优化最适合于像BANK和DIAB这样的小数据集，而COMB和COMB_EARLY对于像AIR和AIR10这样的大数据集是必不可少的。</p>
+</li>
+</ul>
+<h2 id="6-用户研究"><a href="#6-用户研究" class="headerlink" title="6 用户研究"></a><span id="6">6 用户研究</span></h2><h2 id="7-效用指标-讨论"><a href="#7-效用指标-讨论" class="headerlink" title="7 效用指标: 讨论"></a><span id="7">7 </span>效用指标: 讨论</h2><h2 id="8-相关工作"><a href="#8-相关工作" class="headerlink" title="8 相关工作"></a><span id="8">8 相关工作</span></h2><h2 id="9-结论"><a href="#9-结论" class="headerlink" title="9 结论"></a>9 结论</h2><h2 id="10-参考文献"><a href="#10-参考文献" class="headerlink" title="10 参考文献"></a>10 参考文献</h2>
             </div>
             <hr>
             <div>
