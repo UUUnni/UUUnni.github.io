@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://uuunni.github.io/2022/01/18/SEEDB%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Table_1.png">
 <meta property="og:image" content="http://uuunni.github.io/2022/01/18/SEEDB%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Figure_5.png">
 <meta property="article:published_time" content="2022-01-18T01:11:49.000Z">
-<meta property="article:modified_time" content="2022-01-20T05:59:51.606Z">
+<meta property="article:modified_time" content="2022-01-20T06:10:01.389Z">
 <meta property="article:author" content="31">
 <meta property="article:tag" content="可视化">
 <meta property="article:tag" content="推荐">
@@ -326,13 +326,13 @@ Q3&=SELECT \ a,f(m),CASE\ IF\ x<10\ THEN\ 1\ ELSE\ 0\ END\\
 <p>我们使用从Hoeffding-Serfling不等式[34]得到的最坏情况下的置信区间。这个不等式声明了假设给定$[0,1]$上均值为$\mu$的$N$个值$y_1,…,y_N$，而且有$m$个不需要替代的值$Y_1,…,Y_m$，然后我们可以计算这$m$个值的当前均值附近的运行置信区间，使得$N$的实际均值总是以$1-\delta$的概率在这个置信区间内：</p>
 <p><em>定理4.1    $\forall \delta&gt;0$，对于$1\le m\le N-1$，定义</em></p>
 <script type="math/tex; mode=display">
-\epsilon_m=\sqrt{\frac{(1-\frac{m-1}{N})(2\log\log(m)+\log(\pi^2/3\delta))}{2m}}\\
-then: Pr[\exist m,1\le m\le N: |\frac{\sum_{i=1}^mY_i}{m}-\mu|>\epsilon_m]\le \delta</script><p>在我们的设置中，每个$Y_i$对应的是根据迄今为止看到的记录计算出的效用估计值。</p>
+\varepsilon_m=\sqrt{\frac{(1-\frac{m-1}{N})(2\log\log(m)+\log(\pi^2/3\delta))}{2m}}\\
+then: Pr[\exists m,1\le m\le N: |\frac{\sum_{i=1}^mY_i}{m}-\mu|>\varepsilon_m]\le \delta</script><p>在我们的设置中，每个$Y_i$对应的是根据迄今为止看到的记录计算出的效用估计值。</p>
 <p><strong>基于多臂老虎机的剪枝。</strong>我们的第二个剪枝方案采用了一个多臂老虎机策略[38]。在MAB中，一种在线算法通过一系列的试验从一组可选臂中重复地进行选择来最大化回报。我们注意到，这是老虎机策略第一次被应用于识别有趣的可视化效果的问题。</p>
 <p>最近研究的MAB变体集中于寻找具有最高平均奖励的臂[5,4]。这种变化与SEEDB处理的问题相同：我们的目标是找到可视化（臂）和最高的效用（奖励）。具体来说，我们采用[5]的连续接受和拒绝算法来寻找具有最高平均奖励的臂。在每个阶段结束时，仍在考虑中的视图按其效用平均值排序。然后我们计算出效用平均值之间的两个差异：$\Delta_1$是最高均值和第$k+1$高均值的差值，$\Delta_n$是最低均值和第$k$高均值的差。如果$\Delta_1$比$\Delta_n$大，那么均值最高的视图被”接受”为top-k的一部分（它不再参与剪枝计算）。另一方面，如果$\Delta_n$更大，那么在运行过程中均值最低的视图将从视图集合中被丢弃。伪代码可以在技术报告[37]中找到。[5]证明了在一定的奖励分配假设下，上述技术识别出了高概率的top-k臂。</p>
 <p><strong>一致的距离函数。</strong>注意到上面描述的两个修剪方案在其他设置中都有前提条件，这些条件不会直接转移到我们的设置中。比如，MAB设置假设每个试验的样本来自一个固定的底层分布，而实际上我们的试验对应于$m$个分布（组）中的随机值，它们聚合在一起形成给定视图的效用估计。在我们的评估中，我们发现尽管有这个限制，修剪方案在实践中工作得相当好。</p>
 <p>然而，我们可以得到一个较弱的前提：我们可以证明，当我们采样越来越多时，估计的效用$\hat{U}$可以任意接近于所有聚合视图的$U$。本质上，这意味着使用足够大样本的修剪算法（如CI和MAB）将以高概率删除低效用视图。我们可以这样形式化地表示这个性质。</p>
-<p><em>性质4.1（一致性）    使目标和参考可视化都有$m$个组。$\hat{U}$表示基于$m$组均匀随机样本所估计的效用值$U$。那么随着样本个数趋于$\infin$，$\hat{U}$以$1-\delta$的概率趋于$U$，$\delta$越小越好。</em></p>
+<p><em>性质4.1（一致性）    使目标和参考可视化都有$m$个组。$\hat{U}$表示基于$m$组均匀随机样本所估计的效用值$U$。那么随着样本个数趋于$\infty$，$\hat{U}$以$1-\delta$的概率趋于$U$，$\delta$越小越好。</em></p>
 <p>我们称具有这个性质的距离函数为一致距离函数。一致的距离函数允许剪枝方案随着时间的推移收集越来越好的效用值估计（只要样本足够大）。在扩展的技术报告[37]中，我们用Hoeffding不等式证明了这个性质对于欧几里德距离是成立的。我们在5.4节和[37]的结果以经验为主地表明，基于CI和MAB的修剪方案适合各种指标，包括基于EMD的偏差、基于欧氏距离的偏差，以及根据目标分布和参考分布中各自组之间的差异对可视化进行排序的MAX_DIFF指标。</p>
 <h2 id="5-性能评估"><a href="#5-性能评估" class="headerlink" title="5 性能评估"></a><span id="5">5 性能评估</span></h2><p>在接下来的两个部分中，我们将从返回可视化时的性能和用户研究两方面对SEEDB进行评估。在这两部分中，我们报告了在表1中列出的各种真实和合成数据集上的SEEDB结果。</p>
 <p><img src="/2022/01/18/SEEDB%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Table_1.png" srcset="/img/loading.gif" lazyload alt="Table 1: Datasets used for testing"></p>
