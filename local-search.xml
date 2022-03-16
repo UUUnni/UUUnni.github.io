@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>云计算作业#2</title>
+    <link href="/2022/03/16/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A2/"/>
+    <url>/2022/03/16/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A2/</url>
+    
+    <content type="html"><![CDATA[<h1 id="列举威胁作用者有哪些，并简要说明"><a href="#列举威胁作用者有哪些，并简要说明" class="headerlink" title="列举威胁作用者有哪些，并简要说明"></a>列举威胁作用者有哪些，并简要说明</h1><h2 id="匿名攻击者"><a href="#匿名攻击者" class="headerlink" title="匿名攻击者"></a>匿名攻击者</h2><p><strong>是云中没有权限的、不被信任的云服务用户。</strong>它通常是一个<strong>外部</strong>软件程序，通过公网发动网络攻击。匿名攻击者往往诉诸绕过用户账号或窃取用户证书的手段，同时使用能确保匿名性或需要大量资源才能被检举的方法。</p><p><img src="/2022/03/16/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A2/image-20220316154044175.png" alt="anonymous attacker"></p><h2 id="恶意服务作用者"><a href="#恶意服务作用者" class="headerlink" title="恶意服务作用者"></a>恶意服务作用者</h2><p><strong>截取网络通信，试图恶意地使用或篡改数据。</strong>它通常是带有被损害的或恶意逻辑的服务代理，或是伪装成服务代理的程序，或是能够远程截取并破坏消息内容的外部程序。</p><p><img src="/2022/03/16/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A2/image-20220316154320361.png" alt="malicious service agent"></p><h2 id="授信的攻击者"><a href="#授信的攻击者" class="headerlink" title="授信的攻击者"></a>授信的攻击者</h2><p><strong>是经过授权的云服务用户，具有合法的证书。</strong>他们会滥用合法的证书或挪用敏感和保密的信息，在云的信任边界内部发动攻击，将云提供者以及与他们共享IT资源的云租户作为攻击目标。</p><p><img src="/2022/03/16/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A2/image-20220316154954084.png" alt="trusted attacker"></p><h2 id="恶意的内部人员"><a href="#恶意的内部人员" class="headerlink" title="恶意的内部人员"></a>恶意的内部人员</h2><p><strong>是试图滥用对云资源范围的访问特权的人。</strong>他们通常是现任或前任雇员，或是能够访问云提供者资源范围的第三方。这种类型的威胁作用者会带来极大的破坏的可能性，因为恶意的内部人员可能拥有访问云用户IT资源的管理特权。</p><p><img src="/2022/03/16/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A2/image-20220316155223495.png" alt="malicious insider"></p><h1 id="列举云安全威胁有哪些，并简要说明"><a href="#列举云安全威胁有哪些，并简要说明" class="headerlink" title="列举云安全威胁有哪些，并简要说明"></a>列举云安全威胁有哪些，并简要说明</h1><h2 id="流量监听"><a href="#流量监听" class="headerlink" title="流量监听"></a>流量监听</h2><p>数据在传输到云中或在云内部传输时<strong>被恶意服务作用者被动地截获</strong>，用于非法的信息收集之目的。这种攻击直接破坏了数据的保密性，可能也破坏了云用户和云提供者之间关系的保密性。由于其被动性，这种攻击更容易长时间进行而不被发现。</p><p><img src="/2022/03/16/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A2/image-20220316155745470.png" alt="traffic eavesdropping"></p><h2 id="恶意媒介"><a href="#恶意媒介" class="headerlink" title="恶意媒介"></a>恶意媒介</h2><p><strong>消息被恶意服务作用者截获并且被篡改。</strong>这种攻击可能会破坏消息的保密性和完整性，还有可能在把消息转发到目的地之前插入有害数据。</p><p><img src="/2022/03/16/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A2/image-20220316160005721.png" alt="malicious intermediary"></p><h2 id="拒绝服务"><a href="#拒绝服务" class="headerlink" title="拒绝服务"></a>拒绝服务</h2><p><strong>使IT资源过载至无法正确运行</strong>。可以由以下方式发起：</p><ul><li>发送伪造的消息或重复的通信请求使云服务上的负载不正常地增加</li><li>网络流量过载，降低响应性，性能下降</li><li>发出多个云服务请求，每个请求都设计成消耗过量的内存和处理资源</li></ul><p><img src="/2022/03/16/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A2/image-20220316160613891.png" alt="DoS"></p><p>常见的DoS攻击：</p><ul><li>TCP SYN泛洪</li><li>ping泛洪</li><li>UDP泛洪</li><li>缓冲区溢出</li><li>ICMP路由重定向炸弹</li><li>分片炸弹</li></ul><h2 id="授权不足"><a href="#授权不足" class="headerlink" title="授权不足"></a>授权不足</h2><p><strong>错误地授予了攻击者访问权限或是授权太宽泛</strong>，导致攻击者能够访问到本应受保护的IT资源。</p><p><img src="/2022/03/16/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A2/image-20220316161032041.png" alt="lack of authorization"></p><p>这种攻击的一种变种称为<strong>弱认证</strong>，如果使用弱密码或共享账户来保护IT资源就可能导致这种攻击。</p><p><img src="/2022/03/16/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A2/image-20220316161133033.png" alt="weak authentication"></p><h2 id="虚拟化攻击"><a href="#虚拟化攻击" class="headerlink" title="虚拟化攻击"></a>虚拟化攻击</h2><p>虚拟化方法使IT资源共享底层硬件但逻辑上互相独立。云提供者给予云用户对虚拟化的IT资源的管理权限，带来的风险就是<strong>云用户会滥用这种访问权限来攻击底层物理IT资源</strong>。</p><p><img src="/2022/03/16/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A2/image-20220316161535380.png" alt="virtualization attack"></p><h2 id="信任边界重叠"><a href="#信任边界重叠" class="headerlink" title="信任边界重叠"></a>信任边界重叠</h2><p>当云中的物理IT资源由多个云服务用户共享时，他们的信任边界是重叠的。<strong>恶意的云服务用户可以损害其他共享同样信任边界的云服务用户或IT资源</strong>。</p><p><img src="/2022/03/16/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A2/image-20220316161827159.png" alt="trust boundary overlapping"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>SDU</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>云计算</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>云计算作业#1</title>
     <link href="/2022/03/09/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A1/"/>
     <url>/2022/03/09/%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BD%9C%E4%B8%9A1/</url>
