@@ -1,0 +1,840 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+<script src="https://cdn.jsdelivr.net/gh/Sanarous/files@1.151/js/clicklove.js"></script>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sun.png">
+  <link rel="icon" href="/img/sun.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#252d38">
+  <meta name="author" content="31">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="2022计科操作系统课程设计实验5【扩展Nachos文件系统】">
+<meta property="og:type" content="article">
+<meta property="og:title" content="This is NACHOS#2">
+<meta property="og:url" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/index.html">
+<meta property="og:site_name" content="31&#39;s Blog">
+<meta property="og:description" content="2022计科操作系统课程设计实验5【扩展Nachos文件系统】">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220330203148356.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220330203354261.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323130711260.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220322094739607.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323131227511.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323131500024.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323132028728.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323153623437.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323153816341.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323154355512.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323192417516.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323192531213.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323192624590.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323192819418.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323192905582.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323193208886.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323193600435.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323193710627.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323193803974.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323193915926.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323194032389.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323194152122.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323194326272.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323194427520.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323195008517.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323195050848.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323195231325.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323195307639.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323195352234.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323195423461.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323195701406.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323200257908.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323200330654.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323200607481.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323200721073.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323201540449.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323201612333.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220323201937280.png">
+<meta property="article:published_time" content="2022-03-30T12:27:31.000Z">
+<meta property="article:modified_time" content="2022-03-30T12:39:10.006Z">
+<meta property="article:author" content="31">
+<meta property="article:tag" content="操作系统课程设计">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/image-20220330203148356.png">
+  
+  
+  <title>This is NACHOS#2 - 31&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/night-owl.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"uuunni.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"always","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"boxDRW3XpqvL2o48tPQxzy8N-gzGzoHsz","app_key":"t8snqjGhwT0Sery7lIU4V169","server_url":"https://boxdrw3x.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>31</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/3.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="This is NACHOS#2">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-30 20:27" pubdate>
+        2022年3月30日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.1k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      60 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">This is NACHOS#2</h1>
+            
+            <div class="markdown-body">
+              <p>目前Nachos实现的文件系统存在诸多限制，其中之一是文件大小不能扩展，即无法在已经存在的文件尾部追加数据</p>
+<p>该实验的任务就是让你修改Nachos的文件系统，以满足：</p>
+<ul>
+<li>文件创建时，其大小可初始化为0</li>
+<li>当一个文件写入更多的数据时，其大小可随之增大</li>
+<li>要求能够从一个文件的任意位置开始写入数据，即能够正确处理命令行参数<code>-ap</code> <code>-hap</code> <code>-nap</code></li>
+</ul>
+<p>例如，如果一个文件的大小为100字节，当从其偏移量50（第一个字节的偏移量是0）开始写入100个字节后，该文件的大小应该为150字节，如下图所示</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220330203148356.png" srcset="/img/loading.gif" lazyload alt="文件的扩展"></p>
+<p>Nachos的文件系统包括以下模块：</p>
+<ul>
+<li><code>class Disk</code>               //see ../machine</li>
+<li><code>class SynchDisk</code>    //see ../filesys</li>
+<li><code>class BitMap</code>          //see ../userprog</li>
+<li><code>class FileHeader</code> //see ../filesys</li>
+<li><code>class OpenFile</code>     //see ../filesys</li>
+<li><code>class Directory</code>   //see ../filesys</li>
+<li><code>class FileSystem</code> //see ../filesys</li>
+</ul>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220330203354261.png" srcset="/img/loading.gif" lazyload alt="Nachos文件系统结构"></p>
+<p>通过该实验，你需要</p>
+<ul>
+<li>理解文件系统中文件操作的实现方法，如文件打开、读、写、扩展、定位、关闭等</li>
+<li>理解如何管理硬盘空闲块</li>
+<li>理解创建文件时，如何为文件分配目录项及文件头（FCB）</li>
+<li>理解文件扩展时，如何为要扩展的数据查找并分配空闲块</li>
+<li>理解文件扩展后，文件大小是如何记录与保存的</li>
+<li>理解文件被删除后，如何回收为其分配的资源，如文件头、目录项、硬盘块等</li>
+</ul>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><ul>
+<li><code>nachos [-d f] –ap Unix_filename Nachos_filename</code><br>该命令的功能是将一个UNIX文件（unix_filename）附加到一个Nachos文件（nachos_filename）的后面，目的是用来测试当我们在一个Nachos的文件尾部追加数据后，文件大小是否会增加。</li>
+<li><code>nachos [-d f] –hap Unix_filename Nachos_filename</code><br>该命令的功能是从一个Nachos文件（nachos_filename）的中间（文件大小的1/2）位置开始，将一个UNIX文件（unix_filename）写入到该Nachos文件中。如果这个UNIX文件大于Nachos文件的一半，则该目录执行后，新的Nachos文件的大小将增加。</li>
+<li><code>nachos [-d f] –nap Nachos_filename1 Nachos_filename1</code><br>该命令的功能是将一个Nachos文件（nachos_filename1）附加到一个Nachos文件（nachos_filename2）的后面，目的是用来测试当我们在一个Nachos的文件尾部写入数据时，文件大小是否会增加。</li>
+</ul>
+<p>执行上述命令时会出现如下错误</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323130711260.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>在<code>./lab5/main.cc</code>中查看对命令行参数<code>-ap</code> <code>-hap</code> <code>-nap</code>的处理过程</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220322094739607.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>发现<code>-ap</code> <code>-hap</code>与函数<code>Append(..)</code>有关，<code>-nap</code>与函数 <code>NAppend(..)</code>有关</p>
+<p>跳转阅读<code>./lab5/fstest.cc</code>中的这两个函数，找到报错行149</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323131227511.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>发现是由于写数据结果<code>result</code>和已读数据<code>amountRead</code>不一致导致的报错</p>
+<p>找到<code>result</code>的产生位置，是<code>OpenFile::Write(..)</code>的返回结果</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323131500024.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>进入<code>OpenFile::Write(..)</code>函数内部查看，<code>result</code>实则是<code>OpenFile::WirteAt(..)</code>函数的返回结果，该函数试图从当前文件头对应的文件的指定位置<code>position</code>开始写入缓冲区<code>from</code>中<code>numBytes</code>大小的内容</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323132028728.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>分析该函数的实现：</p>
+<ul>
+<li><p>首先从当前文件的文件头中获取文件长度<code>fileLength</code></p>
+</li>
+<li><p>约束1：如果要写入的内容不存在<code>numBytes&lt;=0</code>或是开始写入的位置为文件尾或超出了文件尾<code>position&gt;=fileLength</code>，则直接退出</p>
+</li>
+<li><p>约束2：如果要写入的内容过多超出了原文件的长度<code>(position+numBytes)&gt;fileLength</code>，超出部分也不再写入</p>
+</li>
+</ul>
+<p>这两个<code>if</code>约束导致目前Nachos实现的文件系统不能对文件的大小进行扩展，所以需要对其进行修改：</p>
+<ul>
+<li>修改上面的两个约束，使Nachos文件大小可以扩展</li>
+<li>如果文件的最后一个扇区能够容纳扩展的数据，则要修改文件头中的文件长度，再将文件头写回硬盘</li>
+<li>如果文件的最后一个扇区不能够容纳扩展的数据，则要为这些数据分配新的扇区，那么就需要修改硬盘的位图和文件头中的文件长度、分配的扇区数、分配的扇区号，再将修改的内容写回硬盘</li>
+</ul>
+<p>而在<code>Append(..)</code>与 <code>NAppend(..)</code>中将文件头写回硬盘的操作<code>OpenFile::WriteBack()</code>未被实现，需要我们补充</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323153623437.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>因此文件扩展操作需要涉及的内容有：</p>
+<ul>
+<li><p>修改<code>OpenFile::WriteAt()</code>，允许从文件尾部开始写数据，并可为要写入的数据分配新的扇区</p>
+</li>
+<li><p>修改<code>FileSystem</code>类，添加空闲块位示图文件的硬盘读写操作</p>
+</li>
+<li><p>修改<code>OpenFile::OpenFile()</code>及<code>OpenFile::WriteBack()</code>，实现文件头的硬盘读写</p>
+</li>
+<li><p>修改<code>FileHeader::Allocate()</code>，为添加的数据分配硬盘块（扇区）</p>
+</li>
+<li><p>修改<code>Append()</code>和<code>NAppend()</code>，使下次的写指针指向新写入数据的尾部，并在扩展操作结束后调用<code>OpenFile::WriteBack()</code>将修改后的文件头写入硬盘</p>
+</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="修改OpenFile-WriteAt"><a href="#修改OpenFile-WriteAt" class="headerlink" title="修改OpenFile::WriteAt()"></a>修改<code>OpenFile::WriteAt()</code></h3><p>修改两个约束</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-keyword">if</span>((numBytes &lt;= <span class="hljs-number">0</span>) || (position &gt; fileLength))<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>; <br><span class="hljs-keyword">if</span>((position + numBytes) &gt; fileLength)&#123;<br>    <span class="hljs-keyword">int</span> incrementBytes = (position + numBytes) - fileLength;<br>    BitMap* freeBitMap = fileSystem-&gt;<span class="hljs-built_in">getBitMap</span>(); <span class="hljs-comment">// TODO </span><br>    <span class="hljs-keyword">bool</span> hdrRet = hdr-&gt;<span class="hljs-built_in">Allocate</span>(freeBitMap, fileLength, incrementBytes); <span class="hljs-comment">// TODO</span><br>    <span class="hljs-keyword">if</span>(!hdrRet)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    fileSystem-&gt;<span class="hljs-built_in">setBitMap</span>(freeBitMap); <span class="hljs-comment">//TODO</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>对于约束1，如果要写入的内容不存在<code>numBytes&lt;=0</code>或是开始写入的位置超出了文件尾<code>position&gt;fileLength</code>，则直接返回错误参数<code>-1</code>。这里保留了开始写入的位置为文件尾<code>position==fileLength</code>，说明文件需要扩展。</p>
+<p>对于约束2，保留超出部分的数据<code>incrementBytes</code>；获得当前硬盘的位图<code>freeBitMap</code>；检查是否有足够的空间分配给超出部分的数据，返回结果<code>hdrRet</code>；如果没有足够空间，则返回错误参数<code>-1</code>；如果有足够的空间，则将更新后的位图写回硬盘</p>
+<h3 id="修改FileSystem类"><a href="#修改FileSystem类" class="headerlink" title="修改FileSystem类"></a>修改<code>FileSystem</code>类</h3><p>添加<code>setBitMap()</code>和<code>getBitMap()</code></p>
+<p>在类<code>FileSystem</code>的构造函数中，维护了一直处于打开状态的位图文件句柄<code>OpenFile* freeMapFile</code>，我们可以直接使用它们实现对DISK的位图文件的读写操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-function">BitMap* <span class="hljs-title">FileSystem::getBitMap</span><span class="hljs-params">()</span></span>&#123;<br>    BitMap* freeBitMap = <span class="hljs-keyword">new</span> <span class="hljs-built_in">BitMap</span>(NumSectors);<br>    freeBitMap-&gt;<span class="hljs-built_in">FetchFrom</span>(freeMapFile);<br>    <span class="hljs-keyword">return</span> freeBitMap;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">FileSystem::setBitMap</span><span class="hljs-params">(BitMap* freeMap)</span></span>&#123;<br>    freeMap-&gt;<span class="hljs-built_in">WriteBack</span>(freeMapFile);<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p><code>getBitMap()</code>调用了<code>../userprog/bitmap.cc</code>中<code>BitMap</code>类的<code>FetchFrom(OpenFile *)</code></p>
+<p><code>setBitMap()</code>调用了<code>BitMap</code>类的<code>WriteBack(OpenFile *)</code>完成</p>
+<h3 id="修改OpenFile-OpenFile-及OpenFile-WriteBack"><a href="#修改OpenFile-OpenFile-及OpenFile-WriteBack" class="headerlink" title="修改OpenFile::OpenFile()及OpenFile::WriteBack()"></a>修改<code>OpenFile::OpenFile()</code>及<code>OpenFile::WriteBack()</code></h3><p>分析<code>OpenFile</code>类的构造函数</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323153816341.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>维护了一个<code>FileHeader</code>类对象<code>hdr</code>，从硬盘的指定扇区<code>sector</code>中读取了该文件的文件头，并将读写指针<code>seekPosition</code>设置为开始位置<code>0</code></p>
+<p>考虑到类<code>FileHeader</code>中有函数<code>WriteBack(int sector)</code></p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323154355512.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>为了将文件头写回硬盘，我们可以调用这个函数，实现<code>hdr-&gt;WriteBack(sector)</code></p>
+<p>而该实现需要获得该文件头所在的扇区号，所以在<code>OpenFile</code>类中定义一个私有变量<code>hdrSector</code>并维护</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++">OpenFile::<span class="hljs-built_in">OpenFile</span>(<span class="hljs-keyword">int</span> sector)<br>&#123; <br>    hdr = <span class="hljs-keyword">new</span> FileHeader;<br>    hdr-&gt;<span class="hljs-built_in">FetchFrom</span>(sector);<br>    seekPosition = <span class="hljs-number">0</span>;<br>    hdrSector = sector; <span class="hljs-comment">// ADD</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>那么，进而可以实现<code>OpenFile::WriteBack()</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">OpenFile::WriteBack</span><span class="hljs-params">()</span></span>&#123;<br>    hdr-&gt;<span class="hljs-built_in">WriteBack</span>(hdrSector);<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="修改FileHeader-Allocate"><a href="#修改FileHeader-Allocate" class="headerlink" title="修改FileHeader::Allocate()"></a>修改<code>FileHeader::Allocate()</code></h3><p>重载函数<code>FileHeader::Allocate(BitMap* freeMap, int fileSize, int incrementBytes)</code>，以根据要扩展的数据大小<code>incrementBytes</code>判断是否需要分配新的扇区块来返回结果，并更新文件头三元组</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">FileHeader::Allocate</span><span class="hljs-params">(BitMap* freeMap, <span class="hljs-keyword">int</span> fileSize, <span class="hljs-keyword">int</span> incrementBytes)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(numSectors &gt; NumDirect)<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">if</span>((fileSize == <span class="hljs-number">0</span>) &amp;&amp; (incrementBytes &gt; <span class="hljs-number">0</span>))&#123;<br>        <span class="hljs-keyword">if</span>(freeMap-&gt;<span class="hljs-built_in">NumClear</span>() &lt; <span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        dataSectors[<span class="hljs-number">0</span>] = freeMap-&gt;<span class="hljs-built_in">Find</span>();<br>        numSectors = <span class="hljs-number">1</span>;<br>        numBytes = <span class="hljs-number">0</span>;<br>    &#125;<br>    numBytes = fileSize;<br>    <span class="hljs-keyword">int</span> offset = numBytes % SectorSize;<br>    <span class="hljs-keyword">int</span> newSectorBytes = incrementBytes - (SectorSize - (offset + <span class="hljs-number">1</span>));<br>    <span class="hljs-keyword">if</span>(newSectorBytes &lt;= <span class="hljs-number">0</span>)&#123;<br>        numBytes += incrementBytes;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>    <span class="hljs-keyword">int</span> moreSectors = <span class="hljs-built_in">divRoundUp</span>(newSectorBytes, SectorSize);<br>    <span class="hljs-keyword">if</span>(numSectors + moreSectors &gt; NumDirect)<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">if</span>(freeMap-&gt;<span class="hljs-built_in">NumClear</span>() &lt; moreSectors)<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=numSectors; i&lt;numSectors+moreSectors; i++)<br>        dataSectors[i] = freeMap-&gt;<span class="hljs-built_in">Find</span>();<br>    numBytes += incrementBytes;<br>    numSectors += moreSectors;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<ul>
+<li>如果当前文件已分配的扇区数大于限制，则退出不予分配</li>
+<li>如果当前文件是空文件且要写入数据，那么首先要为该文件分配一个空闲扇区，并更新文件头信息</li>
+<li>如果当前文件最后一个扇区的剩余空间足以容纳要写入的<code>incrementBytes</code>个字节，就不需要为写入操作分配新的扇区，在最后一个扇区中写入数据即可。但要修改文件头中文件大小信息</li>
+<li>如果当前文件最后一个扇区的剩余空间无法容纳要写入的<code>incrementBytes</code>个字节，就需要为写入操作分配新的扇区，通过计算得出需要分配的扇区数<code>moreSectors</code><ul>
+<li>如果扩展后文件过大超出限制，则退出不予分配</li>
+<li>如果硬盘中没有足够的空闲扇区，则退出无法分配</li>
+<li>如果符合条件可以分配，则要更新文件头信息</li>
+</ul>
+</li>
+</ul>
+<h3 id="修改Append-和NAppend"><a href="#修改Append-和NAppend" class="headerlink" title="修改Append()和NAppend()"></a>修改<code>Append()</code>和<code>NAppend()</code></h3><p><code>Append()</code>和<code>NAppend()</code>调用了修改后的<code>OpenFile::WriteAt()</code>，<code>OpenFile::WriteAt()</code>调用了重载的<code>FileHeader::Allocate()</code>，<code>FileHeader::Allocate()</code>根据每次写入的数据修改文件头三元组，但一直在内存中，尚未写回硬盘，因此在<code>Append()</code>和<code>NAppend()</code>的写操作结束后，应该调用<code>OpenFile::WriteBack()</code>将修改后的文件头写回到硬盘的相应的扇区中</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++">openFile-&gt;<span class="hljs-built_in">WriteBack</span>();<br></code></pre></div></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ul>
+<li><p>为容易识别硬盘DISK信息的改变，修改<code>../file/test/</code>下的文件内容</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323192417516.png" srcset="/img/loading.gif" lazyload alt></p>
+</li>
+<li><p><code>nachos –f</code>  在硬盘DISK上初始化一个Nachos文件系统</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323192531213.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><code>nachos –D</code> </p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323192624590.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>考察Nachos在硬盘DISK上初始化的文件系统情况：</p>
+<ul>
+<li>空闲块位图的头文件（0号扇区）</li>
+<li>空闲块位图文件数据块（2号扇区）</li>
+<li>目录表头文件（1号扇区）</li>
+<li>目录表数据块（3、4号扇区)</li>
+</ul>
+</li>
+<li><p><code>nachos –cp test/small small</code>复制test目录下的UNIX文件small到DISK中</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323192819418.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><code>nachos –D</code> </p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323192905582.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>查看硬盘DISK中的文件信息：</p>
+<ul>
+<li><p>空闲块位图的头文件（0号扇区）</p>
+</li>
+<li><p>空闲块位图文件数据块（2号扇区）</p>
+</li>
+<li><p>目录表头文件（1号扇区）</p>
+</li>
+<li><p>目录表数据块（3、4号扇区）</p>
+</li>
+<li><p>文件small的头文件（5号扇区）</p>
+</li>
+<li><p>文件small的数据块（6号扇区）</p>
+</li>
+</ul>
+</li>
+<li><p><code>nachos –ap test/small small</code> 测试给一个已存在的文件追加数据</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323193208886.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><code>nachos –D</code>  查看硬盘DISK中的文件信息</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323193600435.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>系统成功将small文件的内容扩展到small文件原扇区的剩余空间中</p>
+</li>
+<li><p><code>nachos –ap test/big small</code> 测试为文件分配新扇区的功能</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323193710627.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><code>nachos –D</code> 以及 <code>hexdump -C DISK</code>查看硬盘DISK中的文件信息</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323193803974.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323193915926.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>系统将samll文件原扇区的剩余空间写满后，为small分配新的扇区块，写入big的内容</p>
+</li>
+<li><p><code>nachos –ap test/medium medium</code>，测试给一个空文件追加数据的功能</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323194032389.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><code>nachos –D</code>  查看硬盘DISK中的文件信息</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323194152122.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>如果DISK中不存在文件，将会自动创建一个空的文件，然后将源文件内容追加到Nachos空文件中</p>
+</li>
+<li><p><code>nachos –ap test/big small</code> 测试Nachos为small新分配的扇区块的位置</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323194326272.png" srcset="/img/loading.gif" lazyload alt></p>
+</li>
+<li><p><code>nachos –D</code>查看硬盘DISK中的文件信息</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323194427520.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>在执行它之前，由于small的数据块之后的扇区是medium文件的文件头及其数据块，因此，系统会在medium文件之后为small分配新的扇区10</p>
+<p>Nachos的文件系统采取索引分配文件数据块的方式，文件的数据块在硬盘上可以是非连续存放的，这使文件的扩展易于实现</p>
+</li>
+<li><p><code>nachos –hap test/medium small</code> 测试从small的中间写入文件的功能</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323195008517.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><code>nachos –D</code> 查看硬盘DISK中的文件信息</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323195050848.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>系统成功在small的中间写入文件<code>test/medium</code>的内容</p>
+</li>
+<li><p><code>nachos –nap medium small</code> 测试将一个nachos文件附加到另一个nachos文件的功能</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323195231325.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><code>nachos –D</code> 查看硬盘DISK中的文件信息</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323195307639.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>系统成功将nachos文件medium附加到nachos文件small的尾部</p>
+</li>
+<li><p><code>nachos –r small</code> 测试文件删除功能</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323195352234.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><code>nachos –D</code> 及<code>hexdump –C DISK</code>查看硬盘DISK中的文件信息</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323195423461.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>原来的small文件相关信息都消失不见，其他文件信息保持不变</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323195701406.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>位示图数据块：值变为<code>0x31f</code>，即<code>1100011111</code>，表示5号、6号、7号扇区空闲，即为原small文件的文件头和数据部分占用的扇区</p>
+<p>目录表数据块：<code>inUse</code>值变为0，表示为原small文件分配的目录项空闲，而其他内容保持不变</p>
+<p>small的文件头以及small文件内容：均被保留</p>
+</li>
+<li><p>测试<code>nachos –l</code>（列目录）命令</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323200257908.png" srcset="/img/loading.gif" lazyload alt></p>
+</li>
+<li><p>测试<code>nachos –p</code> （显示文件内容）命令</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323200330654.png" srcset="/img/loading.gif" lazyload alt></p>
+</li>
+<li><p>反复运行<code>nachos –ap test/big small</code> 测试nachos文件系统中对一个文件长度的限制</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323200607481.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><code>nachos –D</code> 查看硬盘DISK中的文件信息</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323200721073.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>一个文件最多可分配30个扇区，每个扇区128字节，因此理论上文件最大限制为3840B</p>
+<p>但测试中small文件大小为3832B，因为写文件的过程中不是逐字节写入的，而是使用了一个10B大小的缓冲区。big文件大小为99B，所以在38次追加big文件后，small文件达到3762B，而在第39次追加big文件时，每10B写入small文件，当写入70B后达到3832B，这之后再想写入10B则会超过限额3840B，则不进行该次写入操作，最终small文件的大小即为3832B</p>
+</li>
+<li><p>反复运行<code>nachos –ap</code> 在硬盘DISK上新建文件，测试nachos文件系统中最多可创建多少个文件</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323201540449.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323201612333.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>报错之后共有10个文件，因为nachos采用一级目录，最多有10个目录项，因此最多可存储10个文件</p>
+</li>
+<li><p>测试创建一个大小为0的文件</p>
+<p><img src="/2022/03/30/This-is-NACHOS-2/image-20220323201937280.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>将空文件<code>test/empty</code>复制到硬盘中，使用<code>nachos -D</code>查看DISK中的文件信息，发现empty文件的大小为0，没有为它分配数据块</p>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/SDU/">SDU</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">操作系统课程设计</a>
+                    
+                  </div>
+                
+              </div>
+              <!-- 
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+               -->
+              
+                <p class="note note-info" style="background: #2e3a49; color: #eee;">
+                <strong>本文作者: </strong><a href="/">31</a> <br>
+                <strong>本文链接: </strong><a href="http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/">http://uuunni.github.io/2022/03/30/This-is-NACHOS-2/</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                </p>
+              
+
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/28/This-is-NACHOS-1/">
+                        <span class="hidden-mobile">This is NACHOS#1</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"QJtn4PrebEYsIJPwEkfclcO0-gzGzoHsz","appKey":"kdxH4zfnh96BgUrFbIGbhUVE","path":"window.location.pathname","placeholder":"留下点什么叭... ᶘ ᵒᴥᵒᶅ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<div class="text-center">
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("01/15/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "🚀 for&nbsp"+dnum+"&nbspdays";  //此次自定义显示内容
+      document.getElementById("times").innerHTML = hnum + "&nbsphr&nbsp" + mnum + "&nbspmin&nbsp" + snum + "&nbspsec";
+  }  //此次自定义显示内容
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

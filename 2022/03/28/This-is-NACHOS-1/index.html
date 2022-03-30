@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://uuunni.github.io/2022/03/28/This-is-NACHOS-1/image-20220316192918500.png">
 <meta property="og:image" content="http://uuunni.github.io/2022/03/28/This-is-NACHOS-1/image-20220316193020855.png">
 <meta property="article:published_time" content="2022-03-28T01:12:51.000Z">
-<meta property="article:modified_time" content="2022-03-28T01:30:39.105Z">
+<meta property="article:modified_time" content="2022-03-30T12:40:32.122Z">
 <meta property="article:author" content="31">
 <meta property="article:tag" content="操作系统课程设计">
 <meta name="twitter:card" content="summary_large_image">
@@ -278,7 +278,7 @@
 <li>分析目前Nachos不能对文件进行扩展的原因，考虑解决方案</li>
 </ul>
 <h2 id="理解Nachos创建硬盘的过程与方法"><a href="#理解Nachos创建硬盘的过程与方法" class="headerlink" title="理解Nachos创建硬盘的过程与方法"></a>理解Nachos创建硬盘的过程与方法</h2><p>../lab5/main.cc调用了../threads/system.cc中的<code>Initialize()</code>创建了硬盘DISK</p>
-<p><img src="/2022/03/28/This-is-NACHOS-1/image-20220316101048494.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
+<p><img src="/2022/03/28/This-is-NACHOS-1/image-20220316101048494.png" srcset="/img/loading.gif" lazyload alt></p>
 <p><code>SynchDisk</code>的初始化函数如下：</p>
 <figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-comment">// ../filesys/synchdisk.cc</span><br>SynchDisk::<span class="hljs-built_in">SynchDisk</span>(<span class="hljs-keyword">char</span>* name)<br>&#123;<br>    semaphore = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Semaphore</span>(<span class="hljs-string">&quot;synch disk&quot;</span>, <span class="hljs-number">0</span>);<br>    lock = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Lock</span>(<span class="hljs-string">&quot;synch disk lock&quot;</span>);<br>    disk = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Disk</span>(name, DiskRequestDone, (_int) <span class="hljs-keyword">this</span>);<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>初始化了物理硬盘的同步接口：用于同步的信号量和互斥锁</p>
@@ -286,7 +286,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-comment">// ../machine/disk.cc</span><br>Disk::<span class="hljs-built_in">Disk</span>(<span class="hljs-keyword">char</span>* name, VoidFunctionPtr callWhenDone, _int callArg)<br>&#123;<br>    <span class="hljs-keyword">int</span> magicNum;<br>    <span class="hljs-keyword">int</span> tmp = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-built_in">DEBUG</span>(<span class="hljs-string">&#x27;d&#x27;</span>, <span class="hljs-string">&quot;Initializing the disk, 0x%x 0x%x\n&quot;</span>, callWhenDone, callArg);<br>    handler = callWhenDone;<br>    handlerArg = callArg;<br>    lastSector = <span class="hljs-number">0</span>;<br>    bufferInit = <span class="hljs-number">0</span>;<br>    <br>    fileno = <span class="hljs-built_in">OpenForReadWrite</span>(name, FALSE);<br>    <span class="hljs-keyword">if</span> (fileno &gt;= <span class="hljs-number">0</span>) &#123;		 	<span class="hljs-comment">// file exists, check magic number </span><br>	<span class="hljs-built_in">Read</span>(fileno, (<span class="hljs-keyword">char</span> *) &amp;magicNum, MagicSize);<br>	<span class="hljs-built_in">ASSERT</span>(magicNum == MagicNumber);<br>    &#125; <span class="hljs-keyword">else</span> &#123;				<span class="hljs-comment">// file doesn&#x27;t exist, create it</span><br>        fileno = <span class="hljs-built_in">OpenForWrite</span>(name);<br>	magicNum = MagicNumber;  <br>	<span class="hljs-built_in">WriteFile</span>(fileno, (<span class="hljs-keyword">char</span> *) &amp;magicNum, MagicSize); <span class="hljs-comment">// write magic number</span><br><br>	<span class="hljs-comment">// need to write at end of file, so that reads will not return EOF</span><br>        <span class="hljs-built_in">Lseek</span>(fileno, DiskSize - <span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(<span class="hljs-keyword">int</span>), <span class="hljs-number">0</span>);	<br>	<span class="hljs-built_in">WriteFile</span>(fileno, (<span class="hljs-keyword">char</span> *)&amp;tmp, <span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(<span class="hljs-keyword">int</span>));  <br>    &#125;<br>    active = FALSE;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>打开一个UNIX文件（若不存在则创建）用于读写，向该文件写入一个<code>magicNum</code>来标识该文件是一个硬盘存储文件，并在该文件最末尾写入<code>0</code>标记文件结束，腾出存储空间</p>
 <h2 id="了解Nachos文件系统提供的命令并测试"><a href="#了解Nachos文件系统提供的命令并测试" class="headerlink" title="了解Nachos文件系统提供的命令并测试"></a>了解Nachos文件系统提供的命令并测试</h2><p>分析../lab5/main.cc</p>
-<p><img src="/2022/03/28/This-is-NACHOS-1/image-20220316102901201.png" srcset="/img/loading.gif" lazyload alt="image-2"></p>
+<p><img src="/2022/03/28/This-is-NACHOS-1/image-20220316102901201.png" srcset="/img/loading.gif" lazyload alt></p>
 <p>Nachos文件系统提供的命令有：</p>
 <ul>
 <li><code>-cp</code>：复制UNIX文件到Nachos文件（正确运行）</li>
@@ -342,7 +342,7 @@
 <li>文件系统创建完毕</li>
 </ol>
 <h2 id="理解文件系统管理涉及的数据结构组织与使用"><a href="#理解文件系统管理涉及的数据结构组织与使用" class="headerlink" title="理解文件系统管理涉及的数据结构组织与使用"></a>理解文件系统管理涉及的数据结构组织与使用</h2><p>利用命令<code>hexdump –C DISK</code>查看硬盘格式化后硬盘的布局，分析如下：</p>
-<p><img src="/2022/03/28/This-is-NACHOS-1/image-20220316181837619.png" srcset="/img/loading.gif" lazyload alt="image-3"></p>
+<p><img src="/2022/03/28/This-is-NACHOS-1/image-20220316181837619.png" srcset="/img/loading.gif" lazyload alt></p>
 <ul>
 <li><p>0x0~0x3：起始的4个字节为磁盘标识，设置为<code>magicNum=0x456789ab</code></p>
 </li>
@@ -378,7 +378,7 @@
 </ul>
 <h2 id="理解创建一个文件后相关的结构在硬盘上的存储布局"><a href="#理解创建一个文件后相关的结构在硬盘上的存储布局" class="headerlink" title="理解创建一个文件后相关的结构在硬盘上的存储布局"></a>理解创建一个文件后相关的结构在硬盘上的存储布局</h2><p>利用命令<code>nachos –cp ./test/small samll</code>复制small文件硬盘DISK中</p>
 <p>利用命令<code>hexdump –C DISK</code>查看新建一个文件后的硬盘布局，分析如下：</p>
-<p><img src="/2022/03/28/This-is-NACHOS-1/image-20220316190040837.png" srcset="/img/loading.gif" lazyload alt="image-4"></p>
+<p><img src="/2022/03/28/This-is-NACHOS-1/image-20220316190040837.png" srcset="/img/loading.gif" lazyload alt></p>
 <ul>
 <li><p>0x0~0x3：磁盘标识符，不变</p>
 </li>
@@ -412,11 +412,11 @@
 </li>
 </ul>
 <h2 id="分析文件系统的管理策略"><a href="#分析文件系统的管理策略" class="headerlink" title="分析文件系统的管理策略"></a>分析文件系统的管理策略</h2><p>复制文件medium, big到DISK中</p>
-<p><img src="/2022/03/28/This-is-NACHOS-1/image-20220316192831856.png" srcset="/img/loading.gif" lazyload alt="image-5"></p>
+<p><img src="/2022/03/28/This-is-NACHOS-1/image-20220316192831856.png" srcset="/img/loading.gif" lazyload alt></p>
 <p>然后删除small文件</p>
-<p><img src="/2022/03/28/This-is-NACHOS-1/image-20220316192918500.png" srcset="/img/loading.gif" lazyload alt="image-6"></p>
+<p><img src="/2022/03/28/This-is-NACHOS-1/image-20220316192918500.png" srcset="/img/loading.gif" lazyload alt></p>
 <p>利用<code>hexdump –C DISK</code>查看文件的布局</p>
-<p><img src="/2022/03/28/This-is-NACHOS-1/image-20220316193020855.png" srcset="/img/loading.gif" lazyload alt="image-7"></p>
+<p><img src="/2022/03/28/This-is-NACHOS-1/image-20220316193020855.png" srcset="/img/loading.gif" lazyload alt></p>
 <ul>
 <li>0x104~0x183：2号扇区，存放位图数据部分。值为<code>0x3f9f</code>，二进制为<code>11111110011111</code>，表示5号和6号扇区空闲，即为small文件的文件头和数据部分占用的扇区</li>
 <li>0x184~0x203：3号扇区，存放目录表。0x184字节处变为<code>0x0</code>，表示为small分配的目录项的<code>inUse</code>位变为0，即为small文件分配的目录项空闲。而该目录项的其他内容不变</li>
@@ -467,6 +467,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/03/30/This-is-NACHOS-2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">This is NACHOS#2</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
