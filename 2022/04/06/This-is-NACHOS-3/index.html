@@ -1,0 +1,689 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+<script src="https://cdn.jsdelivr.net/gh/Sanarous/files@1.151/js/clicklove.js"></script>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sun.png">
+  <link rel="icon" href="/img/sun.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#252d38">
+  <meta name="author" content="31">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="2022计科操作系统课程设计实验6【Nachos用户程序与系统调用】">
+<meta property="og:type" content="article">
+<meta property="og:title" content="This Is NACHOS#3">
+<meta property="og:url" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/index.html">
+<meta property="og:site_name" content="31&#39;s Blog">
+<meta property="og:description" content="2022计科操作系统课程设计实验6【Nachos用户程序与系统调用】">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220329092509056.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220329093646986.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220329095222763.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220330191125366.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220406203528391.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220330202104259.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220330191759498.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220406203513561.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220330194059550.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220330194331395.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220330194720015.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220330195404955.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220330195652777.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220330200024684.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220406203447807.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220330201115217.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220406203423599.png">
+<meta property="article:published_time" content="2022-04-06T12:32:35.000Z">
+<meta property="article:modified_time" content="2022-04-06T12:43:37.676Z">
+<meta property="article:author" content="31">
+<meta property="article:tag" content="操作系统课程设计">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/image-20220329092509056.png">
+  
+  
+  <title>This Is NACHOS#3 - 31&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/night-owl.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"uuunni.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"always","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"boxDRW3XpqvL2o48tPQxzy8N-gzGzoHsz","app_key":"t8snqjGhwT0Sery7lIU4V169","server_url":"https://boxdrw3x.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>31</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/3.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="This Is NACHOS#3">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-06 20:32" pubdate>
+        2022年4月6日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">This Is NACHOS#3</h1>
+            
+            <div class="markdown-body">
+              <p>该实验将体验Nachos的用户程序、应用进程进程及Nachos系统调用的相关概念,为后续实验中实现系统调用Exec()与Exit()奠定基础</p>
+<p>通过该实验，你需要</p>
+<ul>
+<li>理解Nachos可执行文件的格式与结构</li>
+<li>掌握Nachos应用程序的编程语法，了解用户进程是如何通过系统调用与操作系统内核进行交互的</li>
+<li>掌握如何利用交叉编译生成Nachos的可执行程序</li>
+<li>理解系统如何为应用程序创建进程，并启动进程</li>
+<li>理解如何将用户线程映射到核心线程，核心线程执行用户程序的原理与方法</li>
+<li>理解当前进程的页表是如何与CPU使用的页表进行关联的</li>
+</ul>
+<h2 id="Nachos可执行程序的格式"><a href="#Nachos可执行程序的格式" class="headerlink" title="Nachos可执行程序的格式"></a>Nachos可执行程序的格式</h2><p>阅读../bin/noff.h</p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220329092509056.png" srcset="/img/loading.gif" lazyload alt="noff.h"></p>
+<p>noff文件中包含三个段：</p>
+<ul>
+<li><code>code</code>代码段</li>
+<li><code>initData</code>初始化数据段</li>
+<li><code>uninitData</code>未初始化数据段</li>
+</ul>
+<p>noff文件头中包含用于区分的<code>noffMagic</code>，和三个段在虚拟空间中的起始位置<code>virtualAddr</code>、在文件中的起始位置<code>inFileAddr</code>、段大小<code>size</code></p>
+<h2 id="Nachos应用程序与可执行程序"><a href="#Nachos应用程序与可执行程序" class="headerlink" title="Nachos应用程序与可执行程序"></a>Nachos应用程序与可执行程序</h2><p>阅读../test目录下的几个Nachos程序，以../test/halt.c为例</p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220329093646986.png" srcset="/img/loading.gif" lazyload alt="halt.c"></p>
+<p>可以看出Nachos应用程序的编程语法为C，引入<code>syscall.h</code>头文件后，直接调用系统调用函数<code>Halt()</code>与操作内核进行交互，终止操作系统。</p>
+<p>由于Nachos模拟了一个执行MIPS指令的CPU，因此需要将用户编写的Nachos应用程序编译成MIPS框架的可执行程序。Nachos提供了一个交叉编译程序<code>gcc-2.8.1-mips.tar.gz</code>，可将Nachos用户编写的应用程序编译成MIPS指令集的可执行程序，然后在Nachos中运行。阅读../test/Makefile可知</p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220329095222763.png" srcset="/img/loading.gif" lazyload alt="Makefile"></p>
+<p>gcc MIPS交叉编译器将Nachos的应用程序编译成coff格式的可执行文件，然后利用../test/coff2noff将coff格式的可执行程序转换成Nachos CPU可识别的noff可执行程序。</p>
+<p>在../test目录中通过下述命令生成<code>halt.c</code>对应的汇编代码<code>halt.s</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">/usr/local/mips/bin/decstation-ultrix-gcc -I ../userprog -I ../threads -S halt.c<br></code></pre></div></td></tr></table></figure>
+<p>分析该汇编代码，主函数main的栈帧（stack frame）如下创建：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs assembly">.frame	$fp,40,$31		# vars= 16, regs= 2/0, args= 16, extra= 0<br>.mask	0xc0000000,-4<br>.fmask	0x00000000,0<br>subu	$sp,$sp,40<br>sw	$31,36($sp)<br>sw	$fp,32($sp)<br>move	$fp,$sp<br>jal	__main<br></code></pre></div></td></tr></table></figure>
+<p>主函数main的栈帧如下撤销：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs assembly">$L1:<br>	move	$sp,$fp<br>	lw	$31,36($sp)<br>	lw	$fp,32($sp)<br>	addu	$sp,$sp,40<br>	j	$31<br>	.end	main<br></code></pre></div></td></tr></table></figure>
+<p>C语言程序中的语句对应的机器指令如下注释：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs assembly">jal	__main<br># k = 3<br>li	$2,3			# 0x00000003<br>sw	$2,24($fp)<br># i = 2<br>li	$2,2			# 0x00000002<br>sw	$2,16($fp)<br># j = i-1<br>lw	$2,16($fp)<br>addu	$3,$2,-1<br>sw	$3,20($fp)<br># k = i-j+k<br>lw	$2,16($fp)<br>lw	$3,20($fp)<br>subu	$2,$2,$3<br>lw	$3,24($fp)<br>addu	$2,$3,$2<br>sw	$2,24($fp)<br># Halt()<br>jal	Halt<br></code></pre></div></td></tr></table></figure>
+<p>在../userprog目录下运行Nachos应用程序halt，加上参数<code>-d m</code>输出显示Nachos模拟的MIPS CPU所执行的每条指令<code>nachos -d m x ../test/halt.noff</code>，运行结果如下：</p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220330191125366.png" srcset="/img/loading.gif" lazyload alt="run halt"></p>
+<h2 id="页表的系统转储"><a href="#页表的系统转储" class="headerlink" title="页表的系统转储"></a>页表的系统转储</h2><p>Nachos的存储管理采用分页管理方式，在类<code>AddrSpace</code>中添加成员函数<code>Print()</code>，在为一个应用程序新建一个地址空间后调用该函数，输出该程序的页表（页面与帧的映射关系），有助于后续程序的调试与开发。</p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220406203528391.png" srcset="/img/loading.gif" lazyload alt="AddrSpace::Print()"></p>
+<p>测试。在../userprog中运行<code>nachos –x ../test/halt.noff</code>，从输出结果中可以看看程序halt的页面与帧（虚页与实页）的对应关系，以及Nachos为该程序分配的实页数为11</p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220330202104259.png" srcset="/img/loading.gif" lazyload alt="halt&#39;s pageTable"></p>
+<h2 id="Nachos应用程序的创建与执行"><a href="#Nachos应用程序的创建与执行" class="headerlink" title="Nachos应用程序的创建与执行"></a>Nachos应用程序的创建与执行</h2><p>在main.cc中，处理命令行参数<code>-x</code>时，调用../userprog/progtest.cc的<code>StartProcess(char *filename)</code>函数，为用户程序<code>filename</code>创建相应的进程，并启动该进程的执行</p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220330191759498.png" srcset="/img/loading.gif" lazyload alt="main.cc &#39;-x&#39;"></p>
+<p>阅读该函数并分析</p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220406203513561.png" srcset="/img/loading.gif" lazyload alt="StartProcess()"></p>
+<h3 id="Nachos为应用程序创建进程的过程"><a href="#Nachos为应用程序创建进程的过程" class="headerlink" title="Nachos为应用程序创建进程的过程"></a>Nachos为应用程序创建进程的过程</h3><p>首先为程序分配内存空间，将用户程序装入所分配的内存空间，创建相应的页表，建立虚页与实页的映射关系</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++">space = <span class="hljs-keyword">new</span> <span class="hljs-built_in">AddrSpace</span>(executable)；<br></code></pre></div></td></tr></table></figure>
+<p>然后将用户进程映射到一个核心线程</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++">currentThread-&gt;space = space;<br></code></pre></div></td></tr></table></figure>
+<p>初始化CPU的寄存器，包括数据寄存器、PC以及栈指针等</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++">space-&gt;<span class="hljs-built_in">InitRegisters</span>();<br></code></pre></div></td></tr></table></figure>
+<p>将用户进程的页表传递给系统核心（Machine类），以便CPU能从用户进程的地址空间中读取应用程序指令</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++">space-&gt;<span class="hljs-built_in">RestoreState</span>();<br></code></pre></div></td></tr></table></figure>
+<p>最后开始用户进程的执行，<code>Machine::Run()</code>从程序入口开始，完成取指令、译码、执行的过程，直到进程遇到<code>Exit()</code>语句或者异常才退出</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++">machine-&gt;<span class="hljs-built_in">Run</span>();<br></code></pre></div></td></tr></table></figure>
+<h3 id="系统为用户进程分配内存空间、建立页表的过程"><a href="#系统为用户进程分配内存空间、建立页表的过程" class="headerlink" title="系统为用户进程分配内存空间、建立页表的过程"></a>系统为用户进程分配内存空间、建立页表的过程</h3><p>阅读函数<code>AddrSpace::AddrSpace(OpenFile* executable)</code></p>
+<p>首先读取可执行文件的文件头，判断是否为noff格式文件</p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220330194059550.png" srcset="/img/loading.gif" lazyload alt="step1: Is the file .noff?"></p>
+<p>计算该用户程序的代码段、数据段（包括初始化的全局变量与未初始化的全局变量，以及静态变量）、栈空间共需要的页数，判断是否有足够的内存空间分配</p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220330194331395.png" srcset="/img/loading.gif" lazyload alt="step2: How big is address space?"></p>
+<p>建立该用户程序运行进程的页表</p>
+<blockquote>
+<p>Nachos使用的页表中每个页表项结构如下：</p>
+<ul>
+<li><code>int virtualPage</code>：在虚拟内存中的页号</li>
+<li><code>int physicalPage</code>：在物理内存中的页号</li>
+<li><code>bool valid</code>：有效位，若置1则该页表项有效</li>
+<li><code>bool readOnly</code>：只读位，若置1则该页不允许被修改</li>
+<li><code>bool use</code>：使用位，当该页被访问或修改时置1</li>
+<li><code>bool dirty</code>：脏位，当该页被修改时置1</li>
+</ul>
+</blockquote>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220330194720015.png" srcset="/img/loading.gif" lazyload alt="step3: set up the translation"></p>
+<p>将整个内存地址空间置0，是为了将未初始化的数据段和栈段置0</p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220330195404955.png" srcset="/img/loading.gif" lazyload alt="step4: zero out the entire address space"></p>
+<p>将代码段和已初始化的数据段写入内存</p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220330195652777.png" srcset="/img/loading.gif" lazyload alt="step5: copy into memory"></p>
+<h3 id="理解应用进程如何映射到一个核心线程"><a href="#理解应用进程如何映射到一个核心线程" class="headerlink" title="理解应用进程如何映射到一个核心线程"></a>理解应用进程如何映射到一个核心线程</h3><p>线程类<code>Thread</code>维护一个私有变量<code>AddrSpace *space</code></p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220330200024684.png" srcset="/img/loading.gif" lazyload alt="Class Thread"></p>
+<p><code>Thread</code>类的构造函数中，设置<code>space = NULL</code></p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220406203447807.png" srcset="/img/loading.gif" lazyload alt="Thread::Thread()"></p>
+<p>当线程与一个应用进程捆绑后，<code>space</code>指向系统为该进程所分配的内存空间，以便被调度时执行该进程所对应的应用程序</p>
+<h3 id="理解当前进程的页表是如何与CPU使用的页表进行关联的"><a href="#理解当前进程的页表是如何与CPU使用的页表进行关联的" class="headerlink" title="理解当前进程的页表是如何与CPU使用的页表进行关联的"></a>理解当前进程的页表是如何与CPU使用的页表进行关联的</h3><p>系统核心类<code>Machine</code>中维护一个<code>pageTable</code>指针，指向当前正在运行的Nachos应用进程的页表</p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220330201115217.png" srcset="/img/loading.gif" lazyload alt="class Machine"></p>
+<p>阅读函数<code>AddrSpace::RestoreState()</code></p>
+<p><img src="/2022/04/06/This-is-NACHOS-3/image-20220406203423599.png" srcset="/img/loading.gif" lazyload alt="AddrSpace::RestoreState()"></p>
+<p>直接将<code>machine</code>的<code>pageTable</code>指针指向了刚刚为用户进程创建的页表，实现了当前进程的页表与CPU使用的页表的关联</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/SDU/">SDU</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">操作系统课程设计</a>
+                    
+                  </div>
+                
+              </div>
+              <!-- 
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+               -->
+              
+                <p class="note note-info" style="background: #2e3a49; color: #eee;">
+                <strong>本文作者: </strong><a href="/">31</a> <br>
+                <strong>本文链接: </strong><a href="http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/">http://uuunni.github.io/2022/04/06/This-is-NACHOS-3/</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                </p>
+              
+
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/30/This-is-NACHOS-2/">
+                        <span class="hidden-mobile">This is NACHOS#2</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"QJtn4PrebEYsIJPwEkfclcO0-gzGzoHsz","appKey":"kdxH4zfnh96BgUrFbIGbhUVE","path":"window.location.pathname","placeholder":"留下点什么叭... ᶘ ᵒᴥᵒᶅ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<div class="text-center">
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("01/15/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "🚀 for&nbsp"+dnum+"&nbspdays";  //此次自定义显示内容
+      document.getElementById("times").innerHTML = hnum + "&nbsphr&nbsp" + mnum + "&nbspmin&nbsp" + snum + "&nbspsec";
+  }  //此次自定义显示内容
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
