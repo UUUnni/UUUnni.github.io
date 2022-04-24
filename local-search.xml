@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>This is NACHOS#4</title>
+    <link href="/2022/04/24/This-is-NACHOS-4/"/>
+    <url>/2022/04/24/This-is-NACHOS-4/</url>
+    
+    <content type="html"><![CDATA[<p>通过考察系统加载应用程序过程，如何为其分配内存空间、创建页表并建立虚页与实页帧的映射关系</p><ul><li>理解Nachos的内存管理方法</li><li>理解系统对空闲帧的管理方法</li><li>理解如何加载另一个应用程序并为其分配地址空间，以支持多进程机制</li><li>理解进程的pid</li><li>理解进程退出所要完成的工作</li></ul><h2 id="Nachos多进程机制的实现"><a href="#Nachos多进程机制的实现" class="headerlink" title="Nachos多进程机制的实现"></a>Nachos多进程机制的实现</h2><h3 id="理解Nachos的内存管理方法"><a href="#理解Nachos的内存管理方法" class="headerlink" title="理解Nachos的内存管理方法"></a>理解Nachos的内存管理方法</h3><p>阅读protest.cc中函数<code>StartProcess(char* filename)</code>中为可执行程序分配内存空间的过程</p><p><img src="/2022/04/24/This-is-NACHOS-4/image-20220424160510637.png" alt="StartProcess()"></p><p>阅读为程序分配内存空间，创建页表的过程<code>AddrSpace::AddrSpace()</code></p><p><img src="/2022/04/24/This-is-NACHOS-4/image-20220424160530614.png" alt="AddrSpace()"></p><p>可知Nachos为每个进程从0号页框开始按序分配，且物理页框和虚拟页框保持一致。这样的内存分配方法只适用于单进程，因为如果有多道进程并行时，后创建的进程也从0开始分配内存，这将会覆盖掉先前的进程，导致系统问题。而且这样的内存分配方法使物理地址和逻辑地址的对应关系失去了意义。</p><h3 id="理解系统对空闲帧的管理方法"><a href="#理解系统对空闲帧的管理方法" class="headerlink" title="理解系统对空闲帧的管理方法"></a>理解系统对空闲帧的管理方法</h3><p>为了避免分配内存空间的过程中出现内存交换的问题，在为进程分配物理页框的时候我们只能为其分配空闲帧，所以需要对空闲帧进行管理，便于查找使用</p><p>参考在文件系统中对空闲磁盘块的管理方法，我们同样使用位图这一数据结构对物理内存进行管理，在类<code>AddrSpace</code>中实例化类<code>BitMap</code>的一个全局对象<code>freeBitMap</code></p><p><img src="/2022/04/24/This-is-NACHOS-4/image-20220406193915090.png" alt="Declare freeBitMap"></p><p>初始化该位图，<code>NumPhyPages</code>为宏定义的物理页框数</p><figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++">BitMap* AddrSpace::freeBitMap = <span class="hljs-keyword">new</span> <span class="hljs-built_in">BitMap</span>(NumPhysPages);<br></code></pre></div></td></tr></table></figure><p>当需要检索空闲帧时，调用<code>BitMap::Find()</code>方法，返回值为一个空闲帧号，同时将该空闲帧置1标记为已占用；若返回值为<code>-1</code>，则没有空闲帧</p><p>当需要释放<code>i</code>号帧时，调用<code>BitMap::Clear(i)</code>，将<code>i</code>号帧置0标记为空闲</p><h3 id="多进程机制下为应用程序分配地址空间"><a href="#多进程机制下为应用程序分配地址空间" class="headerlink" title="多进程机制下为应用程序分配地址空间"></a>多进程机制下为应用程序分配地址空间</h3><p>修改<code>AddrSpace::AddrSpace()</code>，在分配物理页框的时候，查找空闲帧进行分配</p><p><img src="/2022/04/24/This-is-NACHOS-4/image-20220424160629019.png" alt="AddrSpace()"></p><p>同时，在<code>AddrSpace::~AddrSpace()</code>的析构过程中，需要将该进程的内存空间释放</p><p><img src="/2022/04/24/This-is-NACHOS-4/image-20220424160654825.png" alt="~AddrSpace()"></p><h3 id="多进程机制下将可执行文件写入内存"><a href="#多进程机制下将可执行文件写入内存" class="headerlink" title="多进程机制下将可执行文件写入内存"></a>多进程机制下将可执行文件写入内存</h3><p>Nachos在写入内存之前将整个内存空间都置0，是为了将未初始化的数据段和栈段置0，然后再将代码段和已初始化的数据段写入内存</p><p>在单进程机制下这样做是没有问题的，但在多进程机制中这样做则会清空整个内存，导致其他正在运行中的进程出错，所以需要将该条语句删除</p><p><img src="/2022/04/24/This-is-NACHOS-4/image-20220406200030431.png" alt="zero out"></p><p>在写入内存的过程中，Nachos直接将逻辑地址作为物理地址写入，对于原本一一对应的映射关系下是可行的，但在多进程机制下需要进行修改</p><p><img src="/2022/04/24/This-is-NACHOS-4/image-20220406200410702.png" alt="copy into memory"></p><p>将逻辑地址转换为物理地址：先将逻辑地址分成页号和页内偏移量两部分，根据页号查询页表得到块号，则物理地址=块号+页内偏移量。</p><p>已知逻辑地址<code>virtualAddr = noffH.code.virtualAddr</code>，则逻辑页号为<code>virtualPage = virtualAddr / pageSize</code>， 查询页表可得物理块号<code>physicalPage = pageTable[virtualPage]</code>；页内偏移量为<code>pageOffset = virtualAddr % pageSize</code></p><p>则物理地址<code>physicalAddr = physicalPage * pageSize + pageOffset</code></p><p><img src="/2022/04/24/This-is-NACHOS-4/image-20220406201011849.png" alt="copy into memory"></p><h2 id="理解进程的pid"><a href="#理解进程的pid" class="headerlink" title="理解进程的pid"></a>理解进程的pid</h2><p>pid(Process Identification) 是进程标识符，每个进程都有唯一的pid，进程创建时由系统分配</p><p>SpaceId是为可执行程序分配并装入内存空间时进程地址空间的首地址。由于该首地址是唯一的，理论上可以使用该值作为pid，但该值不连续且值过大，并不是非常合适</p><p>可以借鉴UNIX的思想，只要为每个进程分配一个唯一的整数作为pid就可以，例如0~99预留为核心进程使用，用户进程号从100开始使用</p><h2 id="理解进程退出所要完成的工作"><a href="#理解进程退出所要完成的工作" class="headerlink" title="理解进程退出所要完成的工作"></a>理解进程退出所要完成的工作</h2><p>根据进程创建时系统为其所做的工作，当一个进程退出时，应当释放其所占用的内存空间及页表等信息，并且收回为其分配的pid，供后续进程使用</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>SDU</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>操作系统课程设计</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>This Is NACHOS#3</title>
     <link href="/2022/04/06/This-is-NACHOS-3/"/>
     <url>/2022/04/06/This-is-NACHOS-3/</url>
