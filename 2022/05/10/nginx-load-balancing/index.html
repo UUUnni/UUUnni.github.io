@@ -1,0 +1,720 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+<script src="https://cdn.jsdelivr.net/gh/Sanarous/files@1.151/js/clicklove.js"></script>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sun.png">
+  <link rel="icon" href="/img/sun.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#252d38">
+  <meta name="author" content="31">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="2022计科云计算实验11——【实现在云服务器上的负载均衡】">
+<meta property="og:type" content="article">
+<meta property="og:title" content="华为云环境下Docker+Tomcat+Nginx实现负载均衡">
+<meta property="og:url" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/index.html">
+<meta property="og:site_name" content="31&#39;s Blog">
+<meta property="og:description" content="2022计科云计算实验11——【实现在云服务器上的负载均衡】">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510092220245.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510092438751.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510092809159.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510092910944.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510093107230.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510093242537.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510093338112.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510093530469.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510093812534.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510094007030.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510094227832.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510094538618.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510094552343.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510094603926.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510094933520.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221259505.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221555369.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221608386.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221614928.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221631025.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221647717.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221826380.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221833802.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221840710.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221847168.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221854042.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221900113.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221906531.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221913498.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221920069.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510221936993.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510222036840.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510222043581.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510222048670.png">
+<meta property="article:published_time" content="2022-05-10T01:16:34.000Z">
+<meta property="article:modified_time" content="2022-05-10T14:23:54.469Z">
+<meta property="article:author" content="31">
+<meta property="article:tag" content="云计算">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://uuunni.github.io/2022/05/10/nginx-load-balancing/image-20220510092220245.png">
+  
+  
+  <title>华为云环境下Docker+Tomcat+Nginx实现负载均衡 - 31&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/night-owl.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"uuunni.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"always","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"boxDRW3XpqvL2o48tPQxzy8N-gzGzoHsz","app_key":"t8snqjGhwT0Sery7lIU4V169","server_url":"https://boxdrw3x.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>31</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/3.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="华为云环境下Docker+Tomcat+Nginx实现负载均衡">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-05-10 09:16" pubdate>
+        2022年5月10日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">华为云环境下Docker+Tomcat+Nginx实现负载均衡</h1>
+            
+            <div class="markdown-body">
+              <p>负载均衡：</p>
+<ul>
+<li><p>在多台服务器之间有效地分配客户端请求或网络负载</p>
+</li>
+<li><p>通过仅向正常服务器发送请求确保高可用性和可靠性</p>
+</li>
+<li><p>业务不中断地情况下，按需弹性分配服务器资源</p>
+</li>
+</ul>
+<p>以减少宕机时间、提供系统可用性、动态扩展性能、加快访问速度。</p>
+<h2 id="实例演示"><a href="#实例演示" class="headerlink" title="实例演示"></a>实例演示</h2><p>要求部署一台Nginx和三台Tomcat服务器，且Ngnix需要实现三种策略：</p>
+<ul>
+<li>轮询</li>
+<li>权重，三台Tomcat服务器的权重为1， 3， 5</li>
+<li>IP Hash</li>
+</ul>
+<h3 id="购买云服务器和公网IP"><a href="#购买云服务器和公网IP" class="headerlink" title="购买云服务器和公网IP"></a>购买云服务器和公网IP</h3><p>买的是华为云的弹性云服务器，配置选基础的就可以，因为只是实验用途，所以计费模式选的按需计费</p>
+<p>然后镜像的话选CentOS7就行，一开始选的Ubuntu发现教程很少，然后换成CentOS8发现后续过程会出现一些权限问题（qwq踩坑达人</p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510092220245.png" srcset="/img/loading.gif" lazyload alt="ECS"></p>
+<p>还需要买一个弹性公网IP，不然在服务器上没法上网（好像</p>
+<p>带宽也就选的默认的5Mb/s</p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510092438751.png" srcset="/img/loading.gif" lazyload alt="IP"></p>
+<p>然后恭喜你就会拥有一台云服务器！</p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510092809159.png" srcset="/img/loading.gif" lazyload alt="Cloud Server"></p>
+<p>可以点击远程登录就可以对它操作啦</p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510092910944.png" srcset="/img/loading.gif" lazyload alt></p>
+<p>这里有两种登录方式，推荐第一种CloudShell哦，那里面可以直接CV复制粘贴，还有资源管理器的可视化显示</p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510093107230.png" srcset="/img/loading.gif" lazyload alt="CloudShell"></p>
+<p>输入之前设置的密码就可以登录成功啦</p>
+<h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">yum -y install docker<br><span class="hljs-meta">#</span><span class="bash"> 启动docker守护进程</span><br>systemctl start docker.service<br><span class="hljs-meta">#</span><span class="bash"> 拉取最基础的image镜像</span><br>docker pull centos<br></code></pre></div></td></tr></table></figure>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510093242537.png" srcset="/img/loading.gif" lazyload alt></p>
+<h3 id="拉取Tomcat-Nginx镜像"><a href="#拉取Tomcat-Nginx镜像" class="headerlink" title="拉取Tomcat Nginx镜像"></a>拉取Tomcat Nginx镜像</h3><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">docker pull tomcat<br>docker pull nginx<br></code></pre></div></td></tr></table></figure>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510093338112.png" srcset="/img/loading.gif" lazyload alt="docker images"></p>
+<h3 id="创建Tomcat-Nginx容器"><a href="#创建Tomcat-Nginx容器" class="headerlink" title="创建Tomcat Nginx容器"></a>创建Tomcat Nginx容器</h3><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">docker run -itd --name myNginx -p 8081:80 nginx:latest /bin/bash<br>docker run -itd --name myTomcat1 -p 8086:8080 tomcat:latest /bin/bash<br>docker run -itd --name myTomcat2 -p 8087:8080 tomcat:latest /bin/bash<br>docker run -itd --name myTomcat3 -p 8088:8080 tomcat:latest /bin/bash<br></code></pre></div></td></tr></table></figure>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510093530469.png" srcset="/img/loading.gif" lazyload alt="docker ps"></p>
+<h3 id="部署Nginx容器"><a href="#部署Nginx容器" class="headerlink" title="部署Nginx容器"></a>部署Nginx容器</h3><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">docker exec -it &lt;nginx Container ID&gt; /bin/bash<br>/usr/sbin/nginx<br>exit<br></code></pre></div></td></tr></table></figure>
+<p>打开浏览器，输入<code>你的公网IP地址:设置的端口号</code>查看是否部署成功</p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510093812534.png" srcset="/img/loading.gif" lazyload alt="Nginx"></p>
+<h3 id="部署Tomcat容器"><a href="#部署Tomcat容器" class="headerlink" title="部署Tomcat容器"></a>部署Tomcat容器</h3><p>总共要部署三个，操作都是一样的哦</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">docker exec -it &lt;Tomcat Container ID&gt; /bin/bash<br>ls<br>mv webapps webapps1<br>mv webapps.dist webapps<br>cd bin<br>./startup.sh<br>exit<br></code></pre></div></td></tr></table></figure>
+<p>打开浏览器，输入<code>你的公网IP地址:设置的端口号</code>查看是否部署成功</p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510094007030.png" srcset="/img/loading.gif" lazyload alt="Tomcat"></p>
+<h3 id="修改Tomcat默认主页内容"><a href="#修改Tomcat默认主页内容" class="headerlink" title="修改Tomcat默认主页内容"></a>修改Tomcat默认主页内容</h3><p>现在三个Tomcat服务器上的主页内容都是一样的，如果通过Nginx代理访问的话无法区分它们，所以要修改它们的主页内容</p>
+<p>分别进入三个Tomcat容器修改网页代码</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">docker exec -it &lt;Tomcat container ID&gt; /bin/bash<br>cd webapps/ROOT<br>vim index.jsp<br></code></pre></div></td></tr></table></figure>
+<p>加一小段不同的字就行</p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510094227832.png" srcset="/img/loading.gif" lazyload alt="webapps/ROOT/index.jsp"></p>
+<blockquote>
+<p>输入<code>vim</code>命令后会出现命令不存在的情况，需要在服务器内安装vim</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">apt-get update<br>apt-get install vim<br></code></pre></div></td></tr></table></figure>
+<p>网络原因可能会很慢，但是耐心等待就好</p>
+</blockquote>
+<p>最终的修改效果如下：</p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510094538618.png" srcset="/img/loading.gif" lazyload alt="Tomcat#1"></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510094552343.png" srcset="/img/loading.gif" lazyload alt="Tomcat#2"></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510094603926.png" srcset="/img/loading.gif" lazyload alt="Tomcat#3"></p>
+<h3 id="Nginx负载均衡配置"><a href="#Nginx负载均衡配置" class="headerlink" title="Nginx负载均衡配置"></a>Nginx负载均衡配置</h3><p>首先进入Nginx容器，编辑配置文件，开启Nginx代理转发</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">docker exec -it f59693a4059c /bin/bash<br>cd /etc/nginx/conf.d<br>vim default.conf<br></code></pre></div></td></tr></table></figure>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510094933520.png" srcset="/img/loading.gif" lazyload alt="/etc/nginx/conf.d/default.conf"></p>
+<h4 id="轮询法"><a href="#轮询法" class="headerlink" title="轮询法"></a>轮询法</h4><p>将请求按顺序轮流地分配到后端服务器上，它均衡地对待后端的每一台服务器，而不关心服务器实际的连接数和当前的系统负载。</p>
+<p>修改upstream模块</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">docker exec -it &lt;Nginx container ID&gt; /bin/bash<br>cd /etc/nginx<br>vim nginx.conf<br></code></pre></div></td></tr></table></figure>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221259505.png" srcset="/img/loading.gif" lazyload alt="nginx.conf"></p>
+<p>重启Nginx服务器</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">docker restart &lt;Nginx container ID&gt;<br>docker exec -it &lt;Nginx container ID&gt; /bin/bash<br>/usr/sbin/nginx<br></code></pre></div></td></tr></table></figure>
+<p>浏览器访问Nginx服务器，并刷新进行多次访问</p>
+<p>发现访问顺序为<code>Tomcat#1-#2-#3</code></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221555369.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221608386.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221614928.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221631025.png" srcset="/img/loading.gif" lazyload alt></p>
+<h4 id="权重法"><a href="#权重法" class="headerlink" title="权重法"></a>权重法</h4><p>权重（weight）默认值为1，权重越高，被分配的请求数量越多，将请求顺序且按照权重分配到后端再进行轮询。</p>
+<p>修改upstream模块</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">docker exec -it &lt;Nginx container ID&gt; /bin/bash<br>cd /etc/nginx<br>vim nginx.conf<br></code></pre></div></td></tr></table></figure>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221647717.png" srcset="/img/loading.gif" lazyload alt="nginx.conf"></p>
+<p>重启Nginx服务器</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">docker restart &lt;Nginx container ID&gt;<br>docker exec -it &lt;Nginx container ID&gt; /bin/bash<br>/usr/sbin/nginx<br></code></pre></div></td></tr></table></figure>
+<p>浏览器访问Nginx服务器，并刷新进行多次访问</p>
+<p>9次访问中<code>Tomcat#1</code>1次，<code>Tomcat#2</code>3次，<code>Tomcat#3</code>5次，与设置的权重相符</p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221826380.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221833802.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221840710.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221847168.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221854042.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221900113.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221906531.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221913498.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221920069.png" srcset="/img/loading.gif" lazyload alt></p>
+<h4 id="IP-HASH法"><a href="#IP-HASH法" class="headerlink" title="IP_HASH法"></a>IP_HASH法</h4><p>根据获取请求客户端的IP地址，通过哈希函数计算得到一个数值，用该数值对服务器列表的大小进行取模运算，得到的结果便是客户端要访问服务器的序号。每个请求固定访问同一个后端服务器，这样可以做到会话保持，解决session同步问题。</p>
+<p>修改upstream模块</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">docker exec -it &lt;Nginx container ID&gt; /bin/bash<br>cd /etc/nginx<br>vim nginx.conf<br></code></pre></div></td></tr></table></figure>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510221936993.png" srcset="/img/loading.gif" lazyload alt="nginx.conf"></p>
+<p>重启Nginx服务器</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">docker restart &lt;Nginx container ID&gt;<br>docker exec -it &lt;Nginx container ID&gt; /bin/bash<br>/usr/sbin/nginx<br></code></pre></div></td></tr></table></figure>
+<p>浏览器访问Nginx服务器，并刷新进行多次访问</p>
+<p>发现一直访问的是<code>Tomcat#1</code></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510222036840.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510222043581.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/05/10/nginx-load-balancing/image-20220510222048670.png" srcset="/img/loading.gif" lazyload alt></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/SDU/">SDU</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+                    
+                  </div>
+                
+              </div>
+              <!-- 
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+               -->
+              
+                <p class="note note-info" style="background: #2e3a49; color: #eee;">
+                <strong>本文作者: </strong><a href="/">31</a> <br>
+                <strong>本文链接: </strong><a href="http://uuunni.github.io/2022/05/10/nginx-load-balancing/">http://uuunni.github.io/2022/05/10/nginx-load-balancing/</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                </p>
+              
+
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/24/This-is-NACHOS-4/">
+                        <span class="hidden-mobile">This is NACHOS#4</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"QJtn4PrebEYsIJPwEkfclcO0-gzGzoHsz","appKey":"kdxH4zfnh96BgUrFbIGbhUVE","path":"window.location.pathname","placeholder":"留下点什么叭... ᶘ ᵒᴥᵒᶅ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<div class="text-center">
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("01/15/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "🚀 for&nbsp"+dnum+"&nbspdays";  //此次自定义显示内容
+      document.getElementById("times").innerHTML = hnum + "&nbsphr&nbsp" + mnum + "&nbspmin&nbsp" + snum + "&nbspsec";
+  }  //此次自定义显示内容
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
