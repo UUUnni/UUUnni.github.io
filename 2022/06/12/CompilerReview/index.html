@@ -60,7 +60,7 @@
 <meta property="og:image" content="http://uuunni.github.io/2022/06/12/CompilerReview/2b0e559d67b4b0247aae92d99a7610a9d43b17f0.png">
 <meta property="og:image" content="http://uuunni.github.io/2022/06/12/CompilerReview/image-20220615111044280.png">
 <meta property="article:published_time" content="2022-06-12T08:48:10.000Z">
-<meta property="article:modified_time" content="2022-06-20T03:08:20.200Z">
+<meta property="article:modified_time" content="2022-06-20T06:51:40.589Z">
 <meta property="article:author" content="31">
 <meta property="article:tag" content="review">
 <meta property="article:tag" content="Compiler">
@@ -239,7 +239,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.9k 字
+      5.8k 字
     </span>
   
 
@@ -317,17 +317,17 @@
 <p>句柄：最左的二层子树叶节点组成的字符串</p>
 <p>素短语：从短语集合中找出所有含终结符的短语，然后选出除它自身外不再含素短语的</p>
 </blockquote>
-<h2 id="描述算符优先算法"><a href="#描述算符优先算法" class="headerlink" title="描述算符优先算法"></a>描述算符优先算法</h2><p>用于分析任一产生式右部都不含两个连续的非终结符且任何非终结符对仅满足$=,&lt;,&gt;$一种关系的算符优先文法</p>
+<h2 id="描述算符优先算法"><a href="#描述算符优先算法" class="headerlink" title="描述算符优先算法"></a>描述算符优先算法</h2><p>用于分析任一产生式右部都不含两个连续的非终结符且任何终结符对仅满足$=,&lt;,&gt;$一种关系的算符优先文法</p>
 <p>从算符优先文法构造优先关系表。使用一个符号栈，存放终结符和非终结符。从左到右扫描输入串，比较输入串符号与栈中终结符的优先关系，找到最左素短语则进行归约，直到扫描结束符号栈呈现<code>#N#</code>说明分析正确</p>
 <h2 id="描述LR语法分析算法"><a href="#描述LR语法分析算法" class="headerlink" title="描述LR语法分析算法"></a>描述LR语法分析算法</h2><p>L表示从左到右扫描输入串，R表示构造一个最右推导的逆过程</p>
 <p>根据文法产生式构造LR分析表，包括Action表和Goto表。使用一个分析栈，存放状态序列和已归约串。从左到右扫描输入串，根据分析栈的栈顶状态和输入串符号，参考LR分析表，进行输入串字符的移入或归约，通过不断改变分析栈内容，最终将句子归约至开始符号，LR分析结束。</p>
 <h2 id="解释综合属性"><a href="#解释综合属性" class="headerlink" title="解释综合属性"></a>解释综合属性</h2><p>在语法树中，一个结点的综合属性的值由其子结点的属性值确定</p>
 <h2 id="解释继承属性"><a href="#解释继承属性" class="headerlink" title="解释继承属性"></a>解释继承属性</h2><p>在语法树中，一个结点的继承属性由此结点的父节点和/或兄弟结点的某些属性确定</p>
 <h2 id="解释S-属性文法"><a href="#解释S-属性文法" class="headerlink" title="解释S-属性文法"></a>解释S-属性文法</h2><p>S-属性文法是只含有综合属性的文法</p>
-<h2 id="解释L-属性文法"><a href="#解释L-属性文法" class="headerlink" title="解释L-属性文法"></a>解释L-属性文法</h2><p>L-属性文法中的每个产生式$A\to X_1 X_2 … X_n$，其语义规则中的每个属性要么是综合属性，要么是$X_j$的继承属性，且这个继承属性仅依赖于$X_j$的左边符号的属性或$A$的继承属性</p>
+<h2 id="解释L-属性文法"><a href="#解释L-属性文法" class="headerlink" title="解释L-属性文法"></a>解释L-属性文法</h2><p>L-属性文法中的每个产生式，其语义规则中的属性要么是综合属性，要么是仅依赖于左边兄弟结点、父结点的继承属性</p>
 <h2 id="解释语法制导翻译"><a href="#解释语法制导翻译" class="headerlink" title="解释语法制导翻译"></a>解释语法制导翻译</h2><p>对单词符号串进行语法分析，构造语法分析树，然后根据需要遍历语法树并在语法树的各结点处按语义规则进行计算</p>
 <h2 id="语法制导翻译中-M-to-varepsilon-的作用"><a href="#语法制导翻译中-M-to-varepsilon-的作用" class="headerlink" title="语法制导翻译中$M\to \varepsilon$的作用"></a>语法制导翻译中$M\to \varepsilon$的作用</h2><p>使所有嵌入的动作都出现在产生式的末尾，这样就可以自下而上处理继承属性</p>
-<h2 id="结合例子谈回填思想"><a href="#结合例子谈回填思想" class="headerlink" title="结合例子谈回填思想"></a>结合例子谈回填思想</h2><p>当生成某些转移语句时我们可能还不知道该语句将要转移到的语句标号，为了解决这个问题，在生成形式分支的跳转指令时暂时不确定跳转目标，而是建立一个链表，把转向这个目标的跳转指令的编号填入这个链表，一旦目标确定之后再把它填入有关的跳转指令中</p>
+<h2 id="结合例子谈回填思想"><a href="#结合例子谈回填思想" class="headerlink" title="结合例子谈回填思想"></a>结合例子谈回填思想</h2><p>生成一个跳转指令时暂时不确定它的目标标号，则建立一个链表暂存这些指令，同一个链表中所有的跳转指令具有相同的目标标号，待能确定正确的目标标号后再去填写链表中的指令</p>
 <h2 id="符号表作用"><a href="#符号表作用" class="headerlink" title="符号表作用"></a>符号表作用</h2><ul>
 <li><p>收集符号属性</p>
 </li>
@@ -398,10 +398,10 @@
 <h2 id="根据语言求上下文无关文法"><a href="#根据语言求上下文无关文法" class="headerlink" title="根据语言求上下文无关文法"></a>根据语言求上下文无关文法</h2><p>$L(G)=\{a^n b^n|n\ge 1\}$    $S\to aSb|ab$</p>
 <p>$L(G)=\{a^n b^n|n\ge 0\}$    $S\to aSb|\varepsilon$</p>
 <p>$L(G)=\{a^n b^m a^m b^n|m\ge 0, n\ge 0\}$    $S\to aSb|A,A\to bAa|\varepsilon$</p>
-<h2 id="写正规式"><a href="#写正规式" class="headerlink" title="写正规式"></a>写正规式</h2><p>字母表包含$\{a,b\}$，偶数个$a$的正规式 $b^<em>(ab^</em>ab^<em>)^</em>$</p>
+<h2 id="写正规式"><a href="#写正规式" class="headerlink" title="写正规式"></a>写正规式</h2><p>字母表包含$\{a,b\}$，偶数个$a$的正规式 $b^*(ab^*ab^*)^*$</p>
 <p>以$01$结尾的二进制数串 $(0|1)^*01$</p>
 <p>能被5整除的十进制整数 $(1|2|3|4|5|6|7|8|9)(0|1|2|3|4|5|6|7|8|9)^*(0|5)|(0|5)$</p>
-<p>包含奇数个$1$或奇数个$0$的二进制数串 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40727897/article/details/106558109">解析</a> $0^<em>1(0^</em>|10^<em>1)^</em>|1^<em>0(1^</em>|01^<em>0)^</em>$</p>
+<p>包含奇数个$1$或奇数个$0$的二进制数串 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40727897/article/details/106558109">解析</a> $0^*1(0^*|10^*1)^*|1^*0(1^*|01^*0)^*$</p>
 <p>所有大于101的二进制整数  $11(0|1)|1(0|1)^*(0|1)(0|1)(0|1)$</p>
 <h2 id="消除左递归"><a href="#消除左递归" class="headerlink" title="消除左递归"></a>消除左递归</h2><ul>
 <li><p>把所有非终结符按任一种顺序排列成$P_1,P_2,…,P_n$</p>
@@ -994,20 +994,5 @@ A'\rightarrow\beta_1|\beta_2|...|\beta_n</script><h2 id="中缀式改后缀式">
 <script  src="/js/boot.js" ></script>
 
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
 </html>
