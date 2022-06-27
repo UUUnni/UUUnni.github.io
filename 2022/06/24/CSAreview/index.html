@@ -47,6 +47,9 @@
 <meta property="og:image" content="http://uuunni.github.io/2022/06/24/CSAreview/image-20220622165824237.png">
 <meta property="og:image" content="http://uuunni.github.io/2022/06/24/CSAreview/image-20220622165806554.png">
 <meta property="og:image" content="http://uuunni.github.io/2022/06/24/CSAreview/image-20220622165842995.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/06/24/CSAreview/image-20220627165712592.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/06/24/CSAreview/image-20220627165721583.png">
+<meta property="og:image" content="http://uuunni.github.io/2022/06/24/CSAreview/image-20220627165732496.png">
 <meta property="og:image" content="http://uuunni.github.io/2022/06/24/CSAreview/image-20220622173730659.png">
 <meta property="og:image" content="http://uuunni.github.io/2022/06/24/CSAreview/image-20220622173724242.png">
 <meta property="og:image" content="http://uuunni.github.io/2022/06/24/CSAreview/image-20220622174025863.png">
@@ -81,7 +84,7 @@
 <meta property="og:image" content="http://uuunni.github.io/2022/06/24/CSAreview/image-20220624133953925.png">
 <meta property="og:image" content="http://uuunni.github.io/2022/06/24/CSAreview/image-20220624140450988.png">
 <meta property="article:published_time" content="2022-06-24T06:12:35.000Z">
-<meta property="article:modified_time" content="2022-06-24T06:39:56.917Z">
+<meta property="article:modified_time" content="2022-06-27T09:05:35.881Z">
 <meta property="article:author" content="31">
 <meta property="article:tag" content="review">
 <meta property="article:tag" content="CSA">
@@ -269,7 +272,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      92 分钟
+      93 分钟
     </span>
   
 
@@ -390,12 +393,18 @@ T_{CPU}=IC\times CPI\times \frac{1}{f_c}</script><h2 id="程序访问的局部�
 <li>可表示的阶个数：$2^p$</li>
 <li>可表示的数个数：$2^pr_m^{m’-1}(r_m-1)$</li>
 </ul>
-<p>尾数基值$r_m$增大，会扩大浮点数表示范围，增加可表示数的个数，减少移位次数，降低右移造成的精度损失，提高运算速度；但也会降低数据的表示精度，数值的分布变稀疏</p>
+<p><strong>特性</strong>：尾数基值$r_m$增大，会扩大浮点数表示范围，增加可表示数的个数，减少移位次数，降低右移造成的精度损失，提高运算速度；但也会降低数据的表示精度，数值的分布变稀疏</p>
 <p><strong>尾数下溢处理</strong></p>
-<p>截断法：将尾数超出机器字长的部分截去</p>
-<p>舍入法：在机器运算的规定字长之外增设一位附加位，存放溢出部分的最高位，每当进行尾数下溢处理时，将附加位加1</p>
-<p>恒置1法：把有效字长的最低一位置成$r_m/2$</p>
-<p>查表舍入法：用ROM或者PLA存放下溢处理表</p>
+<ul>
+<li><p>截断法：将尾数超出机器字长的部分截去</p>
+</li>
+<li><p>舍入法：在机器运算的规定字长之外增设一位附加位，存放溢出部分的最高位，每当进行尾数下溢处理时，将附加位加1</p>
+</li>
+<li><p>恒置1法：把有效字长的最低一位置成$r_m/2$</p>
+</li>
+<li><p>查表舍入法：用ROM或者PLA存放下溢处理表</p>
+</li>
+</ul>
 <h2 id="编址方式"><a href="#编址方式" class="headerlink" title="编址方式"></a>编址方式</h2><p><strong>编址单位</strong>：字编址、字节编址、位编址、块编址</p>
 <p><strong>编址单位与访问字长</strong>：</p>
 <ul>
@@ -404,7 +413,9 @@ T_{CPU}=IC\times CPI\times \frac{1}{f_c}</script><h2 id="程序访问的局部�
 <li>辅助存储器：块编址位访问</li>
 </ul>
 <p><strong>字节编址的大小端问题</strong> 例<code>0x12345678</code></p>
-<p>小端：高位字节放高地址，低位字节放低地址</p>
+<ul>
+<li>小端：高位字节放高地址，低位字节放低地址</li>
+</ul>
 <div class="table-container">
 <table>
 <thead>
@@ -425,7 +436,9 @@ T_{CPU}=IC\times CPI\times \frac{1}{f_c}</script><h2 id="程序访问的局部�
 </tbody>
 </table>
 </div>
-<p>大端：低位字节放高地址，高位字节放低地址</p>
+<ul>
+<li>大端：低位字节放高地址，高位字节放低地址</li>
+</ul>
 <div class="table-container">
 <table>
 <thead>
@@ -553,9 +566,15 @@ e=\frac{T_1}{T}=\frac{T_1}{H\cdot T_1+(1-H)\cdot T_2}=\frac{1}{H+(1-H)\frac{T_2}
 g=\lceil\frac{虚页总数}{每页能容纳的页表项个数}\rceil=\lceil\frac{\log_2{N_v}-\log_2{N_p}}{\log_2{N_p}-\log_2{N_d}}\rceil</script><p>$N_v$为虚拟存储空间大小，$N_p$为页面大小，$N_d$为一个页表存储字的大小</p>
 <p>采用多级页表使访问主存次数增加，需要<strong>加快查表速度</strong></p>
 <ul>
-<li>目录表法：压缩页表，用一个容量比较小的高速存储器来存放页表</li>
-<li>快慢表：时间局部性，用快表保存最近访问的虚页到实页的映射</li>
-<li>散列函数：把按内容的相联访问变为按地址访问</li>
+<li><p>目录表法：压缩页表，用一个容量比较小的高速存储器来存放页表</p>
+<p><img src="/2022/06/24/CSAreview/image-20220627165712592.png" srcset="/img/loading.gif" lazyload alt></p>
+</li>
+<li><p>快慢表：时间局部性，用快表保存最近访问的虚页到实页的映射</p>
+<p><img src="/2022/06/24/CSAreview/image-20220627165721583.png" srcset="/img/loading.gif" lazyload alt></p>
+</li>
+<li><p>散列函数：把按内容的相联访问变为按地址访问</p>
+<p><img src="/2022/06/24/CSAreview/image-20220627165732496.png" srcset="/img/loading.gif" lazyload alt></p>
+</li>
 </ul>
 <h2 id="页面替换算法"><a href="#页面替换算法" class="headerlink" title="页面替换算法"></a>页面替换算法</h2><p><strong>随机算法RAND</strong></p>
 <p><strong>最优替换算法OPT</strong>：选将来最久没有被访问的页</p>
@@ -575,14 +594,25 @@ g=\lceil\frac{虚页总数}{每页能容纳的页表项个数}\rceil=\lceil\frac
 <p><img src="/2022/06/24/CSAreview/image-20220622174546272.png" srcset="/img/loading.gif" lazyload alt></p>
 <p><strong>组相联映像</strong></p>
 <p><img src="/2022/06/24/CSAreview/image-20220622174740444.png" srcset="/img/loading.gif" lazyload alt></p>
-<h2 id="Cache的一致性问题"><a href="#Cache的一致性问题" class="headerlink" title="Cache的一致性问题"></a>Cache的一致性问题</h2><p><strong>写直达法</strong>：CPU的数据写入Cache时同时也写入主存</p>
-<p><strong>写回法</strong>：CPU的数据只写入Cache不写入主存，只有当替换时才把修改过的Cache块写回主存</p>
-<p>比较：</p>
+<h2 id="Cache的一致性问题"><a href="#Cache的一致性问题" class="headerlink" title="Cache的一致性问题"></a>Cache的一致性问题</h2><p><strong>Cache与主存不一致的原因</strong>：</p>
+<ul>
+<li>CPU写Cache时没有立即写主存</li>
+<li>IO设备写主存时没有更新Cache</li>
+</ul>
+<p><strong>解决办法</strong>：</p>
+<ul>
+<li><p><strong>写直达法</strong>：CPU的数据写入Cache时同时也写入主存</p>
+</li>
+<li><p><strong>写回法</strong>：CPU的数据只写入Cache不写入主存，只有当替换时才把修改过的Cache块写回主存</p>
+</li>
+<li><p>比较：</p>
 <ul>
 <li>可靠性：写直达法优于写回法</li>
 <li>与主存的通信量：写回法少于写直达法</li>
 <li>控制的复杂性：写直达法比写回法简单</li>
 <li>硬件实现的代价：写回法要比写直达法好</li>
+</ul>
+</li>
 </ul>
 <h2 id="Cache的预取算法"><a href="#Cache的预取算法" class="headerlink" title="Cache的预取算法"></a>Cache的预取算法</h2><p><strong>按需取</strong>：当出现Cache不命中时，才把需要的一个块取到Cache中</p>
 <p><strong>恒预取</strong>：无论Cache是否命中，都把下一块取到Cache中</p>
@@ -667,7 +697,7 @@ g=\lceil\frac{虚页总数}{每页能容纳的页表项个数}\rceil=\lceil\frac
 <h2 id="中断屏蔽"><a href="#中断屏蔽" class="headerlink" title="中断屏蔽"></a>中断屏蔽</h2><p><strong>设置中断屏蔽位</strong></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shuimu12345678/article/details/7693997">几个例子(最后一个有问题)</a></p>
 <p>同时来按响应优先级响应</p>
-<p>到开中断的时候看屏蔽码，未屏蔽的按响应优先级去处理</p>
+<p>到开中断的时候看<font color="red">屏蔽码</font>，未屏蔽的按响应优先级去处理</p>
 <p>执行过程中来新请求看屏蔽码去处理</p>
 <p>执行完返回到入口位置再去响应剩下的请求</p>
 <p><strong>改变处理机优先级</strong></p>
@@ -687,9 +717,12 @@ g=\lceil\frac{虚页总数}{每页能容纳的页表项个数}\rceil=\lceil\frac
 </ul>
 <h2 id="通道处理机的工作过程"><a href="#通道处理机的工作过程" class="headerlink" title="通道处理机的工作过程"></a>通道处理机的工作过程</h2><ul>
 <li>在用户程序中使用访管指令进入管理程序，由CPU通过管理程序组织一个通道程序，并启动通道</li>
-<li>通道处理机执行通道程序，完成指定的数据输入输出工作</li>
-<li>通道程序结束后再次调用管理程序进行处理</li>
+<li>通道处理机执行CPU为它组织的通道程序，完成指定的数据输入输出工作</li>
+<li>通道程序结束后向CPU发送中断请求，CPU响应该中断请求，第二次进入操作系统，调用管理程序进行处理</li>
 </ul>
+<p><strong>字节多路通道</strong>：每连接一个中低速外围设备，传送一个字节，再连接下一个设备传送一个字节</p>
+<p><strong>选择通道</strong>：每连接一个高速外围设备，传送n个字节，再连接下一个设备传送n个字节</p>
+<p><strong>数组多路通道</strong>：每连接一个高速设备，传送一个数据块，再连接下一个设备传送一个数据块</p>
 <h2 id="通道处理机流量分析"><a href="#通道处理机流量分析" class="headerlink" title="通道处理机流量分析"></a>通道处理机流量分析</h2><blockquote>
 <p>通道流量：单位时间内能够传送的最大数据量</p>
 <p>通道最大流量：通道在满负荷工作状态下的流量</p>
@@ -755,11 +788,11 @@ f_{MAX.BLOCK}=\frac{p\cdot n}{(\frac{T_S}{k}+T_D)\cdot p\cdot n}=\frac{1}{\frac{
 TP=\frac{任务数}{完成所有任务用时}=\frac{n}{T_k}</script><p>各流水段时间相等时</p>
 <p><img src="/2022/06/24/CSAreview/image-20220623175511210.png" srcset="/img/loading.gif" lazyload alt></p>
 <script type="math/tex; mode=display">
-TP=\frac{n}{(k+n-1)\Delta t}\\
+TP=\frac{n}{(k+n-1)\Delta t}\quad
 TP_{max}=\lim_{n\to\infty}{TP}=\frac{1}{\Delta t}</script><p>各流水段时间不等时</p>
 <p><img src="/2022/06/24/CSAreview/image-20220623175102825.png" srcset="/img/loading.gif" lazyload alt></p>
 <script type="math/tex; mode=display">
-TP=\frac{n}{\sum_{i=1}^k{t_i}+(n-1)\max{(\Delta t_1,...,\Delta t_k)}}\\
+TP=\frac{n}{\sum_{i=1}^k{t_i}+(n-1)\max{(\Delta t_1,...,\Delta t_k)}}\quad
 TP_{max}=\lim_{n\to\infty}{TP}=\frac{1}{\max{(\Delta t_1,...,\Delta t_k)}}</script><p><strong>加速比 Speedup</strong></p>
 <script type="math/tex; mode=display">
 S=\frac{顺序执行时间}{流水线执行时间}=\frac{T_0}{T_k}</script><p><strong>效率 Efficiency</strong></p>
@@ -916,7 +949,7 @@ PM2_{-i}(x)=(x-2^i)\mod N</script><h2 id="静态互连网络的基本类型"><a 
 <p><strong>Omega网络</strong> 多级混洗交换网络</p>
 <ul>
 <li>采用4功能的2x2开关</li>
-<li>级间互连采用均匀洗牌连接方式</li>
+<li>级间互连采用<strong>均匀洗牌</strong>连接方式</li>
 <li>一个N输入的多级立方体网络有$\log_2 N$级，每级用$N/2$个2x2开关模块</li>
 </ul>
 <p><img src="/2022/06/24/CSAreview/image-20220624140450988.png" srcset="/img/loading.gif" lazyload alt></p>
