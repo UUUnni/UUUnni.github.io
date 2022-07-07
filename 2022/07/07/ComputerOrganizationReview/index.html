@@ -1,0 +1,857 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+<script src="https://cdn.jsdelivr.net/gh/Sanarous/files@1.151/js/clicklove.js"></script>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sun.png">
+  <link rel="icon" href="/img/sun.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#252d38">
+  <meta name="author" content="31">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="2020-2021学年计算机组成原理复习笔记 （夏令营补档 我悟了 简答题整理就是为了面试准备的吧啊？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDU计算机组成原理笔记">
+<meta property="og:url" content="http://uuunni.github.io/2022/07/07/ComputerOrganizationReview/index.html">
+<meta property="og:site_name" content="31&#39;s Blog">
+<meta property="og:description" content="2020-2021学年计算机组成原理复习笔记 （夏令营补档 我悟了 简答题整理就是为了面试准备的吧啊？">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-07T02:48:34.000Z">
+<meta property="article:modified_time" content="2022-07-07T02:51:15.185Z">
+<meta property="article:author" content="31">
+<meta property="article:tag" content="SDU">
+<meta property="article:tag" content="ComputerOrganization">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>SDU计算机组成原理笔记 - 31&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/night-owl.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"uuunni.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"always","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"boxDRW3XpqvL2o48tPQxzy8N-gzGzoHsz","app_key":"t8snqjGhwT0Sery7lIU4V169","server_url":"https://boxdrw3x.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>31</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/3.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SDU计算机组成原理笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-07-07 10:48" pubdate>
+        2022年7月7日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      45 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SDU计算机组成原理笔记</h1>
+            
+            <div class="markdown-body">
+              <h1 id="简答题整理"><a href="#简答题整理" class="headerlink" title="简答题整理"></a>简答题整理</h1><h2 id="第一章-概述"><a href="#第一章-概述" class="headerlink" title="第一章 概述"></a>第一章 概述</h2><h3 id="冯诺依曼计算机的特点"><a href="#冯诺依曼计算机的特点" class="headerlink" title="冯诺依曼计算机的特点"></a>冯诺依曼计算机的特点</h3><p>① 计算机由运算器、存储器、控制器、输入设备和输出设备五大部件组成</p>
+<p>② 指令和数据以同等地位存于存储器内，并可按地址寻访</p>
+<p>③ 指令和数据均用二进制代码表示</p>
+<p>④ 指令由操作码和地址码组成，操作码表示操作的性质，地址码表示操作数在存储器中的位置</p>
+<p>⑤ 指令在存储器内按顺序存放</p>
+<p>⑥ 机器以运算器为中心，输入输出设备与存储器间的数据传送通过运算器完成</p>
+<h3 id="现代计算机的组成"><a href="#现代计算机的组成" class="headerlink" title="现代计算机的组成"></a>现代计算机的组成</h3><p>主机（主存储器    CPU（ALU    CU））</p>
+<p>I/O设备</p>
+<h2 id="第四章-存储器"><a href="#第四章-存储器" class="headerlink" title="第四章 存储器"></a>第四章 存储器</h2><h3 id="存储器的层次结构主要体现在什么地方？为什么要分这些层次？计算机如何管理这些层次？"><a href="#存储器的层次结构主要体现在什么地方？为什么要分这些层次？计算机如何管理这些层次？" class="headerlink" title="存储器的层次结构主要体现在什么地方？为什么要分这些层次？计算机如何管理这些层次？"></a>存储器的层次结构主要体现在什么地方？为什么要分这些层次？计算机如何管理这些层次？</h3><p>体现在主存-缓存层次和主存-辅存层次</p>
+<p>主存-缓存层次主要解决CPU和主存速度不匹配的问题，该层次的速度接近于缓存，而容量和单位成本接近于主存，解决了存储器的高速度和低成本之间的矛盾；主存-辅存层次主要解决存储系统的容量问题，该层次的速度接近于主存，而容量和单位成本接近于辅存，解决了存储器的大容量和低成本之间的矛盾</p>
+<p>主存-缓存之间的数据调度由硬件完成，对程序员透明；主存-辅存之间的数据调度由硬件和操作系统共同完成</p>
+<h3 id="什么叫刷新？说明刷新有几种方法？"><a href="#什么叫刷新？说明刷新有几种方法？" class="headerlink" title="什么叫刷新？说明刷新有几种方法？"></a>什么叫刷新？说明刷新有几种方法？</h3><p>为防止信息丢失，将DRAM的原存信息读出，再由刷新放大器形成原信息并重新写入的再生过程叫做刷新</p>
+<p>集中刷新：在规定的刷新周期内，对全部存储单元集中一段时间逐行刷新，该段时间内必须停止读写操作</p>
+<p>分散刷新：对每行存储单元的刷新分散到每个存储周期内完成</p>
+<p>异步刷新：结合集中刷新和分散刷新。存取周期不变，行间刷新时间间隔为刷新周期/行数</p>
+<h3 id="简要说明提高访存速度可采取的措施"><a href="#简要说明提高访存速度可采取的措施" class="headerlink" title="简要说明提高访存速度可采取的措施"></a>简要说明提高访存速度可采取的措施</h3><p>使用高速器件</p>
+<p>采用主存-缓存层次结构</p>
+<p>调整主存结构，使用单体多字系统或多体并行系统</p>
+<h2 id="第五章-输入输出系统"><a href="#第五章-输入输出系统" class="headerlink" title="第五章 输入输出系统"></a>第五章 输入输出系统</h2><h3 id="I-O设备有哪些编址方式，各有何特点？"><a href="#I-O设备有哪些编址方式，各有何特点？" class="headerlink" title="I/O设备有哪些编址方式，各有何特点？"></a>I/O设备有哪些编址方式，各有何特点？</h3><p>统一编址：在主存地址空间划出I/O地址，通过访存指令即可实现对I/O设备的访问</p>
+<p>独立编址：I/O地址和主存地址分开，通过I/O指令实现对I/O设备的访问</p>
+<h3 id="I-O设备与主机交换信息时，共有哪几种控制方式？简述它们的特点"><a href="#I-O设备与主机交换信息时，共有哪几种控制方式？简述它们的特点" class="headerlink" title="I/O设备与主机交换信息时，共有哪几种控制方式？简述它们的特点"></a>I/O设备与主机交换信息时，共有哪几种控制方式？简述它们的特点</h3><p>程序查询方式：主机与I/O设备串行工作。CPU启动I/O设备后，时刻查询I/O设备状态，若准备就绪则执行I/O指令，若未准备好就踏步等待直到准备就绪。</p>
+<p>程序中断方式：主机与I/O设备并行工作。CPU启动I/O设备后，继续执行现行程序，当I/O设备准备就绪后向CPU发送中断请求信号，CPU响应中断请求后执行I/O指令。</p>
+<p>DMA方式：主机与I/O设备并行工作，主存与I/O设备之间有一条直接的数据通路。CPU启动I/O设备后，继续执行现行程序，当I/O设备准备就绪后发出DMA请求，CPU把外部总线的使用权暂时交给DMA，不必中断现行程序，只需暂停一个存取周期的访存。</p>
+<h3 id="什么是I-O接口，它与端口有何区别？"><a href="#什么是I-O接口，它与端口有何区别？" class="headerlink" title="什么是I/O接口，它与端口有何区别？"></a>什么是I/O接口，它与端口有何区别？</h3><p>I/O接口指主机和I/O设备间设置的硬件电路和相应的软件控制</p>
+<p>I/O端口是指接口电路中存放数据信息、控制信息和状态信息的寄存器。</p>
+<h3 id="简述I-O接口的功能和基本组成"><a href="#简述I-O接口的功能和基本组成" class="headerlink" title="简述I/O接口的功能和基本组成"></a>简述I/O接口的功能和基本组成</h3><p>功能：选址、传送数据、传送命令、反映设备状态</p>
+<p>基本组成：设备选择电路、数据缓冲寄存器、命令寄存器和命令译码器、设备状态标记、控制逻辑电路</p>
+<h3 id="结合程序查询方式的接口电路，说明其工作过程"><a href="#结合程序查询方式的接口电路，说明其工作过程" class="headerlink" title="结合程序查询方式的接口电路，说明其工作过程"></a>结合程序查询方式的接口电路，说明其工作过程</h3><p>①当CPU通过I/O指令启动I/O设备后，指令的设备码字段通过地址线进入设备选择电路</p>
+<p>②若设备码与地址线上的代码吻合，则输出SEL为1</p>
+<p>③I/O指令的启动命令通过与SEL与非运算，将D置0，B置1</p>
+<p>④B触发器启动设备工作</p>
+<p>⑤输入设备将数据送入数据缓冲寄存器</p>
+<p>⑥设备工作结束后，将D置1，B置0</p>
+<p>⑦D触发器发出准备就绪信号</p>
+<p>⑧CPU将数据缓冲寄存器中的数据读出</p>
+<h3 id="在什么条件和什么时间，CPU可以响应I-O的中断请求"><a href="#在什么条件和什么时间，CPU可以响应I-O的中断请求" class="headerlink" title="在什么条件和什么时间，CPU可以响应I/O的中断请求"></a>在什么条件和什么时间，CPU可以响应I/O的中断请求</h3><p>条件：允许中断触发器EINT=1，有中断请求INTR=1，未被屏蔽MASK=0</p>
+<p>时间：一条指令执行结束时刻</p>
+<h3 id="结合中断接口电路，说明其工作过程"><a href="#结合中断接口电路，说明其工作过程" class="headerlink" title="结合中断接口电路，说明其工作过程"></a>结合中断接口电路，说明其工作过程</h3><p>①由CPU发出启动I/O设备指令，将D置0，B置1</p>
+<p>②B触发器启动设备工作</p>
+<p>③输入设备将数据送入数据缓冲寄存器</p>
+<p>④设备工作结束后，将D置1，B置0</p>
+<p>⑤D发出设备准备就绪信号，且本设备未被屏蔽时发出中断查询信号</p>
+<p>⑥设备向CPU发出中断请求，并送入排队其进行中断判优</p>
+<p>⑦若CPU允许中断且设备被排队选中，则进入中断响应阶段，将排队器输出送至设备编码器形成向量地址</p>
+<p>⑧向量地址送至PC，作为下一条指令的地址</p>
+<p>⑨进入中断服务，CPU读出数据缓冲寄存器中的数据</p>
+<p>⑩中断返回至源程序断点处</p>
+<h3 id="试比较单重中断和多重中断服务程序的处理流程，说明它们不同的原因"><a href="#试比较单重中断和多重中断服务程序的处理流程，说明它们不同的原因" class="headerlink" title="试比较单重中断和多重中断服务程序的处理流程，说明它们不同的原因"></a>试比较单重中断和多重中断服务程序的处理流程，说明它们不同的原因</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>单重中断</th>
+<th>多重中断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>取指令</td>
+<td>取指令</td>
+</tr>
+<tr>
+<td>执行指令</td>
+<td>执行指令</td>
+</tr>
+<tr>
+<td>中断否？</td>
+<td>中断否？</td>
+</tr>
+<tr>
+<td>中断响应</td>
+<td>中断响应</td>
+</tr>
+<tr>
+<td>程序断点进栈</td>
+<td>程序断点进栈</td>
+</tr>
+<tr>
+<td>关中断</td>
+<td>关中断</td>
+</tr>
+<tr>
+<td>向量地址-&gt;PC</td>
+<td>向量地址-&gt;PC</td>
+</tr>
+<tr>
+<td>保护现场</td>
+<td>保护现场</td>
+</tr>
+<tr>
+<td></td>
+<td>开中断</td>
+</tr>
+<tr>
+<td>设备服务</td>
+<td>设备服务</td>
+</tr>
+<tr>
+<td>恢复现场</td>
+<td>恢复现场</td>
+</tr>
+<tr>
+<td>开中断</td>
+<td></td>
+</tr>
+<tr>
+<td>中断返回</td>
+<td>中断返回</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>区别：开中断指令安排的位置不同。</p>
+<p>单重中断：开中断指令设置在最后中断返回之前，意味在整个中断服务程序中CPU不再响应其他中断源的请求</p>
+<p>多重中断：开中断指令设置在保护现场之后，意味在保护现场后CPU可以再次响应级别更高的中断源请求</p>
+<h3 id="解释周期挪用，分析周期挪用可能会出现的几种情况"><a href="#解释周期挪用，分析周期挪用可能会出现的几种情况" class="headerlink" title="解释周期挪用，分析周期挪用可能会出现的几种情况"></a>解释周期挪用，分析周期挪用可能会出现的几种情况</h3><p>每当I/O设备发出DMA请求时，I/O设备挪用总线使用权一个或几个主存周期</p>
+<p>情况1：CPU此时不需要访存，I/O设备与CPU不发生冲突</p>
+<p>情况2：CPU此时正在访存，等待存取周期结束后CPU才将总线使用权让出</p>
+<p>情况3：CPU同时提出访存请求，发生冲突，DMA请求优先，挪用总线使用权</p>
+<h3 id="DMA接口的功能和组成"><a href="#DMA接口的功能和组成" class="headerlink" title="DMA接口的功能和组成"></a>DMA接口的功能和组成</h3><p><strong>功能：</strong></p>
+<p>向CPU申请DMA传送；</p>
+<p>在CPU允许DMA工作时，处理总线控制权的转交；</p>
+<p>在DMA期间管理系统总线，控制数据传送；</p>
+<p>确定数据传送的起始地址和数据长度，修正数据传送过程中的数据地址和数据长度；</p>
+<p>数据块传送结束时，给出DMA操作完成的信号</p>
+<p><strong>组成：</strong></p>
+<p>主存地址寄存器AR：用于存放主存中需要交换数据的地址</p>
+<p>字计数器WC：用于记录传送数据的总字数</p>
+<p>数据缓冲寄存器BR：用于暂存每次传送的数据</p>
+<p>DMA控制逻辑：负责管理DMA的传送过程</p>
+<p>中断机构：向CPU提出中断请求，请求CPU做DMA的后处理</p>
+<p>设备地址寄存器DAR：存放I/O设备的设备码或表示设备信息存储区的寻址信息</p>
+<h3 id="结合DMA接口电路说明其工作过程"><a href="#结合DMA接口电路说明其工作过程" class="headerlink" title="结合DMA接口电路说明其工作过程"></a>结合DMA接口电路说明其工作过程</h3><p>(1) 预处理</p>
+<p>指明数据传送方向</p>
+<p>设备地址送入DMA接口中的DAR，并启动设备</p>
+<p>主存起始地址送入DMA接口中的AR</p>
+<p>传送数据个数送入DMA接口中的WC</p>
+<p>(2) 数据传送</p>
+<p>①设备准备好一个字后发出通选信号，将该字读到BR中/将BR中的输出数据送至设备中后发出通选信号</p>
+<p>②与此同时向DMA接口发送请求DREQ</p>
+<p>③DMA接口向总线申请使用权HRQ</p>
+<p>④CPU发回HLDA信号，表示允许将总线控制权移交给DMA</p>
+<p>⑤将DMA的AR中地址送地址总线命令存储器写/读</p>
+<p>⑥通知设备已被授予一个DMA周期，为读下一个字做准备</p>
+<p>⑦将DMA数据缓冲寄存器的内容送数据总线/主存将相应地址单元数据通过数据总线送入DMA的BR</p>
+<p>⑧主存将数据总线上的信息写至地址总线指定的存储单元中/将DMA的数据缓冲寄存器的内容送到输出设备</p>
+<p>⑨修改主存地址和字计数值</p>
+<p>⑩判断数据块是否传送结束，若未结束则继续传送；若已结束则向CPU申请程序中断</p>
+<p>(3) 后处理</p>
+<p>执行中断服务程序</p>
+<p>做DMA结束处理</p>
+<h2 id="第七章-指令系统"><a href="#第七章-指令系统" class="headerlink" title="第七章 指令系统"></a>第七章 指令系统</h2><h3 id="试比较基址寻址和变址寻址"><a href="#试比较基址寻址和变址寻址" class="headerlink" title="试比较基址寻址和变址寻址"></a>试比较基址寻址和变址寻址</h3><p>两种寻址方式都可以扩大寻址范围</p>
+<p>基址寻址的有效地址等于形式地址加上基址寄存器的内容；变址寻址的有效地址的等于形式地址加上变址寄存器的内容</p>
+<p>基址寄存器的内容由操作系统给定，且在程序的执行过程中不可变；变址寄存器的内容由用户给定，且在程序的执行过程中可变</p>
+<p>基址寻址用于为程序或数据分配存储空间；变址寻址用于处理数组程序</p>
+<h2 id="第八章-CPU结构和功能"><a href="#第八章-CPU结构和功能" class="headerlink" title="第八章 CPU结构和功能"></a>第八章 CPU结构和功能</h2><h3 id="CPU的功能和结构"><a href="#CPU的功能和结构" class="headerlink" title="CPU的功能和结构"></a>CPU的功能和结构</h3><p>功能：指令控制、操作控制、时间控制、数据加工、处理中断</p>
+<p>结构：寄存器（程序计数、存放指令地址、存放指令、存放操作数等）</p>
+<p>​            CU（产生各种微操作命令序列）</p>
+<p>​            ALU（算术和逻辑运算）</p>
+<p>​            中断系统（处理异常情况和特殊请求）</p>
+<h3 id="指令周期的流程，分别说明每个子周期的作用"><a href="#指令周期的流程，分别说明每个子周期的作用" class="headerlink" title="指令周期的流程，分别说明每个子周期的作用"></a>指令周期的流程，分别说明每个子周期的作用</h3><p>取指周期：取指令</p>
+<p>间址周期：取有效地址</p>
+<p>执行周期：完成执行指令的操作</p>
+<p>中断周期：保存程序断点</p>
+<h3 id="什么是中断隐指令，有哪些功能？"><a href="#什么是中断隐指令，有哪些功能？" class="headerlink" title="什么是中断隐指令，有哪些功能？"></a>什么是中断隐指令，有哪些功能？</h3><p>中断隐指令是指令系统中没有的指令，它由CPU在中断响应周期自动完成</p>
+<p>功能：保护程序断点、寻找服务程序入口地址（硬件向量法和软件查询法）、硬件关中断</p>
+<h2 id="第九、十章-控制单元"><a href="#第九、十章-控制单元" class="headerlink" title="第九、十章 控制单元"></a>第九、十章 控制单元</h2><h3 id="什么是指令周期、机器周期和时钟周期？三者有何关系"><a href="#什么是指令周期、机器周期和时钟周期？三者有何关系" class="headerlink" title="什么是指令周期、机器周期和时钟周期？三者有何关系"></a>什么是指令周期、机器周期和时钟周期？三者有何关系</h3><p>指令周期：取出并执行一条指令需要的全部时间</p>
+<p>机器周期：所有指令执行过程中的基准时间</p>
+<p>时钟周期：控制计算机操作的最小时间单位，其频率即为CPU主频</p>
+<p>一个指令周期包含若干个机器周期，一个机器周期包含若干个时钟周期</p>
+<h3 id="指令微操作及节拍安排"><a href="#指令微操作及节拍安排" class="headerlink" title="指令微操作及节拍安排"></a>指令微操作及节拍安排</h3><h4 id="取指周期"><a href="#取指周期" class="headerlink" title="取指周期"></a>取指周期</h4><figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">PC-&gt;MAR			现行指令地址-&gt;MAR<br><span class="hljs-number">1</span>-&gt;R			命令存储器读<br>M<span class="hljs-function"><span class="hljs-params">(MAR)</span>-&gt;</span>MDR		现行指令从存储器中读至MDR<br>MDR-&gt;IR			现行指令-&gt;IR<br>OP<span class="hljs-function"><span class="hljs-params">(IR)</span>-&gt;</span>CU		指令的操作码-&gt;CU译码<br>(PC)+<span class="hljs-number">1</span>-&gt;PC		形成下一条指令的地址<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">T0	PC-&gt;MAR,<span class="hljs-number">1</span>-&gt;R<br>T1	M<span class="hljs-function"><span class="hljs-params">(MAR)</span>-&gt;</span>MDR,(PC)+<span class="hljs-number">1</span>-&gt;PC<br>T2	MDR-&gt;IR,OP<span class="hljs-function"><span class="hljs-params">(IR)</span>-&gt;</span>CU<br></code></pre></div></td></tr></table></figure>
+<h4 id="间址周期"><a href="#间址周期" class="headerlink" title="间址周期"></a>间址周期</h4><figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">Ad<span class="hljs-function"><span class="hljs-params">(IR)</span>-&gt;</span>MAR		指令的地址码字段-&gt;MAR<br><span class="hljs-number">1</span>-&gt;R			命令存储器读<br>M<span class="hljs-function"><span class="hljs-params">(MAR)</span>-&gt;</span>MDR		有效地址从存储器中读至MDR<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">T0	Ad<span class="hljs-function"><span class="hljs-params">(IR)</span>-&gt;</span>MAR,<span class="hljs-number">1</span>-&gt;R<br>T1	M<span class="hljs-function"><span class="hljs-params">(MAR)</span>-&gt;</span>MDR<br></code></pre></div></td></tr></table></figure>
+<h4 id="执行周期"><a href="#执行周期" class="headerlink" title="执行周期"></a>执行周期</h4><h5 id="取数LDA-X"><a href="#取数LDA-X" class="headerlink" title="取数LDA X"></a>取数LDA X</h5><figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">Ad<span class="hljs-function"><span class="hljs-params">(IR)</span>-&gt;</span>MAR		指令的地址码字段-&gt;MAR<br><span class="hljs-number">1</span>-&gt;R			命令存储器读<br>M<span class="hljs-function"><span class="hljs-params">(MAR)</span>-&gt;</span>MDR		操作数从存储器中读至MDR<br>MDR-&gt;ACC		操作数-&gt;ACC<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">T0	Ad<span class="hljs-function"><span class="hljs-params">(IR)</span>-&gt;</span>MAR,<span class="hljs-number">1</span>-&gt;R<br>T1	M<span class="hljs-function"><span class="hljs-params">(MAR)</span>-&gt;</span>MDR<br>T2	MDR-&gt;ACC<br></code></pre></div></td></tr></table></figure>
+<h5 id="存数STA-X"><a href="#存数STA-X" class="headerlink" title="存数STA X"></a>存数STA X</h5><figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">Ad<span class="hljs-function"><span class="hljs-params">(IR)</span>-&gt;</span>MAR		指令的地址码字段-&gt;MAR<br><span class="hljs-number">1</span>-&gt;W			命令存储器写<br>ACC-&gt;MDR		欲写入的数据-&gt;MDR<br>MDR-&gt;M(MAR)		数据写至存储器中<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">T0	Ad<span class="hljs-function"><span class="hljs-params">(IR)</span>-&gt;</span>MAR,<span class="hljs-number">1</span>-&gt;W<br>T1	ACC-&gt;MDR<br>T2	MDR-&gt;M(MAR)<br></code></pre></div></td></tr></table></figure>
+<h5 id="加法ADD-X"><a href="#加法ADD-X" class="headerlink" title="加法ADD X"></a>加法ADD X</h5><figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">Ad<span class="hljs-function"><span class="hljs-params">(IR)</span>-&gt;</span>MAR		指令的地址码字段-&gt;MAR<br><span class="hljs-number">1</span>-&gt;R			命令存储器读<br>M<span class="hljs-function"><span class="hljs-params">(MAR)</span>-&gt;</span>MDR		操作数从存储器读至MDR<br><span class="hljs-function"><span class="hljs-params">(ACC)</span>+<span class="hljs-params">(MDR)</span>-&gt;</span>ACC两数相加结果送ACC<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">T1	Ad<span class="hljs-function"><span class="hljs-params">(IR)</span>-&gt;</span>MAR,<span class="hljs-number">1</span>-&gt;R<br>T2	M<span class="hljs-function"><span class="hljs-params">(MAR)</span>-&gt;</span>MDR<br>T3	<span class="hljs-function"><span class="hljs-params">(ACC)</span>+<span class="hljs-params">(MDR)</span>-&gt;</span>ACC<br></code></pre></div></td></tr></table></figure>
+<h5 id="无条件转移JMP-X"><a href="#无条件转移JMP-X" class="headerlink" title="无条件转移JMP X"></a>无条件转移JMP X</h5><figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">Ad<span class="hljs-function"><span class="hljs-params">(IR)</span>-&gt;</span>PC		转移（目标）地址-&gt;PC<br></code></pre></div></td></tr></table></figure>
+<h4 id="中断周期"><a href="#中断周期" class="headerlink" title="中断周期"></a>中断周期</h4><figure class="highlight clean"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs clean"><span class="hljs-number">0</span>-&gt;MAR			特定地址<span class="hljs-number">0</span>-&gt;MAR<br><span class="hljs-number">1</span>-&gt;W			命令存储器写<br>PC-&gt;MDR			PC内容（程序断点）-&gt;MDR<br>MDR-&gt;M(MAR)		程序断点写入<span class="hljs-number">0</span>地址单元中<br>向量地址-&gt;PC	 向量地址形成部件的输出送至PC<br><span class="hljs-number">0</span>-&gt;EINT			关中断将允许中断触发器置零<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight clean"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs clean">T0	<span class="hljs-number">0</span>-&gt;MAR,<span class="hljs-number">1</span>-&gt;W<br>T1	PC-&gt;MDR<br>T2	MDR-&gt;M(MAR),向量地址-&gt;PC<br></code></pre></div></td></tr></table></figure>
+<h3 id="微程序控制单元的设计思想"><a href="#微程序控制单元的设计思想" class="headerlink" title="微程序控制单元的设计思想"></a>微程序控制单元的设计思想</h3><p>若干条微命令组成一条微指令，控制实现一步操作</p>
+<p>若干条微指令组成一段微程序，解释一条机器指令</p>
+<p>每条机器指令对应一段微程序，微程序存放于控制存储器中</p>
+<h3 id="微程序控制单元的组成"><a href="#微程序控制单元的组成" class="headerlink" title="微程序控制单元的组成"></a>微程序控制单元的组成</h3><ul>
+<li><p>控制存储器：用来存放全部微程序</p>
+</li>
+<li><p>CMAR控存地址寄存器：用来存放于欲读出的微指令地址</p>
+</li>
+<li><p>CMDR控存数据寄存器：用来存放从控存读出的微指令</p>
+</li>
+<li><p>顺序逻辑：用来控制微指令序列</p>
+</li>
+<li><p>微地址形成部件</p>
+</li>
+<li><p>地址译码</p>
+</li>
+</ul>
+<h3 id="微程序控制单元的工作原理"><a href="#微程序控制单元的工作原理" class="headerlink" title="微程序控制单元的工作原理"></a>微程序控制单元的工作原理</h3><p>根据机器指令的操作码，从控制存储器中找到与之对应的微程序的入口地址，取出微指令，发出微操作命令，形成下一条微指令的地址，以此类推……执行机器指令，以达到运行程序的目的</p>
+<h3 id="微指令的操作控制有几种编码方式？各有何特点？哪一种控制速度最快？"><a href="#微指令的操作控制有几种编码方式？各有何特点？哪一种控制速度最快？" class="headerlink" title="微指令的操作控制有几种编码方式？各有何特点？哪一种控制速度最快？"></a>微指令的操作控制有几种编码方式？各有何特点？哪一种控制速度最快？</h3><p>直接编码：操作控制字段每一位代表一个微操作命令，执行速度最快</p>
+<p>字段直接编码：将操作控制字段分为若干段，将一组互斥的微命令放在一个字段内，每段经译码后发出控制信号</p>
+<p>字段间接编码：一个字段的某些微命令需由另一个字段中的某些微命令解释</p>
+<p>混合编码：直接编码和字段编码混合使用</p>
+<h3 id="微指令的地址有几种形成方式？"><a href="#微指令的地址有几种形成方式？" class="headerlink" title="微指令的地址有几种形成方式？"></a>微指令的地址有几种形成方式？</h3><p>①直接由微指令的下地址字段给出</p>
+<p>②根据机器指令的操作码形成</p>
+<p>③增量计数器</p>
+<p>④分支转移</p>
+<p>⑤通过测试网络形成</p>
+<p>⑥由硬件直接产生微程序入口地址</p>
+<h1 id="31猜计算题"><a href="#31猜计算题" class="headerlink" title="31猜计算题"></a>31猜计算题</h1><p>计算机性能有关计算 $f,MIPS,CPI,T_M=\sum^n_{i=1}f_it_i$</p>
+<p>存储器与CPU连接 片选逻辑</p>
+<p>Cache有关计算 命中率、主存系统效率</p>
+<p>Cache与主存的映射</p>
+<p>定点数加减法和溢出判断 浮点数加减</p>
+<p>原码一位乘 补码一位乘</p>
+<p>数据寻址 结合大端小端存储模式</p>
+<p>指令格式设计 扩展编码技术</p>
+<p>中断屏蔽字 CPU执行程序轨迹</p>
+<p>指令微操作、微命令、控制信号、节拍分配</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Note/">Note</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/SDU/">SDU</a>
+                    
+                      <a class="hover-with-bg" href="/tags/ComputerOrganization/">ComputerOrganization</a>
+                    
+                  </div>
+                
+              </div>
+              <!-- 
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+               -->
+              
+                <p class="note note-info" style="background: #2e3a49; color: #eee;">
+                <strong>本文作者: </strong><a href="/">31</a> <br>
+                <strong>本文链接: </strong><a href="http://uuunni.github.io/2022/07/07/ComputerOrganizationReview/">http://uuunni.github.io/2022/07/07/ComputerOrganizationReview/</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                </p>
+              
+
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/07/%E9%A9%AC%E5%8E%9F%E5%A4%8D%E4%B9%A0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SDU马克思主义原理笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/07/BasicElectronicCircuitNote/">
+                        <span class="hidden-mobile">SDU电子电路基础笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"QJtn4PrebEYsIJPwEkfclcO0-gzGzoHsz","appKey":"kdxH4zfnh96BgUrFbIGbhUVE","path":"window.location.pathname","placeholder":"留下点什么叭... ᶘ ᵒᴥᵒᶅ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<div class="text-center">
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("01/15/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "🚀 for&nbsp"+dnum+"&nbspdays";  //此次自定义显示内容
+      document.getElementById("times").innerHTML = hnum + "&nbsphr&nbsp" + mnum + "&nbspmin&nbsp" + snum + "&nbspsec";
+  }  //此次自定义显示内容
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
