@@ -1,0 +1,846 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+<script src="https://cdn.jsdelivr.net/gh/Sanarous/files@1.151/js/clicklove.js"></script>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sun.png">
+  <link rel="icon" href="/img/sun.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#252d38">
+  <meta name="author" content="31">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="UC Berkeley CS161 计算机安全入门：内存安全、密码学、web安全、网络安全  (更新中...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS161 Computer Security">
+<meta property="og:url" content="http://uuunni.github.io/2022/10/14/CS161/index.html">
+<meta property="og:site_name" content="31&#39;s Blog">
+<meta property="og:description" content="UC Berkeley CS161 计算机安全入门：内存安全、密码学、web安全、网络安全  (更新中...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/1d-address-space.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/2d-address-space.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/memory-sections.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/little-endian.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/push.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/pop.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/stack0.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/stack1.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/stack2.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/stack3.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/stack4.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/stack5.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/stack6.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/stack7.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/stack8.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/stack9.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/stack10.png">
+<meta property="og:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/stack11.png">
+<meta property="article:published_time" content="2022-10-14T08:40:45.000Z">
+<meta property="article:modified_time" content="2022-10-14T08:49:38.464Z">
+<meta property="article:author" content="31">
+<meta property="article:tag" content="Security">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://textbook.cs161.org/assets/images/memory-safety/x86/1d-address-space.png">
+  
+  
+  <title>CS161 Computer Security - 31&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/night-owl.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"uuunni.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"always","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"boxDRW3XpqvL2o48tPQxzy8N-gzGzoHsz","app_key":"t8snqjGhwT0Sery7lIU4V169","server_url":"https://boxdrw3x.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>31</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/3.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="CS161 Computer Security">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-10-14 16:40" pubdate>
+        2022年10月14日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.1k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      34 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CS161 Computer Security</h1>
+            
+            <div class="markdown-body">
+              <blockquote>
+<p><a target="_blank" rel="noopener" href="https://textbook.cs161.org/">CS161: Computer Security</a></p>
+</blockquote>
+<h1 id="Security-Principles"><a href="#Security-Principles" class="headerlink" title="Security Principles"></a>Security Principles</h1><h2 id="1-Security-Principles"><a href="#1-Security-Principles" class="headerlink" title="1. Security Principles"></a>1. Security Principles</h2><h3 id="1-1-Know-your-threat-model"><a href="#1-1-Know-your-threat-model" class="headerlink" title="1.1 Know your threat model"></a>1.1 Know your threat model</h3><p>A threat model ：攻击者是谁？它们拥有什么资源？它们为什么要攻击？</p>
+<p>一些对攻击者的设想：</p>
+<ol>
+<li>攻击者可以在不被察觉的条件下干涉系统</li>
+<li>攻击者知道系统的总体情况，比如OS、潜在的软件缺陷</li>
+<li>攻击者具有坚持和幸运的特质</li>
+<li>攻击者有能力和资源执行攻击</li>
+<li>攻击者可以跨系统执行大规模攻击</li>
+<li>每个系统都是潜在的被攻击对象</li>
+</ol>
+<h3 id="1-2-Consider-Human-Factors"><a href="#1-2-Consider-Human-Factors" class="headerlink" title="1.2 Consider Human Factors"></a>1.2 Consider Human Factors</h3><p>安全系统必须对普通用户而言是简单易用的，否则用户很可能为了”方便”去破坏系统。</p>
+<h3 id="1-3-Security-is-economics"><a href="#1-3-Security-is-economics" class="headerlink" title="1.3 Security is economics"></a>1.3 Security is economics</h3><p>没有系统是100%安全的，只要保证系统能抵御一定等级的攻击即可。因为更高的安全性意味者更高的成本，且安全性收益与成本增加是不成比例的。所以安全性通常是一种成本效益分析，应该集中保护最薄弱的环节。安全就像一条链，系统的安全程度取决于最薄弱的一环。</p>
+<p><strong>conservative design</strong> 保守设计原则：在对攻击者有利的假设下，应该根据可能出现的最坏的安全故障对系统进行评估。如果存在可能导致系统不安全的情况，那么谨慎的做法是寻找一个更安全的系统。</p>
+<h3 id="1-4-Detect-if-you-can’t-prevent"><a href="#1-4-Detect-if-you-can’t-prevent" class="headerlink" title="1.4 Detect if you can’t prevent"></a>1.4 Detect if you can’t prevent</h3><p>prevent 预防：阻止攻击发生</p>
+<p>detect 检测：了解攻击已经发生</p>
+<p>response 响应：针对攻击采取措施</p>
+<p>如果你不能阻止攻击的发生，你至少应该知道攻击已经发生了。一旦你知道攻击发生了，你应该找到一种响应的方法，因为没有响应的检测是没有意义的。</p>
+<p>在响应时，应该为最坏的结果做好准备，应该始终以一种能回到某种工作状态的方式来规划安全性。</p>
+<h3 id="1-5-Defense-in-depth"><a href="#1-5-Defense-in-depth" class="headerlink" title="1.5 Defense in depth"></a>1.5 Defense in depth</h3><p>多种类型的防御应该分层在一起，使攻击者必须突破所有防御才能成功攻击系统。</p>
+<h3 id="1-6-Least-privilege"><a href="#1-6-Least-privilege" class="headerlink" title="1.6 Least privilege"></a>1.6 Least privilege</h3><p>尽量减少给每个程序和系统组件的权限。</p>
+<p>它不会降低故障的概率，但可以降低故障的预期成本。一个程序拥有的特权越少，它在出错或被破坏时所造成的伤害就越小。</p>
+<h3 id="1-7-Separation-of-responsibility"><a href="#1-7-Separation-of-responsibility" class="headerlink" title="1.7 Separation of responsibility"></a>1.7 Separation of responsibility</h3><p>没有一个人或程序拥有所有权限。在授予访问权限之前，需要多个方面的批准。</p>
+<h3 id="1-8-Ensure-complete-mediation"><a href="#1-8-Ensure-complete-mediation" class="headerlink" title="1.8 Ensure complete mediation"></a>1.8 Ensure complete mediation</h3><p>在执行访问控制策略时检查对每个对象的每个访问，以确保所有访问都受到监视和保护。实现这一种方法是通过引用监视器，它是一个单点，所有访问都必须通过它进行。</p>
+<h3 id="1-9-Shannon’s-Maxim"><a href="#1-9-Shannon’s-Maxim" class="headerlink" title="1.9 Shannon’s Maxim"></a>1.9 Shannon’s Maxim</h3><p>攻击者了解它们攻击的系统。</p>
+<p>依赖于其设计、算法或源代码的保密性系统非常脆弱，因为通常很难对动机充分的攻击者保密系统设计。</p>
+<p><strong>Kerckhoff’s Principle</strong>：即使攻击者知道系统的所有内部细节，密码系统也应该保持安全。秘密密钥应该是唯一必须保密的东西，如果秘密被泄露，更改密钥通常比替换正在运行的软件的每个实例要容易得多。</p>
+<h3 id="1-10-Use-fail-safe-defaults"><a href="#1-10-Use-fail-safe-defaults" class="headerlink" title="1.10 Use fail-safe defaults"></a>1.10 Use fail-safe defaults</h3><p>选择“故障安全”的默认设置，在系统崩溃时平衡安全性和可用性。比如防火墙的default-deny策略。</p>
+<h3 id="1-11-Design-security-in-from-the-start"><a href="#1-11-Design-security-in-from-the-start" class="headerlink" title="1.11 Design security in from the start"></a>1.11 Design security in from the start</h3><p>在现有的应用程序已经进行了规范、设计和实现之后，尝试对其进行安全性改进通常是非常困难的事情。向后兼容通常是非常痛苦的，因为不得不支持所有以前版本的软件中最不安全的部分。</p>
+<h3 id="1-12-The-Trusted-Computing-Base-TCB"><a href="#1-12-The-Trusted-Computing-Base-TCB" class="headerlink" title="1.12 The Trusted Computing Base (TCB)"></a>1.12 The Trusted Computing Base (TCB)</h3><p>TCB是系统中为确保安全性必须正确执行的部分，更小、更简单的TCB更容易编写和审计。</p>
+<p>TCB设计原则：</p>
+<ul>
+<li>Unbypassable / completeness : 没有办法通过绕过TCB来破坏系统安全</li>
+<li>Tamper-resistant / security : TCB应该受到保护，不被任何人篡改</li>
+<li>Verifiable / correctness : 可以验证TCB的正确性</li>
+</ul>
+<p>与TCB相关的安全原则：</p>
+<ul>
+<li>Know what is in the TCB</li>
+<li>make TCB unbypassable, tamper-resistant, verifiable</li>
+<li>Keep It Simple, Stupid (KISS)</li>
+<li>Decompose for security, make the TCB simple and clear</li>
+</ul>
+<h3 id="1-13-TOCTTOU-Vulnerabilities"><a href="#1-13-TOCTTOU-Vulnerabilities" class="headerlink" title="1.13 TOCTTOU Vulnerabilities"></a>1.13 TOCTTOU Vulnerabilities</h3><p>Time-Of-Check To Time-Of-Use 在检查和使用被检查的状态之间，状态以某种方式发生了变化</p>
+<h1 id="Memory-Safety"><a href="#Memory-Safety" class="headerlink" title="Memory Safety"></a>Memory Safety</h1><h2 id="2-x86-Assembly-and-Call-Stack"><a href="#2-x86-Assembly-and-Call-Stack" class="headerlink" title="2. x86 Assembly and Call Stack"></a>2. x86 Assembly and Call Stack</h2><h3 id="2-1-Number-representation"><a href="#2-1-Number-representation" class="headerlink" title="2.1 Number representation"></a>2.1 Number representation</h3><ul>
+<li>1 <em>nibble</em> = 4 bits</li>
+<li>1 <em>byte</em> = 8 bits</li>
+<li>1 <em>word</em> = 32 bits (on 32-bit architectures)</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Binary</th>
+<th style="text-align:center">Hexadecimal</th>
+<th style="text-align:center">Binary</th>
+<th style="text-align:center">Hexadecimal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0000</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1000</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:center">0001</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1001</td>
+<td style="text-align:center">9</td>
+</tr>
+<tr>
+<td style="text-align:center">0010</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1010</td>
+<td style="text-align:center">A</td>
+</tr>
+<tr>
+<td style="text-align:center">0011</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">1011</td>
+<td style="text-align:center">B</td>
+</tr>
+<tr>
+<td style="text-align:center">0100</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">1100</td>
+<td style="text-align:center">C</td>
+</tr>
+<tr>
+<td style="text-align:center">0101</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1101</td>
+<td style="text-align:center">D</td>
+</tr>
+<tr>
+<td style="text-align:center">0110</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">1110</td>
+<td style="text-align:center">E</td>
+</tr>
+<tr>
+<td style="text-align:center">0111</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">1111</td>
+<td style="text-align:center">F</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="2-2-Compiler-Assembler-Linker-Loader-CALL"><a href="#2-2-Compiler-Assembler-Linker-Loader-CALL" class="headerlink" title="2.2 Compiler, Assembler, Linker, Loader (CALL)"></a>2.2 Compiler, Assembler, Linker, Loader (CALL)</h3><p>运行一个C程序分为4个主要步骤：</p>
+<ol>
+<li>编译器将你的C代码翻译成汇编指令</li>
+<li>汇编程序将编译器中的汇编指令翻译成机器代码(原始位)</li>
+<li>链接器解决了对外部库的依赖。在链接器链接完外部库之后，它输出一个程序的二进制可执行文件，你可以运行它</li>
+<li>当用户运行可执行文件时，加载器在内存中设置一个地址空间，并运行可执行文件中的机器代码指令</li>
+</ol>
+<h3 id="2-3-C-memory-layout"><a href="#2-3-C-memory-layout" class="headerlink" title="2.3 C memory layout"></a>2.3 C memory layout</h3><p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/1d-address-space.png" srcset="/img/loading.gif" lazyload alt="1-dimensional address space"></p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/2d-address-space.png" srcset="/img/loading.gif" lazyload alt="2-dimensional address space"></p>
+<p>当一个程序正在运行时，地址空间被分成四个部分。从最低地址到最高地址依次为：</p>
+<ul>
+<li>代码部分包含程序的可执行指令(即代码本身)</li>
+<li>静态部分包含常量和静态变量，它们在程序执行过程中永远不会改变，通常在程序启动时分配</li>
+<li>堆存储动态分配的数据。当在C中调用<code>malloc</code>时，将在堆上分配内存并使用，直到调用<code>free</code>为止。堆从较低的地址开始，随着分配的内存越多，“增长”到较高的地址</li>
+<li>栈存储局部变量和与函数调用相关的其他信息。堆栈从更高的地址开始，随着调用更多的函数而“向下增长”</li>
+</ul>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/memory-sections.png" srcset="/img/loading.gif" lazyload alt="Memory Sections"></p>
+<h3 id="2-4-Little-endian-words"><a href="#2-4-Little-endian-words" class="headerlink" title="2.4 Little-endian words"></a>2.4 Little-endian words</h3><p>X86是小端存储系统。在内存中存储字时，最低有效位字节存储在最低地址，最高有效位字节存储在最高地址。例如，将<code>0x44332211</code>存储在内存中:</p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/little-endian.png" srcset="/img/loading.gif" lazyload alt="Little-endian word format"></p>
+<h3 id="2-5-Registers"><a href="#2-5-Registers" class="headerlink" title="2.5 Registers"></a>2.5 Registers</h3><p>直接在CPU上存储内存。每个寄存器可以存储一个字(4个字节)。与内存不同，寄存器没有地址，而是使用名称来引用寄存器。有三种特殊的x86寄存器：</p>
+<ul>
+<li><code>eip</code>：指令指针，存储当前正在执行的机器指令的地址。在RISC-V中，这个寄存器称为PC(程序计数器)</li>
+<li><code>ebp</code>：基指针，存储当前栈帧顶部的地址。在RISC-V系统中，这个寄存器称为FP(帧指针)</li>
+<li><code>esp</code>：栈指针，存储当前栈帧底部的地址。在RISC-V中，这个寄存器称为SP(栈指针)</li>
+</ul>
+<h3 id="2-6-Stack-Pushing-and-popping"><a href="#2-6-Stack-Pushing-and-popping" class="headerlink" title="2.6 Stack: Pushing and popping"></a>2.6 Stack: Pushing and popping</h3><p>x86 <code>push</code>指令执行两个步骤向堆栈中添加一个值：</p>
+<ul>
+<li>通过减小<code>esp</code>来在栈上分配额外的空间</li>
+<li>将值存储在新分配的空间中</li>
+</ul>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/push.png" srcset="/img/loading.gif" lazyload alt="Before and after of pushing an item onto the stack"></p>
+<p>x86 <code>pop</code>指令增加<code>esp</code>以删除栈上的下一个值。</p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/pop.png" srcset="/img/loading.gif" lazyload alt="Before and after of popping an item off the stack"></p>
+<h3 id="2-7-x86-calling-convention"><a href="#2-7-x86-calling-convention" class="headerlink" title="2.7 x86 calling convention"></a>2.7 x86 calling convention</h3><p>使用AT&amp;T x86语法(因为这是GDB使用的语法)</p>
+<ul>
+<li><p>目标寄存器排在最后</p>
+</li>
+<li><p>对寄存器的引用前有<code>%</code></p>
+</li>
+<li>立即数前有<code>$</code></li>
+<li><p>内存引用使用<code>()</code>，可以有直接偏移量。如果使用括号而没有直接偏移量，那么偏移量可以被认为是隐式0</p>
+<p>e.g. <code>xorl 4(%esi), %eax</code> is <code>EAX = EAX ^ *(ESI + 4)</code></p>
+</li>
+</ul>
+<h3 id="2-8-x86-function-calls"><a href="#2-8-x86-function-calls" class="headerlink" title="2.8 x86 function calls"></a>2.8 x86 function calls</h3><p>程序执行从调用方开始，在函数调用后移动到被调用方，然后在函数调用完成后返回到调用方。</p>
+<p>e.g. <code>main</code>调用<code>foo</code>函数</p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/stack0.png" srcset="/img/loading.gif" lazyload alt="Initial stack diagram, with a stack frame for main at the top"></p>
+<ol>
+<li><p>Push arguments onto the stack</p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/stack1.png" srcset="/img/loading.gif" lazyload alt="Next stack diagram, with argument 2 pushed below the stack frame for main and argument 1 pushed below argument 2"></p>
+</li>
+<li><p>Push the old eip (rip) on the stack</p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/stack2.png" srcset="/img/loading.gif" lazyload alt="Next stack diagram, with the old eip pushed below argument 1"></p>
+</li>
+<li><p>Move eip</p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/stack3.png" srcset="/img/loading.gif" lazyload alt="Next stack diagram, with the eip moved to the code for foo"></p>
+</li>
+<li><p>Push the old ebp (sfp) on the stack</p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/stack4.png" srcset="/img/loading.gif" lazyload alt="Next stack diagram, with the old ebp pushed below the old eip"></p>
+</li>
+<li><p>Move ebp down</p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/stack5.png" srcset="/img/loading.gif" lazyload alt="Next stack diagram, with the ebp moved to the esp"></p>
+</li>
+<li><p>Move esp down</p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/stack6.png" srcset="/img/loading.gif" lazyload alt="Next stack diagram, with the esp down by 8 bytes"></p>
+</li>
+<li><p>Execute the function</p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/stack7.png" srcset="/img/loading.gif" lazyload alt="Next stack diagram, with the 8 bytes previously allocated now having been used for local variables"></p>
+</li>
+<li><p>Move esp up</p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/stack8.png" srcset="/img/loading.gif" lazyload alt="Next stack diagram, with the esp moved back up by 8 bytes"></p>
+</li>
+<li><p>Restore the old ebp (sfp)</p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/stack9.png" srcset="/img/loading.gif" lazyload alt="Next stack diagram, with the old ebp popped off the stack and the ebp moved to its location"></p>
+</li>
+<li><p>Restore the old eip (rip)</p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/stack10.png" srcset="/img/loading.gif" lazyload alt="Next stack diagram, with the old eip popped off the stack and the eip moved to its location"></p>
+</li>
+<li><p>Remove arguments from the stack</p>
+<p><img src="https://textbook.cs161.org/assets/images/memory-safety/x86/stack11.png" srcset="/img/loading.gif" lazyload alt="Next stack diagram, with the esp moved up by 8 bytes to now be above the arguments"></p>
+</li>
+</ol>
+<h3 id="2-9-x86-function-call-in-assembly"><a href="#2-9-x86-function-call-in-assembly" class="headerlink" title="2.9 x86 function call in assembly"></a>2.9 x86 function call in assembly</h3><p>e.g. the following C code:</p>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>&#123;<br>    foo(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">foo</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> bar[<span class="hljs-number">4</span>];<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>The compiler would turn the <code>foo</code> function call into the following assembly instructions:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs assembly">main:<br>    # Step 1. Push arguments on the stack in reverse order<br>    push $2<br>    push $1<br><br>    # Steps 2-3. Save old eip (rip) on the stack and change eip<br>    call foo<br><br>    # Execution changes to foo now. After returning from foo:<br><br>    # Step 11: Remove arguments from stack<br>    add $8, %esp<br><br>foo:<br>    # Step 4. Push old ebp (sfp) on the stack<br>    push %ebp<br><br>    # Step 5. Move ebp down to esp<br>    mov %esp, %ebp<br><br>    # Step 6. Move esp down<br>    sub $16, %esp<br><br>    # Step 7. Execute the function (omitted here)<br><br>    # Step 8. Move esp<br>    mov %ebp, %esp<br><br>    # Step 9. Restore old ebp (sfp)<br>    pop %ebp<br><br>    # Step 10. Restore old eip (rip)<br>    pop %eip<br></code></pre></div></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Note/">Note</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Security/">Security</a>
+                    
+                  </div>
+                
+              </div>
+              <!-- 
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+               -->
+              
+                <p class="note note-info" style="background: #2e3a49; color: #eee;">
+                <strong>本文作者: </strong><a href="/">31</a> <br>
+                <strong>本文链接: </strong><a href="http://uuunni.github.io/2022/10/14/CS161/">http://uuunni.github.io/2022/10/14/CS161/</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                </p>
+              
+
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/07/ComputerOrganizationReview/">
+                        <span class="hidden-mobile">SDU计算机组成原理笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"QJtn4PrebEYsIJPwEkfclcO0-gzGzoHsz","appKey":"kdxH4zfnh96BgUrFbIGbhUVE","path":"window.location.pathname","placeholder":"留下点什么叭... ᶘ ᵒᴥᵒᶅ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<div class="text-center">
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("01/15/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "🚀 for&nbsp"+dnum+"&nbspdays";  //此次自定义显示内容
+      document.getElementById("times").innerHTML = hnum + "&nbsphr&nbsp" + mnum + "&nbspmin&nbsp" + snum + "&nbspsec";
+  }  //此次自定义显示内容
+  setInterval("createtime()",250);
+  </script>
+</div>
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
