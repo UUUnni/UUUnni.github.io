@@ -39,10 +39,10 @@
 <meta property="og:image" content="http://uuunni.github.io/2023/02/10/AIreview/image-20230209131603505-167601979255627.png">
 <meta property="og:image" content="http://uuunni.github.io/2023/02/10/AIreview/image-20230210160019446-167601979472129.png">
 <meta property="og:image" content="http://uuunni.github.io/2023/02/10/AIreview/image-20230210162720919-167601979738931.png">
-<meta property="og:image" content="http://uuunni.github.io/2023/02/10/AIreview/image-20230210164624727-167601980004033.png">
+<meta property="og:image" content="http://uuunni.github.io/2023/02/10/AIreview/image-20230214165925740.png">
 <meta property="og:image" content="http://uuunni.github.io/2023/02/10/AIreview/image-20230210165739059-167601980239635.png">
 <meta property="article:published_time" content="2023-02-10T08:58:46.000Z">
-<meta property="article:modified_time" content="2023-02-10T09:03:51.008Z">
+<meta property="article:modified_time" content="2023-02-14T09:02:15.097Z">
 <meta property="article:author" content="31">
 <meta property="article:tag" content="SDU">
 <meta property="article:tag" content="AI">
@@ -221,7 +221,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.1k 字
+      5.2k 字
     </span>
   
 
@@ -271,7 +271,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2023年2月10日 下午
+                  本文最后更新于：2023年2月14日 下午
                 
               </p>
             
@@ -317,33 +317,33 @@
 </li>
 <li><p>多层神经网络的学习过程中有一种是反向传播算法BP，其基本思想是利用（输出单元的误差再计算上一层单元的误差），依次向上传播，俗称反向传播，又称（逆推学习）算法。</p>
 </li>
-<li>归纳学习需要的预先假定，称为归纳偏置，归纳学习算法隐含了归纳偏置，候选消除算法的归纳偏置是（目标概念可以在假设空间找到），所以又称限定偏置。ID3是一种典型的决策树学习方法，ID3的归纳偏置有两点，分别是（较短的树比较长的树优先）（信息增益高的属性更靠近根节点的树有限）。FIND-S寻找极大特殊假设算法使用一般到特殊的顺序，在偏序结构的一个分支上执行（一般到特殊）搜索，寻找一个与样例一致的（最特殊）假设。</li>
+<li>归纳学习需要的预先假定，称为归纳偏置，归纳学习算法隐含了归纳偏置，候选消除算法的归纳偏置是（目标概念可以在假设空间找到），所以又称限定偏置。ID3是一种典型的决策树学习方法，ID3的归纳偏置有两点，分别是（较短的树比较长的树优先）（信息增益高的属性更靠近根节点的树优先）。FIND-S寻找极大特殊假设算法使用一般到特殊的顺序，在偏序结构的一个分支上执行（一般到特殊）搜索，寻找一个与样例一致的（最特殊）假设。</li>
 <li><p>自然语言处理是研究用机器处理人类语言的理论和技术，又叫（自然语言理解/计算语言学/人类语言技术），它研究能实现人与计算机之间用自然语言进行有效通信的各种理论和方法，自然语言处理研究面临的两大困难是（歧义）和（病构），其中歧义分为（注音歧义）（分词歧义）（词义歧义）（语用歧义）四个方面。</p>
 </li>
 <li><p>在证据理论Evident Theory中引入了信任函数BeL，它满足了（概率论弱公理）。在概率论中，当先验概率很难获得，但又要被迫给出时，用证据理论能区分（不确定性）和（不知道）的差别。因而它比概率论更适合于（专家系统推理方法）。概率论是证据理论的一个特例，有时也称（证据理论）为广义概率论。</p>
 </li>
 <li><p>贝叶斯网就是一个在弧的连接关系上加入连接强度的因果关系网络。由两个部分组成，其一是DAG，即（有向无环图），其二是CPT，即（条件概率表）。贝叶斯网络通常使用三种推理是（因果推理）（诊断推理）（辩解推理）。</p>
 </li>
-<li><p>在确定性推理模型中可信度因子$CF(h,e)$（知识静态强度）取值范围为（$[-1,1]$），主观Bayes方法中规定规则的静态强度LS,LN的值应（$[0,\infin)$）</p>
+<li><p>在确定性推理模型中可信度因子$CF(h,e)$（知识静态强度）取值范围为（$[-1,1]$），主观Bayes方法中规定规则的静态强度LS,LN的值应（$[0,\infty)$）</p>
 </li>
 </ol>
 <h2 id="计算证明"><a href="#计算证明" class="headerlink" title="计算证明"></a>计算证明</h2><ol>
-<li><p>设公理集：$(\forall x)(R(x)\to L(x)),(\forall x)(D(x)\to \sim L(x)),(\exist x)(D(x)\wedge I(x))$</p>
-<p>求证：$(\exist x)(I(x)\wedge\sim R(x))$ ，给出归结步骤并画出归结树</p>
+<li><p>设公理集：$(\forall x)(R(x)\to L(x)),(\forall x)(D(x)\to \sim L(x)),(\exists x)(D(x)\wedge I(x))$</p>
+<p>求证：$(\exists x)(I(x)\wedge\sim R(x))$ ，给出归结步骤并画出归结树</p>
 <p><img src="/2023/02/10/AIreview/image-20230209140528330-167601977097813.png" srcset="/img/loading.gif" lazyload alt></p>
 </li>
 <li><p>求下列公式的Skolem范式</p>
-<p>(1) $\exist x \forall y \forall z \exist u \forall v \exist w G(x,y,z,u,v,w)$</p>
-<p>(2) $\sim(\forall x)(\exist y)P(a,x,y)\to (\exist x)(\sim (\forall y)Q(y,b)\to R(x))$</p>
+<p>(1) $\exists x \forall y \forall z \exists u \forall v \exists w G(x,y,z,u,v,w)$</p>
+<p>(2) $\sim(\forall x)(\exists y)P(a,x,y)\to (\exists x)(\sim (\forall y)Q(y,b)\to R(x))$</p>
 <p>(3) $\forall x(P(x)\to \forall y(\forall z Q(x,y)\to \neg \forall z R(y,x)))$</p>
 <p><img src="/2023/02/10/AIreview/image-20230209142947527-167601977396015.png" srcset="/img/loading.gif" lazyload alt></p>
 </li>
 <li><p>用归结法证明：$A_1\wedge A_2 \wedge A_3 \to B$</p>
 <p>即B是A1、A2、A3的有效结论</p>
-<p>$A_1=(\forall x)((P(x)\wedge \neg Q(x))\to (\exist y)(W(x,y)\wedge V(y)))$</p>
-<p>$A_2=(\exist x)(P(x)\wedge U(x)\wedge (\forall y)(W(x,y)\to U(y)))$</p>
-<p>$A_3=\neg(\exist x)(Q(x)\wedge U(x))$</p>
-<p>$B=(\exist x)(V(x)\wedge U(x))$</p>
+<p>$A_1=(\forall x)((P(x)\wedge \neg Q(x))\to (\exists y)(W(x,y)\wedge V(y)))$</p>
+<p>$A_2=(\exists x)(P(x)\wedge U(x)\wedge (\forall y)(W(x,y)\to U(y)))$</p>
+<p>$A_3=\neg(\exists x)(Q(x)\wedge U(x))$</p>
+<p>$B=(\exists x)(V(x)\wedge U(x))$</p>
 <p><img src="/2023/02/10/AIreview/image-20230209150013796-167601977672917.png" srcset="/img/loading.gif" lazyload alt></p>
 </li>
 </ol>
@@ -397,7 +397,7 @@
 <script type="math/tex; mode=display">
 \begin{align}
 &P(Y=y|X_1=x_1,X_2=x_2,...,X_n=x_n)\\
-=&\frac{P(X_1=x_1,...,X_n=x_n)P(Y=y)}{P(X_1=x_1,...,X_n=x_n)}\\
+=&\frac{P(X_1=x_1,...,X_n=x_n|Y=y)P(Y=y)}{P(X_1=x_1,...,X_n=x_n)}\\
 =&\frac{P(Y=y)\Pi_{j=1}^mP(X_j=x_j|Y=y)}{P(X_1=x_1,..,X_n=x_n)}
 \end{align}</script><p>那么：</p>
 <script type="math/tex; mode=display">
@@ -473,10 +473,10 @@ CF(B,A)=\begin{cases}
 <p><strong>$R_3:B_1\wedge A_3\to B_2\ CF(B_2,B_1\wedge A_3)=0.8$</strong></p>
 <p><strong>$CF(A_1)=CF(A_2)=CF(A_3)=1;\ CF(B_1)=CF(B_2)=0$</strong></p>
 <p><strong>计算$CF(B_1), CF(B_2)$并画出推理网络</strong></p>
-<p><img src="/2023/02/10/AIreview/image-20230210164624727-167601980004033.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2023/02/10/AIreview/image-20230214165925740.png" srcset="/img/loading.gif" lazyload alt></p>
 </li>
-<li><p><strong>利用遗传算法求下列函数的极值$f(x_1,x_2)=21.5+x_1\cdot \sin(4px_1)+x_2\cdot\sin(20px_2)$，其中$-3.0\le x_1\le 12.1,\ 4.0\le x_2\le 5.8$</strong></p>
-<p><strong>要求计算结果精确到小数点后第5位，请完成编码，并举例说明如何解码？</strong></p>
+<li><p><strong>利用遗传算法求下列函数的极值$f(x_1,x_2)=21.5+x_1\cdot \sin(4px_1)+x_2\cdot\sin(20px_2)$，其中$-3.0\le x_1\le 12.1,\ 4.1\le x_2\le 5.8$</strong></p>
+<p><strong>要求计算结果精确到小数点后第4位，请完成编码，并举例说明如何解码？</strong></p>
 <p><img src="/2023/02/10/AIreview/image-20230210165739059-167601980239635.png" srcset="/img/loading.gif" lazyload alt></p>
 </li>
 <li><p><strong>课本、课件或实验中关于产生式系统描述的例子（如八数码难题、野人传教士、走迷宫、水壶装水等问题），见课件、课本、实验指导书。</strong></p>
